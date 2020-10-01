@@ -11,8 +11,6 @@ export class FreeBusy extends Property {
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	public evaluate(calendar: VCalendar): void {
-		// set value
-		this.value = this.token.value.split(',');
 		// set parameters
 		if (this.token.parameters) {
 			this.token.parameters.map((param) => {
@@ -21,6 +19,8 @@ export class FreeBusy extends Property {
 				}
 			});
 		}
+		// set value
+		this.value = this.token.value.split(',');
 	}
 
 }

@@ -14,6 +14,15 @@ export class RecurrenceDateTimes extends Property {
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	public evaluate(calendar: VCalendar): void {
+		// set parameters
+		if (this.token.parameters) {
+			this.token.parameters.map((param) => {
+				switch (param.name) {
+				case PARAMETER.TZID: this.parameters.TZID = param.value; break;
+				case PARAMETER.Value: this.parameters.Value = param.value; break;
+				}
+			});
+		}
 		// set value
 		this.value = this.token.value.split(',').map(
 			(v) => {
@@ -25,15 +34,6 @@ export class RecurrenceDateTimes extends Property {
 				}
 			},
 		);
-		// set parameters
-		if (this.token.parameters) {
-			this.token.parameters.map((param) => {
-				switch (param.name) {
-				case PARAMETER.TZID: this.parameters.TZID = param.value; break;
-				case PARAMETER.Value: this.parameters.Value = param.value; break;
-				}
-			});
-		}
 	}
 
 }

@@ -14,8 +14,6 @@ export class DateTimeDue extends Property {
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	public evaluate(calendar: VCalendar): void {
-		// set value
-		this.value = zonedTimeToUtc(this.token.value, getTimezoneOffset(calendar, this.parameters.TZID));
 		// set parameters
 		if (this.token.parameters) {
 			this.token.parameters.map((param) => {
@@ -25,6 +23,8 @@ export class DateTimeDue extends Property {
 				}
 			});
 		}
+		// set value
+		this.value = zonedTimeToUtc(this.token.value, getTimezoneOffset(calendar, this.parameters.TZID));
 	}
 
 }

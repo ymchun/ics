@@ -92,7 +92,9 @@ export function getTimezoneOffset(calendar: VCalendar, TZID: string | null): str
 	if (calendar?.timezones?.length > 0) {
 		const timezone = calendar.timezones.find((tz) => (
 			tz.TZID.value !== null &&
-			tz.TZID.value === TZID
+			tz.TZID.value === TZID ||
+			tz.TZID.token !== null &&
+			tz.TZID.token.value === TZID
 		));
 		if (timezone?.standard?.tzOffsetTo?.value) {
 			return timezone.standard.tzOffsetTo.value;
