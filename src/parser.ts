@@ -15,9 +15,21 @@ export class Parser {
 	private componentFactory: ComponentFactory;
 	private propertyFactory: PropertyFactory;
 
+	// default options
+	private options: ParserOptions = {
+		quiet: false,
+	};
+
 	public constructor(opts?: ParserOptions) {
-		this.componentFactory = new ComponentFactory();
-		this.propertyFactory = new PropertyFactory();
+		// set quiet option
+		this.options.quiet = !!opts?.quiet;
+
+		this.componentFactory = new ComponentFactory({
+			quiet: this.options.quiet,
+		});
+		this.propertyFactory = new PropertyFactory({
+			quiet: this.options.quiet,
+		});
 
 		if (opts) {
 			Object.keys(opts.components || {}).map((key) => {

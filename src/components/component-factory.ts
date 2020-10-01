@@ -7,10 +7,20 @@ import { VEvent } from '~/components/v-event';
 import { VFreeBusy } from '~/components/v-free-busy';
 import { VTimezone } from '~/components/v-timezone';
 import { COMPONENT } from '~/constant';
+import { ComponentFactoryOptions } from '~/interfaces/component-factory-options';
 import { Constructible } from '~/interfaces/constructible';
 import { KeyMap } from '~/interfaces/global';
 
 export class ComponentFactory {
+
+	// default options
+	private options: ComponentFactoryOptions = {
+		quiet: false,
+	};
+
+	public constructor(opts?: ComponentFactoryOptions) {
+		this.options.quiet = !!opts?.quiet;
+	}
 
 	// the default set of components
 	public componentMap: KeyMap<Constructible<Component>> = {
@@ -27,7 +37,9 @@ export class ComponentFactory {
 		if (this.componentMap[type]) {
 			return new this.componentMap[type]();
 		}
-		console.warn(`Unknown component type: '${type}'`);
+		if (!this.options.quiet) {
+			console.warn(`Unknown component type: '${type}'`);
+		}
 	}
 
 }

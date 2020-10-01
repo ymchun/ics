@@ -1,6 +1,7 @@
 import { PROPERTY } from '~/constant';
 import { Constructible } from '~/interfaces/constructible';
 import { KeyMap } from '~/interfaces/global';
+import { PropertyFactoryOptions } from '~/interfaces/property-factory-options';
 import { Action } from '~/properties/action';
 import { Attachment } from '~/properties/attachment';
 import { Attendee } from '~/properties/attendee';
@@ -105,11 +106,22 @@ export class PropertyFactory {
 		[PROPERTY.Extended.WR.Timezone]: ExtWRTimezone,
 	};
 
+	// default options
+	private options: PropertyFactoryOptions = {
+		quiet: false,
+	};
+
+	public constructor(opts?: PropertyFactoryOptions) {
+		this.options.quiet = !!opts?.quiet;
+	}
+
 	public getProperty(type: string): Property | undefined {
 		if (this.propertyMap[type]) {
 			return new this.propertyMap[type]();
 		}
-		console.warn(`Unknown property type: '${type}'`);
+		if (!this.options.quiet) {
+			console.warn(`Unknown property type: '${type}'`);
+		}
 	}
 
 }

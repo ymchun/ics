@@ -6,4 +6,5 @@ import { Property } from '~/properties/property';
 export interface ParserOptions {
 	components?: KeyMap<Constructible<Component>>;
 	properties?: KeyMap<Constructible<Property>>;
+	quiet?: boolean;
 }
