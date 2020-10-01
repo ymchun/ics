@@ -1,4 +1,3 @@
-import { parseISO } from 'date-fns';
 import { zonedTimeToUtc } from 'date-fns-tz';
 import { VCalendar } from '~/components/v-calendar';
 import { PARAMETER, PROPERTY } from '~/constant';
@@ -16,9 +15,7 @@ export class DateTimeStart extends Property {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	public evaluate(calendar: VCalendar): void {
 		// set value
-		this.value = this.parameters.TZID
-			? zonedTimeToUtc(this.token.value, getTimezoneOffset(calendar, this.parameters.TZID))
-			: parseISO(this.token.value);
+		this.value = zonedTimeToUtc(this.token.value, getTimezoneOffset(calendar, this.parameters.TZID));
 		// set parameters
 		if (this.token.parameters) {
 			this.token.parameters.map((param) => {

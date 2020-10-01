@@ -1,4 +1,3 @@
-import { parseISO } from 'date-fns';
 import { zonedTimeToUtc } from 'date-fns-tz';
 import { VCalendar } from '~/components/v-calendar';
 import { PARAMETER, PROPERTY } from '~/constant';
@@ -17,9 +16,7 @@ export class ExceptionDateTimes extends Property {
 	public evaluate(calendar: VCalendar): void {
 		// set value
 		this.value = this.token.value.split(',').map(
-			(v) => this.parameters.TZID
-				? zonedTimeToUtc(v, getTimezoneOffset(calendar, this.parameters.TZID))
-				: parseISO(v),
+			(v) => zonedTimeToUtc(v, getTimezoneOffset(calendar, this.parameters.TZID)),
 		);
 		// set parameters
 		if (this.token.parameters) {

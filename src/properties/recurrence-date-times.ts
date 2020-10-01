@@ -1,4 +1,3 @@
-import { parseISO } from 'date-fns';
 import { zonedTimeToUtc } from 'date-fns-tz';
 import { VCalendar } from '~/components/v-calendar';
 import { PARAMETER, PROPERTY, VALUE_DATA_TYPE } from '~/constant';
@@ -21,9 +20,7 @@ export class RecurrenceDateTimes extends Property {
 				if (this.parameters.Value === VALUE_DATA_TYPE.Period) {
 					return getDateRangeFromPeriod(v);
 				} else {
-					const date = this.parameters.TZID
-						? zonedTimeToUtc(v, getTimezoneOffset(calendar, this.parameters.TZID))
-						: parseISO(v);
+					const date = zonedTimeToUtc(v, getTimezoneOffset(calendar, this.parameters.TZID));
 					return [ date, date ];
 				}
 			},

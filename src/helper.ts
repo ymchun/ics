@@ -81,15 +81,22 @@ export function getDateRangeFromPeriod(period: string): [ Date, Date ] {
 }
 
 export function getTimezoneOffset(calendar: VCalendar, TZID: string | null): string {
-	if (calendar?.extWRTimezone?.value) {
-		return calendar.extWRTimezone.value;
+	if (calendar?.extWRTimezone) {
+		if (calendar?.extWRTimezone?.token?.value) {
+			return calendar.extWRTimezone.token.value;
+		}
+		if (calendar?.extWRTimezone?.value) {
+			return calendar.extWRTimezone.value;
+		}
 	}
 	if (calendar?.timezones?.length > 0) {
 		const timezone = calendar.timezones.find((tz) => (
 			tz.TZID.value !== null &&
 			tz.TZID.value === TZID
 		));
-		return timezone?.standard?.tzOffsetTo?.value || 'UTC';
+		if (timezone?.standard?.tzOffsetTo?.value) {
+			return timezone.standard.tzOffsetTo.value;
+		}
 	}
 	return 'UTC';
 }
