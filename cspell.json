@@ -1,0 +1,39 @@
+{
+    "version": "0.1",
+    "ignorePaths": [
+        ".vscode",
+        "**/.git/objects/**",
+        "**/node_modules/**",
+        "**/package-lock.json",
+        "**/package.json"
+    ],
+    "language": "en",
+    "words": [
+        "calscale",
+        "dquote",
+        "dtend",
+        "dtstamp",
+        "dtstart",
+        "eventprop",
+        "exdate",
+        "exrule",
+        "freebusy",
+        "htab",
+        "nearley",
+        "prodid",
+        "rdate",
+        "rrule",
+        "TZID",
+        "tzname",
+        "tzoffsetfrom",
+        "tzoffsetto",
+        "tzurl",
+        "VALARM",
+        "VCALENDAR",
+        "VEVENT",
+        "VFREEBUSY",
+        "VJOURNAL",
+        "VTIMEZONE",
+        "VTODO"
+    ]
+}

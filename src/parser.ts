@@ -1,0 +1,124 @@
+import { Component } from '~/components/component';
+import { ComponentFactory } from '~/components/component-factory';
+import { VCalendar } from '~/components/v-calendar';
+import { COMPONENT, KEYWORD } from '~/constant';
+import { Constructible } from '~/interfaces/constructible';
+import { KeyMap } from '~/interfaces/global';
+import { ParserOptions } from '~/interfaces/parser-options';
+import { Token } from '~/interfaces/token';
+import { Iterable } from '~/iterable';
+import { Property } from '~/properties/property';
+import { PropertyFactory } from '~/properties/property-factory';
+
+export class Parser {
+
+	private componentFactory: ComponentFactory;
+	private propertyFactory: PropertyFactory;
+
+	public constructor(opts?: ParserOptions) {
+		this.componentFactory = new ComponentFactory();
+		this.propertyFactory = new PropertyFactory();
+
+		if (opts) {
+			Object.keys(opts.components || {}).map((key) => {
+				if (opts.components) {
+					this.registerComponent(key, opts.components[key]);
+				}
+			});
+			Object.keys(opts.properties || {}).map((key) => {
+				if (opts.properties) {
+					this.registerProperty(key, opts.properties[key]);
+				}
+			});
+		}
+	}
+
+	// register your custom components or replace existing components
+	public registerComponent(key: string, component: Constructible<Component>): void {
+		this.componentFactory.componentMap[key] = component;
+	}
+
+	// register your custom properties or replace existing properties
+	public registerProperty(key: string, property: Constructible<Property>): void {
+		this.propertyFactory.propertyMap[key] = property;
+	}
+
+	// parse ics tokens
+	public parse(tokens: Iterable<Token>): VCalendar[] {
+		const results: VCalendar[] = [];
+
+		for (const token of tokens) {
+			if (token.name === KEYWORD.Begin && token.value === COMPONENT.Calendar) {
+				// create the root calendar component
+				const calendar = this.componentFactory.getComponent(token.value) as VCalendar;
+				// feed tokens into component
+				this.consumeTokens(tokens, calendar, calendar);
+				// push it to result
+				results.push(calendar);
+			} else {
+				throw Error(`Expecting '${KEYWORD.Begin}:${COMPONENT.Calendar}' but got: '${token.name}:${token.value}'`);
+			}
+		}
+
+		return results;
+	}
+
+	private consumeTokens(tokens: Iterable<Token>, current: Component, calendar: VCalendar): void {
+		for (const token of tokens) {
+			// start new component
+			if (token.name === KEYWORD.Begin) {
+				// create component based on token type
+				const component = this.componentFactory.getComponent(token.value);
+
+				if (component) {
+					// feed tokens into component
+					this.consumeTokens(tokens, component, calendar);
+					// put component into parent component
+					current.setComponent(component);
+				}
+			}
+			// completion of current component
+			else if (token.name === KEYWORD.End) {
+				// detect incorrect end of component
+				if (current.type !== token.value) {
+					throw Error(`Expecting '${token.name}:${current.type}' but got: '${token.name}:${token.value}'`);
+				}
+				// populate component property value
+				this.evaluateProperty(current, calendar);
+				break;
+			}
+			// process component properties
+			else {
+				// create property based on token type
+				const property = this.propertyFactory.getProperty(token.name);
+
+				if (property) {
+					// feed tokens into property
+					property.token = token;
+					// put property into component
+					current.setProperty(property);
+				}
+			}
+		}
+	}
+
+	private evaluateProperty(component: Component, calendar: VCalendar): void {
+		Object.getOwnPropertyNames(component).map((key) => {
+			// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
+			const target = (component as KeyMap<any>)[key];
+			// unify properties
+			const properties = Array.isArray(target) ? target : [ target ];
+
+			for (const property of properties) {
+				if (property instanceof Property) {
+					// evaluate property value
+					property.evaluate(calendar);
+					// delete tmp token
+					// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
+					delete (property as any).token;
+				}
+			}
+		});
+	}
+
+}
