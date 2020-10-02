@@ -13,28 +13,31 @@ export class Standard extends Component {
 	public type = COMPONENT.Standard;
 
 	// properties
-	public comments!: Comment[];
+
+	// The following are REQUIRED
+	// but MUST NOT occur more than once
 	public dtStart!: DateTimeStart;
-	public rDates!: RecurrenceDateTimes[];
-	public rrule!: RRule;
-	public tzName!: TZName;
 	public tzOffsetFrom!: TZOffsetFrom;
 	public tzOffsetTo!: TZOffsetTo;
 
+	// The following is OPTIONAL
+	// but SHOULD NOT occur more than once
+	public rrule!: RRule;
+
+	// The following are OPTIONAL
+	// and MAY occur more than once
+	public comments!: Comment[];
+	public rDates!: RecurrenceDateTimes[];
+	public tzName!: TZName;
+
 	public setProperty(property: Property): void {
 		switch (property.type) {
-		// The following are REQUIRED,
-		// but MUST NOT occur more than once.
 		case PROPERTY.DTStart: this.dtStart = property as DateTimeStart; break;
 		case PROPERTY.TZOffsetFrom: this.tzOffsetFrom = property as TZOffsetFrom; break;
 		case PROPERTY.TZOffsetTo: this.tzOffsetTo = property as TZOffsetTo; break;
 
-		// The following is OPTIONAL,
-		// but SHOULD NOT occur more than once.
 		case PROPERTY.RRule: this.rrule = property as RRule; break;
 
-		// The following are OPTIONAL,
-		// and MAY occur more than once.
 		case PROPERTY.Comment:
 			this.comments = this.comments || [];
 			this.comments.push(property as Comment);

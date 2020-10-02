@@ -16,34 +16,37 @@ export class VFreeBusy extends Component {
 	public type = COMPONENT.FreeBusy;
 
 	// properties
-	public attendees!: Attendee[];
-	public comments!: Comment[];
+
+	// The following are REQUIRED
+	// but MUST NOT occur more than once
+	public dtStamp!: DateTimeStamp;
+	public uid!: UID;
+
+	// The following are OPTIONAL
+	// but MUST NOT occur more than once
 	public contact!: Contact;
 	public dtEnd!: DateTimeEnd;
-	public dtStamp!: DateTimeStamp;
 	public dtStart!: DateTimeStart;
-	public freeBusy!: FreeBusy[];
 	public organizer!: Organizer;
-	public uid!: UID;
 	public url!: Url;
+
+	// The following are OPTIONAL
+	// and MAY occur more than once
+	public attendees!: Attendee[];
+	public comments!: Comment[];
+	public freeBusy!: FreeBusy[];
 
 	public setProperty(property: Property): void {
 		switch (property.type) {
-		// The following are REQUIRED,
-		// but MUST NOT occur more than once.
 		case PROPERTY.DTStamp: this.dtStamp = property as DateTimeStamp; break;
 		case PROPERTY.UID: this.uid = property as UID; break;
 
-		// The following are OPTIONAL,
-		// but MUST NOT occur more than once.
 		case PROPERTY.Contact: this.contact = property as Contact; break;
 		case PROPERTY.DTEnd: this.dtEnd = property as DateTimeEnd; break;
 		case PROPERTY.DTStart: this.dtStart = property as DateTimeStart; break;
 		case PROPERTY.Organizer: this.organizer = property as Organizer; break;
 		case PROPERTY.Url: this.url = property as Url; break;
 
-		// The following are OPTIONAL,
-		// and MAY occur more than once.
 		case PROPERTY.Attendee:
 			this.attendees = this.attendees || [];
 			this.attendees.push(property as Attendee);

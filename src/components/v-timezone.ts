@@ -11,12 +11,21 @@ export class VTimezone extends Component {
 	public type = COMPONENT.Timezone;
 
 	// components
+
+	// One of 'standardc' or 'daylightc' MUST occur
+	// and each MAY occur more than once.
 	public daylight!: DayLight;
 	public standard!: Standard;
 
 	// properties
-	public lastModified!: LastModified;
+
+	// 'tzid' is REQUIRED
+	// but MUST NOT occur more than once
 	public TZID!: TZID;
+
+	// 'last-mod' and 'tzurl' are OPTIONAL
+	// but MUST NOT occur more than once
+	public lastModified!: LastModified;
 	public TZUrl!: TZUrl;
 
 	public setComponent(component: Component): void {
@@ -28,12 +37,8 @@ export class VTimezone extends Component {
 
 	public setProperty(property: Property): void {
 		switch (property.type) {
-		// 'tzid' is REQUIRED, but MUST NOT occur more
-		// than once.
 		case PROPERTY.TZID: this.TZID = property as TZID; break;
 
-		// 'last-mod' and 'tzurl' are OPTIONAL,
-		// but MUST NOT occur more than once.
 		case PROPERTY.LastModified: this.lastModified = property as LastModified; break;
 		case PROPERTY.TZUrl: this.TZUrl = property as TZUrl; break;
 		}

@@ -39,35 +39,57 @@ export class VEvent extends Component {
 	public alarms!: VAlarm[];
 
 	// properties
-	public attachments!: Attachment[];
-	public attendees!: Attendee[];
-	public categories!: Categories;
+
+	// The following are REQUIRED
+	// but MUST NOT occur more than once
+	public dtStamp!: DateTimeStamp;
+	public uid!: UID;
+
+	// The following is REQUIRED if the component
+	// appears in an iCalendar object that doesn't
+	// specify the "METHOD" property; otherwise, it
+	// is OPTIONAL; in any case, it MUST NOT occur
+	// more than once.
+	public dtStart!: DateTimeStart;
+
+	// The following are OPTIONAL
+	// but MUST NOT occur more than once
 	public class!: Class;
-	public comments!: Comment[];
-	public contacts!: Contact[];
 	public created!: Created;
 	public description!: Description;
-	public dtEnd!: DateTimeEnd;
-	public dtStamp!: DateTimeStamp;
-	public dtStart!: DateTimeStart;
-	public duration!: Duration;
-	public exDates!: ExceptionDateTimes[];
 	public geo!: GeographicPosition;
 	public lastModified!: LastModified;
 	public location!: Location;
 	public organizer!: Organizer;
 	public priority!: Priority;
-	public rDates!: RecurrenceDateTimes[];
 	public recurrenceId!: RecurrenceId;
-	public relatedTo!: RelatedTo[];
-	public resources!: Resources;
-	public rrule!: RRule;
 	public sequence!: Sequence;
 	public status!: Status;
 	public summary!: Summary;
 	public transp!: TimeTransparency;
-	public uid!: UID;
 	public url!: Url;
+
+	// The following is OPTIONAL
+	// but SHOULD NOT occur more than once
+	public rrule!: RRule;
+
+	// Either 'dtend' or 'duration' MAY appear in
+	// a 'eventprop', but 'dtend' and 'duration'
+	// MUST NOT occur in the same 'eventprop'.
+	public dtEnd!: DateTimeEnd;
+	public duration!: Duration;
+
+	// The following are OPTIONAL,
+	// and MAY occur more than once.
+	public attachments!: Attachment[];
+	public attendees!: Attendee[];
+	public categories!: Categories;
+	public comments!: Comment[];
+	public contacts!: Contact[];
+	public exDates!: ExceptionDateTimes[];
+	public rDates!: RecurrenceDateTimes[];
+	public relatedTo!: RelatedTo[];
+	public resources!: Resources;
 
 	public setComponent(component: Component): void {
 		switch (component.type) {
@@ -77,20 +99,9 @@ export class VEvent extends Component {
 
 	public setProperty(property: Property): void {
 		switch (property.type) {
-		// The following are REQUIRED,
-		// but MUST NOT occur more than once.
 		case PROPERTY.DTStamp: this.dtStamp = property as DateTimeStamp; break;
 		case PROPERTY.UID: this.uid = property as UID; break;
-
-		// The following is REQUIRED if the component
-		// appears in an iCalendar object that doesn't
-		// specify the "METHOD" property; otherwise, it
-		// is OPTIONAL; in any case, it MUST NOT occur
-		// more than once.
 		case PROPERTY.DTStart: this.dtStart = property as DateTimeStart; break;
-
-		// The following are OPTIONAL,
-		// but MUST NOT occur more than once.
 		case PROPERTY.Class: this.class = property as Class; break;
 		case PROPERTY.Created: this.created = property as Created; break;
 		case PROPERTY.Description: this.description = property as Description; break;
@@ -105,19 +116,11 @@ export class VEvent extends Component {
 		case PROPERTY.Summary: this.summary = property as Summary; break;
 		case PROPERTY.Transp: this.transp = property as TimeTransparency; break;
 		case PROPERTY.Url: this.url = property as Url; break;
-
-		// The following is OPTIONAL,
-		// but SHOULD NOT occur more than once.
 		case PROPERTY.RRule: this.rrule = property as RRule; break;
-
-		// Either 'dtend' or 'duration' MAY appear in
-		// a 'eventprop', but 'dtend' and 'duration'
-		// MUST NOT occur in the same 'eventprop'.
 		case PROPERTY.DTEnd: this.dtEnd = property as DateTimeEnd; break;
 		case PROPERTY.Duration: this.duration = property as Duration; break;
+		case PROPERTY.Resources: this.resources = property as Resources; break;
 
-		// The following are OPTIONAL,
-		// and MAY occur more than once.
 		case PROPERTY.Attach:
 			this.attachments = this.attachments || [];
 			this.attachments.push(property as Attachment);
@@ -147,7 +150,6 @@ export class VEvent extends Component {
 			this.relatedTo = this.relatedTo || [];
 			this.relatedTo.push(property as RelatedTo);
 			break;
-		case PROPERTY.Resources: this.resources = property as Resources; break;
 		}
 	}
 

@@ -16,15 +16,25 @@ export class VCalendar extends Component {
 	public type = COMPONENT.Calendar;
 
 	// components
+
+	// the followings are optional
+	// but any calendar component must have
+	// at least any one of the following component
 	public events!: VEvent[];
 	public freeBusy!: VFreeBusy[];
 	public timezones!: VTimezone[];
 
 	// properties
-	public calScale!: CalendarScale;
-	public method!: Method;
+
+	// The following are REQUIRED
+	// but MUST NOT occur more than once
 	public productId!: ProductId;
 	public version!: Version;
+
+	// The following are OPTIONAL
+	// but MUST NOT occur more than once
+	public calScale!: CalendarScale;
+	public method!: Method;
 
 	public extWRCalDesc!: ExtWRCalDesc;
 	public extWRCalName!: ExtWRCalName;
@@ -49,17 +59,12 @@ export class VCalendar extends Component {
 
 	public setProperty(property: Property): void {
 		switch (property.type) {
-		// The following are REQUIRED,
-		// but MUST NOT occur more than once.
 		case PROPERTY.ProdId: this.productId = property as ProductId; break;
 		case PROPERTY.Version: this.version = property as Version; break;
 
-		// The following are OPTIONAL,
-		// but MUST NOT occur more than once.
 		case PROPERTY.CalScale: this.calScale = property as CalendarScale; break;
 		case PROPERTY.Method: this.method = property as Method; break;
 
-		// extended
 		case PROPERTY.Extended.WR.CalendarDesc: this.extWRCalDesc = property as ExtWRCalDesc; break;
 		case PROPERTY.Extended.WR.CalendarName: this.extWRCalName = property as ExtWRCalName; break;
 		case PROPERTY.Extended.WR.Timezone: this.extWRTimezone = property as ExtWRTimezone; break;
