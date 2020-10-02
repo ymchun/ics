@@ -1,5 +1,6 @@
 import { VCalendar } from '~/components/v-calendar';
 import { PARAMETER, PROPERTY } from '~/constant';
+import { unescape } from '~/helper';
 import { Property } from '~/properties/property';
 
 export class Description extends Property {
@@ -22,7 +23,7 @@ export class Description extends Property {
 			});
 		}
 		// set value
-		this.value = this.token.value;
+		this.value = unescape(this.token.value);
 	}
 
 }

@@ -18,6 +18,23 @@ export function filterEmptyLine(lines: string[]): string[] {
 	return lines.filter((line) => `${line}`.trim() !== '');
 }
 
+export function escape(str: string): string {
+	return str
+		.split('\\').join('\\\\')
+		.split(';').join('\\;')
+		.split(',').join('\\,')
+		.split('\n').join('\\n');
+}
+
+export function unescape(str: string): string {
+	return str
+		.split('\\\\').join('\\')
+		.split('\\;').join(';')
+		.split('\\,').join(',')
+		.split('\\N').join('\n')
+		.split('\\n').join('\n');
+}
+
 export function handleCalAddress(value: string): string {
 	return value.replace('mailto:', '');
 }
