@@ -1,0 +1,6 @@
+*.spec.d.js
+*.spec.d.ts
+*.spec.js
+*.spec.ts
+dev.d.ts
+dev.js
