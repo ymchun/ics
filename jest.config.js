@@ -11,6 +11,7 @@ module.exports = {
 	coveragePathIgnorePatterns: [
 		'<rootDir>/node_modules/',
 		'<rootDir>/src/dev.ts',
+		'<rootDir>/src/index.ts',
 		'<rootDir>/src/types',
 	],
 	moduleFileExtensions: [

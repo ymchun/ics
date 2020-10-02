@@ -9,11 +9,13 @@ import { Token } from '~/interfaces/token';
 import { Iterable } from '~/iterable';
 import { Property } from '~/properties/property';
 import { PropertyFactory } from '~/properties/property-factory';
+import { Tokenizer } from '~/tokenizer';
 
 export class Parser {
 
 	private componentFactory: ComponentFactory;
 	private propertyFactory: PropertyFactory;
+	private tokenizer: Tokenizer;
 
 	// default options
 	private options: ParserOptions = {
@@ -28,6 +30,9 @@ export class Parser {
 			quiet: this.options.quiet,
 		});
 		this.propertyFactory = new PropertyFactory({
+			quiet: this.options.quiet,
+		});
+		this.tokenizer = new Tokenizer({
 			quiet: this.options.quiet,
 		});
 
@@ -55,8 +60,13 @@ export class Parser {
 		this.propertyFactory.propertyMap[key] = property;
 	}
 
+	// parse from taw ics content
+	public parse(ics: string): VCalendar[] {
+		return this.parseTokens(this.tokenizer.tokenize(ics));
+	}
+
 	// parse ics tokens
-	public parse(tokens: Iterable<Token>): VCalendar[] {
+	public parseTokens(tokens: Iterable<Token>): VCalendar[] {
 		const results: VCalendar[] = [];
 
 		for (const token of tokens) {
