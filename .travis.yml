@@ -13,7 +13,7 @@ script:
 before_deploy:
   - npm run build
   - cd dist
-  - rm dev.js dev.d.ts **/*.test.js **/*.test.d.ts
+  - rm dev.js dev.d.ts **/*.spec.js **/*.spec.d.ts
   - cp ../{package.json,LICENSE,README.md} .
 deploy:
   edge: true

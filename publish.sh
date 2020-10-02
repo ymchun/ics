@@ -41,13 +41,9 @@ if [[ $CONTINUE = "y" || $CONTINUE = "Y" ]]; then
   # build new distribution
   npm run build; check
 
-  # go to library directory
-  cd projects/$PKG_NAME
   # increase npm version
   npm version --no-git-tag-version $NEW_VERSION; check
 
-  # go to root path
-  cd $ROOT_PATH
   # commit new version
   git add .
   git commit -m "Release version $NEW_VERSION"
