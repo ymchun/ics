@@ -93,7 +93,10 @@ export class VEvent extends Component {
 
 	public setComponent(component: Component): void {
 		switch (component.type) {
-		case COMPONENT.Alarm: this.alarms.push(component as VAlarm); break;
+		case COMPONENT.Alarm:
+			this.alarms = this.alarms || [];
+			this.alarms.push(component as VAlarm);
+			break;
 		}
 	}
 
