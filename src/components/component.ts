@@ -5,12 +5,12 @@ export class Component {
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	public setComponent(component: Component): void {
-		console.warn('Not implemented');
+		throw Error('Not implemented');
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	public setProperty(property: Property): void {
-		console.warn('Not implemented');
+		throw Error('Not implemented');
 	}
 
 }

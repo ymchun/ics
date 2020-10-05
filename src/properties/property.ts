@@ -7,7 +7,7 @@ export class Property {
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	public evaluate(calendar: VCalendar): void {
-		console.warn('Not implemented');
+		throw Error('Not implemented');
 	}
 
 }
