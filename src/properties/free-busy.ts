@@ -1,8 +1,9 @@
 import { VCalendar } from '~/components/v-calendar';
 import { PARAMETER, PROPERTY } from '~/constant';
+import { PropertyImpl } from '~/interfaces/property-impl';
 import { Property } from '~/properties/property';
 
-export class FreeBusy extends Property {
+export class FreeBusy extends Property implements PropertyImpl<string[]> {
 	public type = PROPERTY.FreeBusy;
 	public value!: string[];
 	public parameters = {

@@ -1,8 +1,9 @@
 import { VCalendar } from '~/components/v-calendar';
 import { PROPERTY } from '~/constant';
+import { PropertyImpl } from '~/interfaces/property-impl';
 import { Property } from '~/properties/property';
 
-export class Sequence extends Property {
+export class Sequence extends Property implements PropertyImpl<number> {
 	public type = PROPERTY.Sequence;
 	public value!: number;
 

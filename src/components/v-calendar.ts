@@ -3,6 +3,7 @@ import { VEvent } from '~/components/v-event';
 import { VFreeBusy } from '~/components/v-free-busy';
 import { VTimezone } from '~/components/v-timezone';
 import { COMPONENT, PROPERTY } from '~/constant';
+import { ComponentImpl } from '~/interfaces/component-impl';
 import { CalendarScale } from '~/properties/calendar-scale';
 import { ExtWRCalDesc } from '~/properties/ext-wr-cal-desc';
 import { ExtWRCalName } from '~/properties/ext-wr-cal-name';
@@ -12,7 +13,7 @@ import { ProductId } from '~/properties/product-id';
 import { Property } from '~/properties/property';
 import { Version } from '~/properties/version';
 
-export class VCalendar extends Component {
+export class VCalendar extends Component implements ComponentImpl {
 	public type = COMPONENT.Calendar;
 
 	// components

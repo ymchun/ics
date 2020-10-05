@@ -1,8 +1,9 @@
 import { VCalendar } from '~/components/v-calendar';
 import { PROPERTY } from '~/constant';
+import { PropertyImpl } from '~/interfaces/property-impl';
 import { Property } from '~/properties/property';
 
-export class RRule extends Property {
+export class RRule extends Property implements PropertyImpl<string> {
 	public type = PROPERTY.RRule;
 	public value!: string;
 

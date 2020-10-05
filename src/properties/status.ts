@@ -1,8 +1,9 @@
 import { VCalendar } from '~/components/v-calendar';
 import { PROPERTY } from '~/constant';
+import { PropertyImpl } from '~/interfaces/property-impl';
 import { Property } from '~/properties/property';
 
-export class Status extends Property {
+export class Status extends Property implements PropertyImpl<string> {
 	public type = PROPERTY.Status;
 	public value!: string;
 

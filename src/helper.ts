@@ -1,7 +1,7 @@
 import { addDays, addHours, addMinutes, addSeconds, addWeeks, isValid, parseISO } from 'date-fns';
 import { VCalendar } from '~/components/v-calendar';
 import { FOLD_LINE_BREAK, TEST_PERIOD_TYPE } from '~/constant';
-import { Duration } from '~/interfaces/duration';
+import { DurationTime } from '~/interfaces/duration-time';
 
 export function foldLine(line = ''): string {
 	const chunks = Math.ceil(line.length / 75);
@@ -57,7 +57,7 @@ export function isDuration(value: string): boolean {
 	return TEST_PERIOD_TYPE.test(value);
 }
 
-export function parseDuration(value: string): Duration {
+export function parseDuration(value: string): DurationTime {
 	const matches = TEST_PERIOD_TYPE.exec(value);
 	return {
 		weeks: matches && matches[2] ? parseInt(matches[2], 10) : 0,
@@ -68,7 +68,7 @@ export function parseDuration(value: string): Duration {
 	};
 }
 
-export function getDateFromDuration(start: Date, duration: Duration): Date {
+export function getDateFromDuration(start: Date, duration: DurationTime): Date {
 	let result = new Date(start);
 	if (duration.weeks > 0) {
 		result = addWeeks(result, duration.weeks);

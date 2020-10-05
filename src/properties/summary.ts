@@ -1,9 +1,10 @@
 import { VCalendar } from '~/components/v-calendar';
 import { PARAMETER, PROPERTY } from '~/constant';
 import { unescape } from '~/helper';
+import { PropertyImpl } from '~/interfaces/property-impl';
 import { Property } from '~/properties/property';
 
-export class Summary extends Property {
+export class Summary extends Property implements PropertyImpl<string> {
 	public type = PROPERTY.Summary;
 	public value!: string;
 	public parameters = {

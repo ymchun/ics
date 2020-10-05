@@ -2,12 +2,13 @@ import { Component } from '~/components/component';
 import { DayLight } from '~/components/day-light';
 import { Standard } from '~/components/standard';
 import { COMPONENT, PROPERTY } from '~/constant';
+import { ComponentImpl } from '~/interfaces/component-impl';
 import { LastModified } from '~/properties/last-modified';
 import { Property } from '~/properties/property';
 import { TZID } from '~/properties/tz-id';
 import { TZUrl } from '~/properties/tz-url';
 
-export class VTimezone extends Component {
+export class VTimezone extends Component implements ComponentImpl {
 	public type = COMPONENT.Timezone;
 
 	// components

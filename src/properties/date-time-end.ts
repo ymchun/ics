@@ -2,9 +2,10 @@ import { zonedTimeToUtc } from 'date-fns-tz';
 import { VCalendar } from '~/components/v-calendar';
 import { PARAMETER, PROPERTY } from '~/constant';
 import { getTimezoneOffset } from '~/helper';
+import { PropertyImpl } from '~/interfaces/property-impl';
 import { Property } from '~/properties/property';
 
-export class DateTimeEnd extends Property {
+export class DateTimeEnd extends Property implements PropertyImpl<Date> {
 	public type = PROPERTY.DTEnd;
 	public value!: Date;
 	public parameters = {

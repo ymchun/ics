@@ -1,4 +1,4 @@
-export interface Duration {
+export interface DurationTime {
 	weeks: number;
 	days: number;
 	hours: number;

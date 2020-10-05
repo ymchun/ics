@@ -1,5 +1,6 @@
 import { Component } from '~/components/component';
 import { COMPONENT, PROPERTY } from '~/constant';
+import { ComponentImpl } from '~/interfaces/component-impl';
 import { Action } from '~/properties/action';
 import { Attachment } from '~/properties/attachment';
 import { Attendee } from '~/properties/attendee';
@@ -11,7 +12,7 @@ import { Summary } from '~/properties/summary';
 import { Trigger } from '~/properties/trigger';
 import { UID } from '~/properties/uid';
 
-export class VAlarm extends Component {
+export class VAlarm extends Component implements ComponentImpl {
 	public type = COMPONENT.Alarm;
 
 	// properties

@@ -1,5 +1,6 @@
 import { Component } from '~/components/component';
 import { COMPONENT, PROPERTY } from '~/constant';
+import { ComponentImpl } from '~/interfaces/component-impl';
 import { Attendee } from '~/properties/attendee';
 import { Comment } from '~/properties/comment';
 import { Contact } from '~/properties/contact';
@@ -12,7 +13,7 @@ import { Property } from '~/properties/property';
 import { UID } from '~/properties/uid';
 import { Url } from '~/properties/url';
 
-export class VFreeBusy extends Component {
+export class VFreeBusy extends Component implements ComponentImpl {
 	public type = COMPONENT.FreeBusy;
 
 	// properties

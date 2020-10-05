@@ -2,9 +2,10 @@ import { zonedTimeToUtc } from 'date-fns-tz';
 import { VCalendar } from '~/components/v-calendar';
 import { PARAMETER, PROPERTY, VALUE_DATA_TYPE } from '~/constant';
 import { getDateRangeFromPeriod, getTimezoneOffset } from '~/helper';
+import { PropertyImpl } from '~/interfaces/property-impl';
 import { Property } from '~/properties/property';
 
-export class RecurrenceDateTimes extends Property {
+export class RecurrenceDateTimes extends Property implements PropertyImpl<Array<[ Date, Date ]>> {
 	public type = PROPERTY.RDate;
 	public value!: Array<[ Date, Date ]>;
 	public parameters = {

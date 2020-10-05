@@ -1,5 +1,6 @@
 import { Component } from '~/components/component';
 import { COMPONENT, PROPERTY } from '~/constant';
+import { ComponentImpl } from '~/interfaces/component-impl';
 import { Comment } from '~/properties/comment';
 import { DateTimeStart } from '~/properties/date-time-start';
 import { Property } from '~/properties/property';
@@ -9,7 +10,7 @@ import { TZName } from '~/properties/tz-name';
 import { TZOffsetFrom } from '~/properties/tz-offset-from';
 import { TZOffsetTo } from '~/properties/tz-offset-to';
 
-export class Standard extends Component {
+export class Standard extends Component implements ComponentImpl {
 	public type = COMPONENT.Standard;
 
 	// properties

@@ -1,9 +1,10 @@
 import { parseISO } from 'date-fns';
 import { VCalendar } from '~/components/v-calendar';
 import { PROPERTY } from '~/constant';
+import { PropertyImpl } from '~/interfaces/property-impl';
 import { Property } from '~/properties/property';
 
-export class LastModified extends Property {
+export class LastModified extends Property implements PropertyImpl<Date> {
 	public type = PROPERTY.LastModified;
 	public value!: Date;
 

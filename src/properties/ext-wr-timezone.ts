@@ -1,8 +1,9 @@
 import { VCalendar } from '~/components/v-calendar';
 import { PROPERTY } from '~/constant';
+import { PropertyImpl } from '~/interfaces/property-impl';
 import { Property } from '~/properties/property';
 
-export class ExtWRTimezone extends Property {
+export class ExtWRTimezone extends Property implements PropertyImpl<string> {
 	public type = PROPERTY.Extended.WR.Timezone;
 	public value!: string;
 

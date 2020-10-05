@@ -1,6 +1,7 @@
 import { Component } from '~/components/component';
 import { VAlarm } from '~/components/v-alarm';
 import { COMPONENT, PROPERTY } from '~/constant';
+import { ComponentImpl } from '~/interfaces/component-impl';
 import { Attachment } from '~/properties/attachment';
 import { Attendee } from '~/properties/attendee';
 import { Categories } from '~/properties/categories';
@@ -32,7 +33,7 @@ import { TimeTransparency } from '~/properties/time-transparency';
 import { UID } from '~/properties/uid';
 import { Url } from '~/properties/url';
 
-export class VEvent extends Component {
+export class VEvent extends Component implements ComponentImpl {
 	public type = COMPONENT.Event;
 
 	// components

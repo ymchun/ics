@@ -1,8 +1,9 @@
 import { VCalendar } from '~/components/v-calendar';
 import { PARAMETER, PROPERTY } from '~/constant';
+import { PropertyImpl } from '~/interfaces/property-impl';
 import { Property } from '~/properties/property';
 
-export class Attachment extends Property {
+export class Attachment extends Property implements PropertyImpl<string> {
 	public type = PROPERTY.Attach;
 	public value!: string;
 	public parameters = {

@@ -1,8 +1,9 @@
 import { VCalendar } from '~/components/v-calendar';
 import { PARAMETER, PROPERTY } from '~/constant';
+import { PropertyImpl } from '~/interfaces/property-impl';
 import { Property } from '~/properties/property';
 
-export class Trigger extends Property {
+export class Trigger extends Property implements PropertyImpl<string> {
 	public type = PROPERTY.Trigger;
 	public value!: string;
 	public parameters = {
