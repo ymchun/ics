@@ -17,13 +17,16 @@ export class Trigger extends Property implements PropertyImpl<string> {
 		if (this.token.parameters) {
 			this.token.parameters.map((param) => {
 				switch (param.name) {
-				case PARAMETER.Related: this.parameters.Related = param.value; break;
-				case PARAMETER.Value: this.parameters.Value = param.value; break;
+					case PARAMETER.Related:
+						this.parameters.Related = param.value;
+						break;
+					case PARAMETER.Value:
+						this.parameters.Value = param.value;
+						break;
 				}
 			});
 		}
 		// set value
 		this.value = this.token.value;
 	}
-
 }

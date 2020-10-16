@@ -7,7 +7,6 @@ import { Parser } from '~/parser';
 import { Attachment } from '~/properties/attachment';
 
 describe('<parser.ts>', () => {
-
 	test('constructor without options', () => {
 		const parser = new Parser();
 		expect(parser).not.toBeUndefined();
@@ -16,10 +15,10 @@ describe('<parser.ts>', () => {
 	test('constructor with options', () => {
 		const parser = new Parser({
 			components: {
-				'test_component': VCalendar,
+				test_component: VCalendar,
 			},
 			properties: {
-				'test_property': Attachment,
+				test_property: Attachment,
 			},
 		});
 		expect(parser).not.toBeUndefined();
@@ -59,5 +58,4 @@ describe('<parser.ts>', () => {
 		expect(calendars[0].timezones[0].TZID).toBeTruthy();
 		expect(calendars[0].timezones[0].TZID.value).toBe('Asia/Hong_Kong');
 	});
-
 });

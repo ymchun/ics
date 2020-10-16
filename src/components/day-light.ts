@@ -33,22 +33,31 @@ export class DayLight extends Component implements ComponentImpl {
 
 	public setProperty(property: Property): void {
 		switch (property.type) {
-		case PROPERTY.DTStart: this.dtStart = property as DateTimeStart; break;
-		case PROPERTY.TZOffsetFrom: this.tzOffsetFrom = property as TZOffsetFrom; break;
-		case PROPERTY.TZOffsetTo: this.tzOffsetTo = property as TZOffsetTo; break;
+			case PROPERTY.DTStart:
+				this.dtStart = property as DateTimeStart;
+				break;
+			case PROPERTY.TZOffsetFrom:
+				this.tzOffsetFrom = property as TZOffsetFrom;
+				break;
+			case PROPERTY.TZOffsetTo:
+				this.tzOffsetTo = property as TZOffsetTo;
+				break;
 
-		case PROPERTY.RRule: this.rrule = property as RRule; break;
+			case PROPERTY.RRule:
+				this.rrule = property as RRule;
+				break;
 
-		case PROPERTY.Comment:
-			this.comments = this.comments || [];
-			this.comments.push(property as Comment);
-			break;
-		case PROPERTY.RDate:
-			this.rDates = this.rDates || [];
-			this.rDates.push(property as RecurrenceDateTimes);
-			break;
-		case PROPERTY.TZName: this.tzName = property as TZName; break;
+			case PROPERTY.Comment:
+				this.comments = this.comments || [];
+				this.comments.push(property as Comment);
+				break;
+			case PROPERTY.RDate:
+				this.rDates = this.rDates || [];
+				this.rDates.push(property as RecurrenceDateTimes);
+				break;
+			case PROPERTY.TZName:
+				this.tzName = property as TZName;
+				break;
 		}
 	}
-
 }

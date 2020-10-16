@@ -5,7 +5,8 @@ import { DurationTime } from '~/interfaces/duration-time';
 
 export function foldLine(line = ''): string {
 	const chunks = Math.ceil(line.length / 75);
-	return new Array<string>(chunks).fill('')
+	return new Array<string>(chunks)
+		.fill('')
 		.map((_, index) => line.substr(index * 75, 75))
 		.join('\r\n ');
 }
@@ -19,20 +20,21 @@ export function filterEmptyLine(lines: string[]): string[] {
 }
 
 export function escape(str: string): string {
-	return str
-		.split('\\').join('\\\\')
-		.split(';').join('\\;')
-		.split(',').join('\\,')
-		.split('\n').join('\\n');
+	return str.split('\\').join('\\\\').split(';').join('\\;').split(',').join('\\,').split('\n').join('\\n');
 }
 
 export function unescape(str: string): string {
 	return str
-		.split('\\\\').join('\\')
-		.split('\\;').join(';')
-		.split('\\,').join(',')
-		.split('\\N').join('\n')
-		.split('\\n').join('\n');
+		.split('\\\\')
+		.join('\\')
+		.split('\\;')
+		.join(';')
+		.split('\\,')
+		.join(',')
+		.split('\\N')
+		.join('\n')
+		.split('\\n')
+		.join('\n');
 }
 
 export function handleCalAddress(value: string): string {
@@ -40,7 +42,7 @@ export function handleCalAddress(value: string): string {
 }
 
 export function isPeriod(value: string): boolean {
-	const [ first, second ] = value.split('/');
+	const [first, second] = value.split('/');
 	if (first === undefined || second === undefined) {
 		return false;
 	}
@@ -48,7 +50,7 @@ export function isPeriod(value: string): boolean {
 		return false;
 	}
 	if (!isValid(parseISO(second)) && !isDuration(second)) {
-		return  false;
+		return false;
 	}
 	return true;
 }
@@ -88,13 +90,11 @@ export function getDateFromDuration(start: Date, duration: DurationTime): Date {
 	return result;
 }
 
-export function getDateRangeFromPeriod(period: string): [ Date, Date ] {
-	const [ first, second ] = period.split('/');
+export function getDateRangeFromPeriod(period: string): [Date, Date] {
+	const [first, second] = period.split('/');
 	const start = parseISO(first);
-	const end = isDuration(second)
-		? getDateFromDuration(start, parseDuration(second))
-		: parseISO(second);
-	return [ start, end ];
+	const end = isDuration(second) ? getDateFromDuration(start, parseDuration(second)) : parseISO(second);
+	return [start, end];
 }
 
 export function getTimezoneOffset(calendar: VCalendar, TZID: string | null): string {
@@ -107,12 +107,11 @@ export function getTimezoneOffset(calendar: VCalendar, TZID: string | null): str
 		}
 	}
 	if (calendar?.timezones?.length > 0) {
-		const timezone = calendar.timezones.find((tz) => (
-			tz.TZID.value !== null &&
-			tz.TZID.value === TZID ||
-			tz.TZID.token !== null &&
-			tz.TZID.token.value === TZID
-		));
+		const timezone = calendar.timezones.find(
+			(tz) =>
+				(tz.TZID.value !== null && tz.TZID.value === TZID) ||
+				(tz.TZID.token !== null && tz.TZID.token.value === TZID),
+		);
 		if (timezone?.standard?.tzOffsetTo?.value) {
 			return timezone.standard.tzOffsetTo.value;
 		}

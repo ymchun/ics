@@ -94,67 +94,110 @@ export class VEvent extends Component implements ComponentImpl {
 
 	public setComponent(component: Component): void {
 		switch (component.type) {
-		case COMPONENT.Alarm:
-			this.alarms = this.alarms || [];
-			this.alarms.push(component as VAlarm);
-			break;
+			case COMPONENT.Alarm:
+				this.alarms = this.alarms || [];
+				this.alarms.push(component as VAlarm);
+				break;
 		}
 	}
 
 	public setProperty(property: Property): void {
 		switch (property.type) {
-		case PROPERTY.DTStamp: this.dtStamp = property as DateTimeStamp; break;
-		case PROPERTY.UID: this.uid = property as UID; break;
-		case PROPERTY.DTStart: this.dtStart = property as DateTimeStart; break;
-		case PROPERTY.Class: this.class = property as Class; break;
-		case PROPERTY.Created: this.created = property as Created; break;
-		case PROPERTY.Description: this.description = property as Description; break;
-		case PROPERTY.Geo: this.geo = property as GeographicPosition; break;
-		case PROPERTY.LastModified: this.lastModified = property as LastModified; break;
-		case PROPERTY.Location: this.location = property as Location; break;
-		case PROPERTY.Organizer: this.organizer = property as Organizer; break;
-		case PROPERTY.Priority: this.priority = property as Priority; break;
-		case PROPERTY.RecurrenceId: this.recurrenceId = property as RecurrenceId; break;
-		case PROPERTY.Sequence: this.sequence = property as Sequence; break;
-		case PROPERTY.Status: this.status = property as Status; break;
-		case PROPERTY.Summary: this.summary = property as Summary; break;
-		case PROPERTY.Transp: this.transp = property as TimeTransparency; break;
-		case PROPERTY.Url: this.url = property as Url; break;
-		case PROPERTY.RRule: this.rrule = property as RRule; break;
-		case PROPERTY.DTEnd: this.dtEnd = property as DateTimeEnd; break;
-		case PROPERTY.Duration: this.duration = property as Duration; break;
-		case PROPERTY.Resources: this.resources = property as Resources; break;
+			case PROPERTY.DTStamp:
+				this.dtStamp = property as DateTimeStamp;
+				break;
+			case PROPERTY.UID:
+				this.uid = property as UID;
+				break;
+			case PROPERTY.DTStart:
+				this.dtStart = property as DateTimeStart;
+				break;
+			case PROPERTY.Class:
+				this.class = property as Class;
+				break;
+			case PROPERTY.Created:
+				this.created = property as Created;
+				break;
+			case PROPERTY.Description:
+				this.description = property as Description;
+				break;
+			case PROPERTY.Geo:
+				this.geo = property as GeographicPosition;
+				break;
+			case PROPERTY.LastModified:
+				this.lastModified = property as LastModified;
+				break;
+			case PROPERTY.Location:
+				this.location = property as Location;
+				break;
+			case PROPERTY.Organizer:
+				this.organizer = property as Organizer;
+				break;
+			case PROPERTY.Priority:
+				this.priority = property as Priority;
+				break;
+			case PROPERTY.RecurrenceId:
+				this.recurrenceId = property as RecurrenceId;
+				break;
+			case PROPERTY.Sequence:
+				this.sequence = property as Sequence;
+				break;
+			case PROPERTY.Status:
+				this.status = property as Status;
+				break;
+			case PROPERTY.Summary:
+				this.summary = property as Summary;
+				break;
+			case PROPERTY.Transp:
+				this.transp = property as TimeTransparency;
+				break;
+			case PROPERTY.Url:
+				this.url = property as Url;
+				break;
+			case PROPERTY.RRule:
+				this.rrule = property as RRule;
+				break;
+			case PROPERTY.DTEnd:
+				this.dtEnd = property as DateTimeEnd;
+				break;
+			case PROPERTY.Duration:
+				this.duration = property as Duration;
+				break;
+			case PROPERTY.Resources:
+				this.resources = property as Resources;
+				break;
 
-		case PROPERTY.Attach:
-			this.attachments = this.attachments || [];
-			this.attachments.push(property as Attachment);
-			break;
-		case PROPERTY.Attendee:
-			this.attendees = this.attendees || [];
-			this.attendees.push(property as Attendee);
-			break;
-		case PROPERTY.Categories: this.categories = property as Categories; break;
-		case PROPERTY.Comment:
-			this.comments = this.comments || [];
-			this.comments.push(property as Comment);
-			break;
-		case PROPERTY.Contact:
-			this.contacts = this.contacts || [];
-			this.contacts.push(property as Contact);
-			break;
-		case PROPERTY.ExDate:
-			this.exDates = this.exDates || [];
-			this.exDates.push(property as ExceptionDateTimes);
-			break;
-		case PROPERTY.RDate:
-			this.rDates = this.rDates || [];
-			this.rDates.push(property as RecurrenceDateTimes);
-			break;
-		case PROPERTY.RelatedTo:
-			this.relatedTo = this.relatedTo || [];
-			this.relatedTo.push(property as RelatedTo);
-			break;
+			case PROPERTY.Attach:
+				this.attachments = this.attachments || [];
+				this.attachments.push(property as Attachment);
+				break;
+			case PROPERTY.Attendee:
+				this.attendees = this.attendees || [];
+				this.attendees.push(property as Attendee);
+				break;
+			case PROPERTY.Categories:
+				this.categories = property as Categories;
+				break;
+			case PROPERTY.Comment:
+				this.comments = this.comments || [];
+				this.comments.push(property as Comment);
+				break;
+			case PROPERTY.Contact:
+				this.contacts = this.contacts || [];
+				this.contacts.push(property as Contact);
+				break;
+			case PROPERTY.ExDate:
+				this.exDates = this.exDates || [];
+				this.exDates.push(property as ExceptionDateTimes);
+				break;
+			case PROPERTY.RDate:
+				this.rDates = this.rDates || [];
+				this.rDates.push(property as RecurrenceDateTimes);
+				break;
+			case PROPERTY.RelatedTo:
+				this.relatedTo = this.relatedTo || [];
+				this.relatedTo.push(property as RelatedTo);
+				break;
 		}
 	}
-
 }

@@ -3,7 +3,6 @@ import { VCalendar } from '~/components/v-calendar';
 import { COMPONENT } from '~/constant';
 
 describe('<component-factory.ts>', () => {
-
 	test('getComponent', () => {
 		// create component factory
 		const componentFactory = new ComponentFactory();
@@ -22,5 +21,4 @@ describe('<component-factory.ts>', () => {
 		componentFactory.getComponent('some_key');
 		expect(console.warn).toBeCalledWith(expect.any(String));
 	});
-
 });

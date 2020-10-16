@@ -12,5 +12,4 @@ export class Priority extends Property implements PropertyImpl<number> {
 		// set value
 		this.value = parseInt(this.token.value, 10);
 	}
-
 }

@@ -12,7 +12,6 @@ import { Constructible } from '~/interfaces/constructible';
 import { KeyMap } from '~/interfaces/global';
 
 export class ComponentFactory {
-
 	// default options
 	private options: ComponentFactoryOptions = {
 		quiet: false,
@@ -41,5 +40,4 @@ export class ComponentFactory {
 			console.warn(`Unknown component type: '${type}'`);
 		}
 	}
-
 }

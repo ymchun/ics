@@ -18,14 +18,19 @@ export class Attachment extends Property implements PropertyImpl<string> {
 		if (this.token.parameters) {
 			this.token.parameters.map((param) => {
 				switch (param.name) {
-				case PARAMETER.Encoding: this.parameters.Encoding = param.value; break;
-				case PARAMETER.FmtType: this.parameters.FmtType = param.value; break;
-				case PARAMETER.Value: this.parameters.Value = param.value; break;
+					case PARAMETER.Encoding:
+						this.parameters.Encoding = param.value;
+						break;
+					case PARAMETER.FmtType:
+						this.parameters.FmtType = param.value;
+						break;
+					case PARAMETER.Value:
+						this.parameters.Value = param.value;
+						break;
 				}
 			});
 		}
 		// set value
 		this.value = this.token.value;
 	}
-
 }

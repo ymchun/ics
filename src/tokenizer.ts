@@ -7,7 +7,6 @@ import { Iterable } from '~/iterable';
 import * as grammar from '~/nearley/grammar';
 
 export class Tokenizer {
-
 	// default options
 	private options: TokenizerOptions = {
 		quiet: false,
@@ -22,22 +21,14 @@ export class Tokenizer {
 		return new Iterable(
 			filterEmptyLine(unfoldLine(ics).split(ICS_LINE_BREAK))
 				.map((line) => {
-					const results = new nearley.Parser(nearley.Grammar.fromCompiled(grammar))
-						.feed(line)
+					const results = new nearley.Parser(nearley.Grammar.fromCompiled(grammar)).feed(line)
 						.results as Token[];
 					if (results.length !== 1 && !this.options.quiet) {
 						console.warn(`Unexpected parsing result length: ${results.length}`, results);
 					}
 					return results;
 				})
-				.reduce(
-					(results, tokens) => [
-						...results,
-						...tokens,
-					],
-					[] as Token[],
-				),
+				.reduce((results, tokens) => [...results, ...tokens], [] as Token[]),
 		);
 	}
-
 }

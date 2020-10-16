@@ -16,12 +16,13 @@ export class RelatedTo extends Property implements PropertyImpl<string> {
 		if (this.token.parameters) {
 			this.token.parameters.map((param) => {
 				switch (param.name) {
-				case PARAMETER.RelType: this.parameters.RelType = param.value; break;
+					case PARAMETER.RelType:
+						this.parameters.RelType = param.value;
+						break;
 				}
 			});
 		}
 		// set value
 		this.value = this.token.value;
 	}
-
 }

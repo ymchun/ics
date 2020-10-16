@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - "12.13"
+  - '12.13'
 install:
   - npm install
 script:
@@ -17,8 +17,8 @@ before_deploy:
 deploy:
   edge: true
   provider: npm
-  email: "$email"
-  api_key: "$npm_token"
+  email: '$email'
+  api_key: '$npm_token'
   cleanup: false
   on:
     tags: true

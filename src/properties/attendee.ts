@@ -27,22 +27,43 @@ export class Attendee extends Property implements PropertyImpl<string> {
 		if (this.token.parameters) {
 			this.token.parameters.map((param) => {
 				switch (param.name) {
-				case PARAMETER.CN: this.parameters.CN = param.value; break;
-				case PARAMETER.CUType: this.parameters.CUType = param.value; break;
-				case PARAMETER.DelegatedFrom: this.parameters.DelegatedFrom = param.value.split(',').map((v) => handleCalAddress(v)); break;
-				case PARAMETER.DelegatedTo: this.parameters.DelegatedTo = param.value.split(',').map((v) => handleCalAddress(v)); break;
-				case PARAMETER.Dir: this.parameters.Dir = param.value; break;
-				case PARAMETER.Language: this.parameters.Language = param.value; break;
-				case PARAMETER.Member: this.parameters.Member = handleCalAddress(param.value); break;
-				case PARAMETER.PartStat: this.parameters.PartStat = param.value; break;
-				case PARAMETER.Role: this.parameters.Role = param.value; break;
-				case PARAMETER.Rsvp: this.parameters.Rsvp = param.value; break;
-				case PARAMETER.SentBy: this.parameters.SentBy = handleCalAddress(param.value); break;
+					case PARAMETER.CN:
+						this.parameters.CN = param.value;
+						break;
+					case PARAMETER.CUType:
+						this.parameters.CUType = param.value;
+						break;
+					case PARAMETER.DelegatedFrom:
+						this.parameters.DelegatedFrom = param.value.split(',').map((v) => handleCalAddress(v));
+						break;
+					case PARAMETER.DelegatedTo:
+						this.parameters.DelegatedTo = param.value.split(',').map((v) => handleCalAddress(v));
+						break;
+					case PARAMETER.Dir:
+						this.parameters.Dir = param.value;
+						break;
+					case PARAMETER.Language:
+						this.parameters.Language = param.value;
+						break;
+					case PARAMETER.Member:
+						this.parameters.Member = handleCalAddress(param.value);
+						break;
+					case PARAMETER.PartStat:
+						this.parameters.PartStat = param.value;
+						break;
+					case PARAMETER.Role:
+						this.parameters.Role = param.value;
+						break;
+					case PARAMETER.Rsvp:
+						this.parameters.Rsvp = param.value;
+						break;
+					case PARAMETER.SentBy:
+						this.parameters.SentBy = handleCalAddress(param.value);
+						break;
 				}
 			});
 		}
 		// set value
 		this.value = handleCalAddress(this.token.value);
 	}
-
 }

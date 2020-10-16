@@ -12,5 +12,4 @@ export class PercentComplete extends Property implements PropertyImpl<number> {
 		// set value
 		this.value = parseInt(this.token.value, 10);
 	}
-
 }

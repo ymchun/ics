@@ -43,33 +43,46 @@ export class VCalendar extends Component implements ComponentImpl {
 
 	public setComponent(component: Component): void {
 		switch (component.type) {
-		case COMPONENT.Event:
-			this.events = this.events || [];
-			this.events.push(component as VEvent);
-			break;
-		case COMPONENT.FreeBusy:
-			this.freeBusy = this.freeBusy || [];
-			this.freeBusy.push(component as VFreeBusy);
-			break;
-		case COMPONENT.Timezone:
-			this.timezones = this.timezones || [];
-			this.timezones.push(component as VTimezone);
-			break;
+			case COMPONENT.Event:
+				this.events = this.events || [];
+				this.events.push(component as VEvent);
+				break;
+			case COMPONENT.FreeBusy:
+				this.freeBusy = this.freeBusy || [];
+				this.freeBusy.push(component as VFreeBusy);
+				break;
+			case COMPONENT.Timezone:
+				this.timezones = this.timezones || [];
+				this.timezones.push(component as VTimezone);
+				break;
 		}
 	}
 
 	public setProperty(property: Property): void {
 		switch (property.type) {
-		case PROPERTY.ProdId: this.productId = property as ProductId; break;
-		case PROPERTY.Version: this.version = property as Version; break;
+			case PROPERTY.ProdId:
+				this.productId = property as ProductId;
+				break;
+			case PROPERTY.Version:
+				this.version = property as Version;
+				break;
 
-		case PROPERTY.CalScale: this.calScale = property as CalendarScale; break;
-		case PROPERTY.Method: this.method = property as Method; break;
+			case PROPERTY.CalScale:
+				this.calScale = property as CalendarScale;
+				break;
+			case PROPERTY.Method:
+				this.method = property as Method;
+				break;
 
-		case PROPERTY.Extended.WR.CalendarDesc: this.extWRCalDesc = property as ExtWRCalDesc; break;
-		case PROPERTY.Extended.WR.CalendarName: this.extWRCalName = property as ExtWRCalName; break;
-		case PROPERTY.Extended.WR.Timezone: this.extWRTimezone = property as ExtWRTimezone; break;
+			case PROPERTY.Extended.WR.CalendarDesc:
+				this.extWRCalDesc = property as ExtWRCalDesc;
+				break;
+			case PROPERTY.Extended.WR.CalendarName:
+				this.extWRCalName = property as ExtWRCalName;
+				break;
+			case PROPERTY.Extended.WR.Timezone:
+				this.extWRTimezone = property as ExtWRTimezone;
+				break;
 		}
 	}
-
 }

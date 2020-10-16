@@ -12,5 +12,4 @@ export class ProductId extends Property implements PropertyImpl<string> {
 		// set value
 		this.value = this.token.value;
 	}
-
 }

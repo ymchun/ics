@@ -16,12 +16,13 @@ export class FreeBusy extends Property implements PropertyImpl<string[]> {
 		if (this.token.parameters) {
 			this.token.parameters.map((param) => {
 				switch (param.name) {
-				case PARAMETER.FBType: this.parameters.FBType = param.value; break;
+					case PARAMETER.FBType:
+						this.parameters.FBType = param.value;
+						break;
 				}
 			});
 		}
 		// set value
 		this.value = this.token.value.split(',');
 	}
-
 }

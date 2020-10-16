@@ -3,7 +3,6 @@ import { Attachment } from '~/properties/attachment';
 import { PropertyFactory } from '~/properties/property-factory';
 
 describe('<property-factory.ts>', () => {
-
 	test('getProperty', () => {
 		// create property factory
 		const propertyFactory = new PropertyFactory();
@@ -22,5 +21,4 @@ describe('<property-factory.ts>', () => {
 		propertyFactory.getProperty('some_key');
 		expect(console.warn).toBeCalledWith(expect.any(String));
 	});
-
 });

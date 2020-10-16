@@ -13,5 +13,4 @@ export class DateTimeCompleted extends Property implements PropertyImpl<Date> {
 		// set value
 		this.value = parseISO(this.token.value);
 	}
-
 }

@@ -53,7 +53,6 @@ import { Url } from '~/properties/url';
 import { Version } from '~/properties/version';
 
 export class PropertyFactory {
-
 	// the default set of properties
 	public propertyMap: KeyMap<Constructible<Property>> = {
 		[PROPERTY.Action]: Action,
@@ -123,5 +122,4 @@ export class PropertyFactory {
 			console.warn(`Unknown property type: '${type}'`);
 		}
 	}
-
 }

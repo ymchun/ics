@@ -48,26 +48,39 @@ export class VAlarm extends Component implements ComponentImpl {
 
 	public setProperty(property: Property): void {
 		switch (property.type) {
-		case PROPERTY.Action: this.action = property as Action; break;
-		case PROPERTY.Trigger: this.trigger = property as Trigger; break;
-		case PROPERTY.UID: this.uid = property as UID; break;
+			case PROPERTY.Action:
+				this.action = property as Action;
+				break;
+			case PROPERTY.Trigger:
+				this.trigger = property as Trigger;
+				break;
+			case PROPERTY.UID:
+				this.uid = property as UID;
+				break;
 
-		case PROPERTY.Description: this.description = property as Description; break;
+			case PROPERTY.Description:
+				this.description = property as Description;
+				break;
 
-		case PROPERTY.Summary: this.summary = property as Summary; break;
+			case PROPERTY.Summary:
+				this.summary = property as Summary;
+				break;
 
-		case PROPERTY.Duration: this.duration = property as Duration; break;
-		case PROPERTY.Repeat: this.repeat = property as Repeat; break;
+			case PROPERTY.Duration:
+				this.duration = property as Duration;
+				break;
+			case PROPERTY.Repeat:
+				this.repeat = property as Repeat;
+				break;
 
-		case PROPERTY.Attach:
-			this.attachments = this.attachments || [];
-			this.attachments.push(property as Attachment);
-			break;
-		case PROPERTY.Attendee:
-			this.attendees = this.attendees || [];
-			this.attendees.push(property as Attendee);
-			break;
+			case PROPERTY.Attach:
+				this.attachments = this.attachments || [];
+				this.attachments.push(property as Attachment);
+				break;
+			case PROPERTY.Attendee:
+				this.attendees = this.attendees || [];
+				this.attendees.push(property as Attendee);
+				break;
 		}
 	}
-
 }

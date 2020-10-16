@@ -39,28 +39,41 @@ export class VFreeBusy extends Component implements ComponentImpl {
 
 	public setProperty(property: Property): void {
 		switch (property.type) {
-		case PROPERTY.DTStamp: this.dtStamp = property as DateTimeStamp; break;
-		case PROPERTY.UID: this.uid = property as UID; break;
+			case PROPERTY.DTStamp:
+				this.dtStamp = property as DateTimeStamp;
+				break;
+			case PROPERTY.UID:
+				this.uid = property as UID;
+				break;
 
-		case PROPERTY.Contact: this.contact = property as Contact; break;
-		case PROPERTY.DTEnd: this.dtEnd = property as DateTimeEnd; break;
-		case PROPERTY.DTStart: this.dtStart = property as DateTimeStart; break;
-		case PROPERTY.Organizer: this.organizer = property as Organizer; break;
-		case PROPERTY.Url: this.url = property as Url; break;
+			case PROPERTY.Contact:
+				this.contact = property as Contact;
+				break;
+			case PROPERTY.DTEnd:
+				this.dtEnd = property as DateTimeEnd;
+				break;
+			case PROPERTY.DTStart:
+				this.dtStart = property as DateTimeStart;
+				break;
+			case PROPERTY.Organizer:
+				this.organizer = property as Organizer;
+				break;
+			case PROPERTY.Url:
+				this.url = property as Url;
+				break;
 
-		case PROPERTY.Attendee:
-			this.attendees = this.attendees || [];
-			this.attendees.push(property as Attendee);
-			break;
-		case PROPERTY.Comment:
-			this.comments = this.comments || [];
-			this.comments.push(property as Comment);
-			break;
-		case PROPERTY.FreeBusy:
-			this.freeBusy = this.freeBusy || [];
-			this.freeBusy.push(property as FreeBusy);
-			break;
+			case PROPERTY.Attendee:
+				this.attendees = this.attendees || [];
+				this.attendees.push(property as Attendee);
+				break;
+			case PROPERTY.Comment:
+				this.comments = this.comments || [];
+				this.comments.push(property as Comment);
+				break;
+			case PROPERTY.FreeBusy:
+				this.freeBusy = this.freeBusy || [];
+				this.freeBusy.push(property as FreeBusy);
+				break;
 		}
 	}
-
 }

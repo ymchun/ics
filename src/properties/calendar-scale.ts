@@ -12,5 +12,4 @@ export class CalendarScale extends Property implements PropertyImpl<string> {
 		// set value
 		this.value = this.token.value;
 	}
-
 }

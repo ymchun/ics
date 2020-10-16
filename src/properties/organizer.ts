@@ -20,15 +20,22 @@ export class Organizer extends Property implements PropertyImpl<string> {
 		if (this.token.parameters) {
 			this.token.parameters.map((param) => {
 				switch (param.name) {
-				case PARAMETER.CN: this.parameters.CN = param.value; break;
-				case PARAMETER.Dir: this.parameters.Dir = param.value; break;
-				case PARAMETER.Language: this.parameters.Language = param.value; break;
-				case PARAMETER.SentBy: this.parameters.SentBy = handleCalAddress(param.value); break;
+					case PARAMETER.CN:
+						this.parameters.CN = param.value;
+						break;
+					case PARAMETER.Dir:
+						this.parameters.Dir = param.value;
+						break;
+					case PARAMETER.Language:
+						this.parameters.Language = param.value;
+						break;
+					case PARAMETER.SentBy:
+						this.parameters.SentBy = handleCalAddress(param.value);
+						break;
 				}
 			});
 		}
 		// set value
 		this.value = handleCalAddress(this.token.value);
 	}
-
 }

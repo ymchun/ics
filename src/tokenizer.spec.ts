@@ -3,7 +3,6 @@ import { COMPONENT, KEYWORD, PROPERTY } from '~/constant';
 import { Tokenizer } from '~/tokenizer';
 
 describe('<tokenizer.ts>', () => {
-
 	test('constructor without options', () => {
 		const tokenizer = new Tokenizer();
 		expect(tokenizer).not.toBeUndefined();
@@ -31,5 +30,4 @@ describe('<tokenizer.ts>', () => {
 			expect(tokens[i]).toMatchObject(expected[i]);
 		}
 	});
-
 });

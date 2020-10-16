@@ -31,18 +31,27 @@ export class VTimezone extends Component implements ComponentImpl {
 
 	public setComponent(component: Component): void {
 		switch (component.type) {
-		case COMPONENT.DayLight: this.daylight = component as DayLight; break;
-		case COMPONENT.Standard: this.standard = component as Standard; break;
+			case COMPONENT.DayLight:
+				this.daylight = component as DayLight;
+				break;
+			case COMPONENT.Standard:
+				this.standard = component as Standard;
+				break;
 		}
 	}
 
 	public setProperty(property: Property): void {
 		switch (property.type) {
-		case PROPERTY.TZID: this.TZID = property as TZID; break;
+			case PROPERTY.TZID:
+				this.TZID = property as TZID;
+				break;
 
-		case PROPERTY.LastModified: this.lastModified = property as LastModified; break;
-		case PROPERTY.TZUrl: this.TZUrl = property as TZUrl; break;
+			case PROPERTY.LastModified:
+				this.lastModified = property as LastModified;
+				break;
+			case PROPERTY.TZUrl:
+				this.TZUrl = property as TZUrl;
+				break;
 		}
 	}
-
 }

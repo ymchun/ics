@@ -1,5 +1,4 @@
 export class Iterable<T> {
-
 	private counter = 0;
 	public constructor(private list: T[]) {}
 

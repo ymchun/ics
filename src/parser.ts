@@ -12,7 +12,6 @@ import { PropertyFactory } from '~/properties/property-factory';
 import { Tokenizer } from '~/tokenizer';
 
 export class Parser {
-
 	private componentFactory: ComponentFactory;
 	private propertyFactory: PropertyFactory;
 	private tokenizer: Tokenizer;
@@ -78,7 +77,9 @@ export class Parser {
 				// push it to result
 				results.push(calendar);
 			} else {
-				throw Error(`Expecting '${KEYWORD.Begin}:${COMPONENT.Calendar}' but got: '${token.name}:${token.value}'`);
+				throw Error(
+					`Expecting '${KEYWORD.Begin}:${COMPONENT.Calendar}' but got: '${token.name}:${token.value}'`,
+				);
 			}
 		}
 
@@ -129,7 +130,7 @@ export class Parser {
 			// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
 			const target = (component as KeyMap<any>)[key];
 			// unify properties
-			const properties = Array.isArray(target) ? target : [ target ];
+			const properties = Array.isArray(target) ? target : [target];
 
 			for (const property of properties) {
 				if (property instanceof Property) {
@@ -142,5 +143,4 @@ export class Parser {
 			}
 		});
 	}
-
 }

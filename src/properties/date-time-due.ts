@@ -19,13 +19,16 @@ export class DateTimeDue extends Property implements PropertyImpl<Date> {
 		if (this.token.parameters) {
 			this.token.parameters.map((param) => {
 				switch (param.name) {
-				case PARAMETER.TZID: this.parameters.TZID = param.value; break;
-				case PARAMETER.Value: this.parameters.Value = param.value; break;
+					case PARAMETER.TZID:
+						this.parameters.TZID = param.value;
+						break;
+					case PARAMETER.Value:
+						this.parameters.Value = param.value;
+						break;
 				}
 			});
 		}
 		// set value
 		this.value = zonedTimeToUtc(this.token.value, getTimezoneOffset(calendar, this.parameters.TZID));
 	}
-
 }

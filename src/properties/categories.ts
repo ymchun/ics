@@ -16,12 +16,13 @@ export class Categories extends Property implements PropertyImpl<string[]> {
 		if (this.token.parameters) {
 			this.token.parameters.map((param) => {
 				switch (param.name) {
-				case PARAMETER.Language: this.parameters.Language = param.value; break;
+					case PARAMETER.Language:
+						this.parameters.Language = param.value;
+						break;
 				}
 			});
 		}
 		// set value
 		this.value = this.token.value.split(',');
 	}
-
 }
