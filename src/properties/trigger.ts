@@ -1,5 +1,6 @@
 import { VCalendar } from '~/components/v-calendar';
 import { PARAMETER, PROPERTY } from '~/constant';
+import { foldLine, propertyParameterToString } from '~/helper';
 import { PropertyImpl } from '~/interfaces/property-impl';
 import { Property } from '~/properties/property';
 
@@ -28,5 +29,10 @@ export class Trigger extends Property implements PropertyImpl<string> {
 		}
 		// set value
 		this.value = this.token.value;
+	}
+
+	public toString(): string {
+		const paramStr = propertyParameterToString(this.parameters);
+		return foldLine(`${this.type}${paramStr}:${this.value}`);
 	}
 }

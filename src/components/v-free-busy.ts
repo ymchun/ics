@@ -1,5 +1,5 @@
 import { Component } from '~/components/component';
-import { COMPONENT, PROPERTY } from '~/constant';
+import { COMPONENT, KEYWORD, PROPERTY } from '~/constant';
 import { ComponentImpl } from '~/interfaces/component-impl';
 import { Attendee } from '~/properties/attendee';
 import { Comment } from '~/properties/comment';
@@ -75,5 +75,51 @@ export class VFreeBusy extends Component implements ComponentImpl {
 				this.freeBusy.push(property as FreeBusy);
 				break;
 		}
+	}
+
+	public toString(): string {
+		// result array
+		const lines: string[] = [];
+		// push begin tag
+		lines.push(`${KEYWORD.Begin}:${this.type}`);
+
+		// push properties
+		if (this.dtStamp) {
+			lines.push(this.dtStamp.toString());
+		}
+		if (this.uid) {
+			lines.push(this.uid.toString());
+		}
+
+		if (this.contact) {
+			lines.push(this.contact.toString());
+		}
+		if (this.dtEnd) {
+			lines.push(this.dtEnd.toString());
+		}
+		if (this.dtStart) {
+			lines.push(this.dtStart.toString());
+		}
+		if (this.organizer) {
+			lines.push(this.organizer.toString());
+		}
+		if (this.url) {
+			lines.push(this.url.toString());
+		}
+
+		if (this.attendees) {
+			lines.push(...this.attendees.map((p) => p.toString()));
+		}
+		if (this.comments) {
+			lines.push(...this.comments.map((p) => p.toString()));
+		}
+		if (this.freeBusy) {
+			lines.push(...this.freeBusy.map((p) => p.toString()));
+		}
+
+		// push end tag
+		lines.push(`${KEYWORD.End}:${this.type}`);
+
+		return lines.join('\r\n');
 	}
 }

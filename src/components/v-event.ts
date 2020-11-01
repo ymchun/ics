@@ -1,6 +1,6 @@
 import { Component } from '~/components/component';
 import { VAlarm } from '~/components/v-alarm';
-import { COMPONENT, PROPERTY } from '~/constant';
+import { COMPONENT, KEYWORD, PROPERTY } from '~/constant';
 import { ComponentImpl } from '~/interfaces/component-impl';
 import { Attachment } from '~/properties/attachment';
 import { Attendee } from '~/properties/attendee';
@@ -199,5 +199,115 @@ export class VEvent extends Component implements ComponentImpl {
 				this.relatedTo.push(property as RelatedTo);
 				break;
 		}
+	}
+
+	public toString(): string {
+		// result array
+		const lines: string[] = [];
+		// push begin tag
+		lines.push(`${KEYWORD.Begin}:${this.type}`);
+
+		// push properties
+		if (this.alarms) {
+			lines.push(...this.alarms.map((p) => p.toString()));
+		}
+
+		if (this.dtStamp) {
+			lines.push(this.dtStamp.toString());
+		}
+		if (this.uid) {
+			lines.push(this.uid.toString());
+		}
+
+		if (this.dtStart) {
+			lines.push(this.dtStart.toString());
+		}
+
+		if (this.class) {
+			lines.push(this.class.toString());
+		}
+		if (this.created) {
+			lines.push(this.created.toString());
+		}
+		if (this.description) {
+			lines.push(this.description.toString());
+		}
+		if (this.geo) {
+			lines.push(this.geo.toString());
+		}
+		if (this.lastModified) {
+			lines.push(this.lastModified.toString());
+		}
+		if (this.location) {
+			lines.push(this.location.toString());
+		}
+		if (this.organizer) {
+			lines.push(this.organizer.toString());
+		}
+		if (this.priority) {
+			lines.push(this.priority.toString());
+		}
+		if (this.recurrenceId) {
+			lines.push(this.recurrenceId.toString());
+		}
+		if (this.sequence) {
+			lines.push(this.sequence.toString());
+		}
+		if (this.status) {
+			lines.push(this.status.toString());
+		}
+		if (this.summary) {
+			lines.push(this.summary.toString());
+		}
+		if (this.transp) {
+			lines.push(this.transp.toString());
+		}
+		if (this.url) {
+			lines.push(this.url.toString());
+		}
+
+		if (this.rrule) {
+			lines.push(this.rrule.toString());
+		}
+
+		if (this.dtEnd) {
+			lines.push(this.dtEnd.toString());
+		}
+		if (this.duration) {
+			lines.push(this.duration.toString());
+		}
+
+		if (this.attachments) {
+			lines.push(...this.attachments.map((p) => p.toString()));
+		}
+		if (this.attendees) {
+			lines.push(...this.attendees.map((p) => p.toString()));
+		}
+		if (this.categories) {
+			lines.push(this.categories.toString());
+		}
+		if (this.comments) {
+			lines.push(...this.comments.map((p) => p.toString()));
+		}
+		if (this.contacts) {
+			lines.push(...this.contacts.map((p) => p.toString()));
+		}
+		if (this.exDates) {
+			lines.push(...this.exDates.map((p) => p.toString()));
+		}
+		if (this.rDates) {
+			lines.push(...this.rDates.map((p) => p.toString()));
+		}
+		if (this.relatedTo) {
+			lines.push(...this.relatedTo.map((p) => p.toString()));
+		}
+		if (this.resources) {
+			lines.push(this.resources.toString());
+		}
+
+		// push end tag
+		lines.push(`${KEYWORD.End}:${this.type}`);
+
+		return lines.join('\r\n');
 	}
 }

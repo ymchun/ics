@@ -1,5 +1,5 @@
 import { Component } from '~/components/component';
-import { COMPONENT, PROPERTY } from '~/constant';
+import { COMPONENT, KEYWORD, PROPERTY } from '~/constant';
 import { ComponentImpl } from '~/interfaces/component-impl';
 import { Action } from '~/properties/action';
 import { Attachment } from '~/properties/attachment';
@@ -82,5 +82,51 @@ export class VAlarm extends Component implements ComponentImpl {
 				this.attendees.push(property as Attendee);
 				break;
 		}
+	}
+
+	public toString(): string {
+		// result array
+		const lines: string[] = [];
+		// push begin tag
+		lines.push(`${KEYWORD.Begin}:${this.type}`);
+
+		// push properties
+		if (this.action) {
+			lines.push(this.action.toString());
+		}
+		if (this.trigger) {
+			lines.push(this.trigger.toString());
+		}
+		if (this.uid) {
+			lines.push(this.uid.toString());
+		}
+
+		if (this.description) {
+			lines.push(this.description.toString());
+		}
+
+		if (this.summary) {
+			lines.push(this.summary.toString());
+		}
+
+		if (this.duration) {
+			lines.push(this.duration.toString());
+		}
+		if (this.repeat) {
+			lines.push(this.repeat.toString());
+		}
+
+		if (this.attendees) {
+			lines.push(...this.attendees.map((p) => p.toString()));
+		}
+
+		if (this.attachments) {
+			lines.push(...this.attachments.map((p) => p.toString()));
+		}
+
+		// push end tag
+		lines.push(`${KEYWORD.End}:${this.type}`);
+
+		return lines.join('\r\n');
 	}
 }

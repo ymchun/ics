@@ -12,4 +12,8 @@ export class Component {
 	public setProperty(property: Property): void {
 		throw Error('Not implemented');
 	}
+
+	public toString(): string {
+		throw Error('Not implemented');
+	}
 }

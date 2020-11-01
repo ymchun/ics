@@ -1,5 +1,5 @@
 import { Component } from '~/components/component';
-import { COMPONENT, PROPERTY } from '~/constant';
+import { COMPONENT, KEYWORD, PROPERTY } from '~/constant';
 import { ComponentImpl } from '~/interfaces/component-impl';
 import { Comment } from '~/properties/comment';
 import { DateTimeStart } from '~/properties/date-time-start';
@@ -59,5 +59,42 @@ export class DayLight extends Component implements ComponentImpl {
 				this.tzName = property as TZName;
 				break;
 		}
+	}
+
+	public toString(): string {
+		// result array
+		const lines: string[] = [];
+		// push begin tag
+		lines.push(`${KEYWORD.Begin}:${this.type}`);
+
+		// push properties
+		if (this.dtStart) {
+			lines.push(this.dtStart.toString());
+		}
+		if (this.tzOffsetFrom) {
+			lines.push(this.tzOffsetFrom.toString());
+		}
+		if (this.tzOffsetTo) {
+			lines.push(this.tzOffsetTo.toString());
+		}
+
+		if (this.rrule) {
+			lines.push(this.rrule.toString());
+		}
+
+		if (this.comments) {
+			lines.push(...this.comments.map((p) => p.toString()));
+		}
+		if (this.rDates) {
+			lines.push(...this.rDates.map((p) => p.toString()));
+		}
+		if (this.tzName) {
+			lines.push(this.tzName.toString());
+		}
+
+		// push end tag
+		lines.push(`${KEYWORD.End}:${this.type}`);
+
+		return lines.join('\r\n');
 	}
 }

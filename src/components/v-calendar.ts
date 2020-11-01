@@ -2,7 +2,7 @@ import { Component } from '~/components/component';
 import { VEvent } from '~/components/v-event';
 import { VFreeBusy } from '~/components/v-free-busy';
 import { VTimezone } from '~/components/v-timezone';
-import { COMPONENT, PROPERTY } from '~/constant';
+import { COMPONENT, KEYWORD, PROPERTY } from '~/constant';
 import { ComponentImpl } from '~/interfaces/component-impl';
 import { CalendarScale } from '~/properties/calendar-scale';
 import { ExtWRCalDesc } from '~/properties/ext-wr-cal-desc';
@@ -84,5 +84,52 @@ export class VCalendar extends Component implements ComponentImpl {
 				this.extWRTimezone = property as ExtWRTimezone;
 				break;
 		}
+	}
+
+	public toString(): string {
+		// result array
+		const lines: string[] = [];
+		// push begin tag
+		lines.push(`${KEYWORD.Begin}:${this.type}`);
+
+		// push properties
+		if (this.events) {
+			lines.push(...this.events.map((p) => p.toString()));
+		}
+		if (this.freeBusy) {
+			lines.push(...this.freeBusy.map((p) => p.toString()));
+		}
+		if (this.timezones) {
+			lines.push(...this.timezones.map((p) => p.toString()));
+		}
+
+		if (this.productId) {
+			lines.push(this.productId.toString());
+		}
+		if (this.version) {
+			lines.push(this.version.toString());
+		}
+
+		if (this.calScale) {
+			lines.push(this.calScale.toString());
+		}
+		if (this.method) {
+			lines.push(this.method.toString());
+		}
+
+		if (this.extWRCalDesc) {
+			lines.push(this.extWRCalDesc.toString());
+		}
+		if (this.extWRCalName) {
+			lines.push(this.extWRCalName.toString());
+		}
+		if (this.extWRTimezone) {
+			lines.push(this.extWRTimezone.toString());
+		}
+
+		// push end tag
+		lines.push(`${KEYWORD.End}:${this.type}`);
+
+		return lines.join('\r\n');
 	}
 }

@@ -1,7 +1,7 @@
 import { zonedTimeToUtc } from 'date-fns-tz';
 import { VCalendar } from '~/components/v-calendar';
 import { PARAMETER, PROPERTY } from '~/constant';
-import { getTimezoneOffset } from '~/helper';
+import { foldLine, getDateTimeStr, getTimezoneOffset, propertyParameterToString } from '~/helper';
 import { PropertyImpl } from '~/interfaces/property-impl';
 import { Property } from '~/properties/property';
 
@@ -30,5 +30,10 @@ export class DateTimeStart extends Property implements PropertyImpl<Date> {
 		}
 		// set value
 		this.value = zonedTimeToUtc(this.token.value, getTimezoneOffset(calendar, this.parameters.TZID));
+	}
+
+	public toString(): string {
+		const paramStr = propertyParameterToString(this.parameters);
+		return foldLine(`${this.type}${paramStr}:${getDateTimeStr(this.value)}`);
 	}
 }

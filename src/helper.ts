@@ -1,6 +1,6 @@
-import { addDays, addHours, addMinutes, addSeconds, addWeeks, isValid, parseISO } from 'date-fns';
+import { addDays, addHours, addMinutes, addSeconds, addWeeks, format, isValid, parseISO } from 'date-fns';
 import { VCalendar } from '~/components/v-calendar';
-import { FOLD_LINE_BREAK, TEST_PERIOD_TYPE } from '~/constant';
+import { FOLD_LINE_BREAK, PARAMETER, TEST_PERIOD_TYPE } from '~/constant';
 import { DurationTime } from '~/interfaces/duration-time';
 
 export function foldLine(line = ''): string {
@@ -117,4 +117,29 @@ export function getTimezoneOffset(calendar: VCalendar, TZID: string | null): str
 		}
 	}
 	return 'UTC';
+}
+
+export function propertyParameterToString(parameters: { [key: string]: string[] | string | null }): string {
+	return Object.keys(parameters)
+		.filter((key) => parameters[key] !== null)
+		.map((key) => {
+			const paramKey = (PARAMETER as { [key: string]: string })[key];
+			const paramValue = (Array.isArray(parameters[key])
+				? (parameters[key] as string[]).join(',')
+				: parameters[key]) as string;
+			return `;${paramKey}=${paramValue}`;
+		})
+		.join('');
+}
+
+export function getTimeStr(date: Date): string {
+	return format(date, 'HHmmss');
+}
+
+export function getDateStr(date: Date): string {
+	return format(date, 'yyyyMMdd');
+}
+
+export function getDateTimeStr(date: Date): string {
+	return `${getDateStr(date)}T${getTimeStr(date)}`;
 }

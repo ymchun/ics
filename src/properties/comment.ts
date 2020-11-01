@@ -1,6 +1,6 @@
 import { VCalendar } from '~/components/v-calendar';
 import { PARAMETER, PROPERTY } from '~/constant';
-import { unescape } from '~/helper';
+import { escape, foldLine, propertyParameterToString, unescape } from '~/helper';
 import { PropertyImpl } from '~/interfaces/property-impl';
 import { Property } from '~/properties/property';
 
@@ -29,5 +29,10 @@ export class Comment extends Property implements PropertyImpl<string> {
 		}
 		// set value
 		this.value = unescape(this.token.value);
+	}
+
+	public toString(): string {
+		const paramStr = propertyParameterToString(this.parameters);
+		return foldLine(`${this.type}${paramStr}:${escape(this.value)}`);
 	}
 }

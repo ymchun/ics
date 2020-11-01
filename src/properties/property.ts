@@ -9,4 +9,8 @@ export class Property {
 	public evaluate(calendar: VCalendar): void {
 		throw Error('Not implemented');
 	}
+
+	public toString(): string {
+		throw Error('Not implemented');
+	}
 }

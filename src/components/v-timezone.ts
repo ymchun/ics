@@ -1,7 +1,7 @@
 import { Component } from '~/components/component';
 import { DayLight } from '~/components/day-light';
 import { Standard } from '~/components/standard';
-import { COMPONENT, PROPERTY } from '~/constant';
+import { COMPONENT, KEYWORD, PROPERTY } from '~/constant';
 import { ComponentImpl } from '~/interfaces/component-impl';
 import { LastModified } from '~/properties/last-modified';
 import { Property } from '~/properties/property';
@@ -53,5 +53,36 @@ export class VTimezone extends Component implements ComponentImpl {
 				this.TZUrl = property as TZUrl;
 				break;
 		}
+	}
+
+	public toString(): string {
+		// result array
+		const lines: string[] = [];
+		// push begin tag
+		lines.push(`${KEYWORD.Begin}:${this.type}`);
+
+		// push properties
+		if (this.TZID) {
+			lines.push(this.TZID.toString());
+		}
+		if (this.lastModified) {
+			lines.push(this.lastModified.toString());
+		}
+		if (this.TZUrl) {
+			lines.push(this.TZUrl.toString());
+		}
+
+		// push components
+		if (this.daylight) {
+			lines.push(this.daylight.toString());
+		}
+		if (this.standard) {
+			lines.push(this.standard.toString());
+		}
+
+		// push end tag
+		lines.push(`${KEYWORD.End}:${this.type}`);
+
+		return lines.join('\r\n');
 	}
 }
