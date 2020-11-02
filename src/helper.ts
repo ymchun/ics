@@ -62,6 +62,7 @@ export function isDuration(value: string): boolean {
 export function parseDuration(value: string): DurationTime {
 	const matches = TEST_PERIOD_TYPE.exec(value);
 	return {
+		sign: matches && matches[1] ? (matches[1] as DurationTime['sign']) : '+',
 		weeks: matches && matches[2] ? parseInt(matches[2], 10) : 0,
 		days: matches && matches[3] ? parseInt(matches[3], 10) : 0,
 		hours: matches && matches[5] ? parseInt(matches[5], 10) : 0,

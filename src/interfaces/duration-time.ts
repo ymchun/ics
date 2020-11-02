@@ -1,4 +1,5 @@
 export interface DurationTime {
+	sign: '+' | '-';
 	weeks: number;
 	days: number;
 	hours: number;
