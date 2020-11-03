@@ -4,16 +4,16 @@ import { foldLine, propertyParameterToString } from '~/helper';
 import { PropertyImpl } from '~/interfaces/property-impl';
 import { Property } from '~/properties/property';
 import { DateValue } from '~/values/date';
-import { DateTime } from '~/values/date-time';
-import { Text } from '~/values/text';
+import { DateTimeValue } from '~/values/date-time';
+import { TextValue } from '~/values/text';
 
-export class RecurrenceId extends Property implements PropertyImpl<DateValue | DateTime> {
+export class RecurrenceId extends Property implements PropertyImpl<DateValue | DateTimeValue> {
 	public type = PROPERTY.RecurrenceId;
-	public value!: DateValue | DateTime;
+	public value!: DateValue | DateTimeValue;
 	public parameters = {
-		Range: null as Text | null,
-		TZID: null as Text | null,
-		Value: null as Text | null,
+		Range: null as TextValue | null,
+		TZID: null as TextValue | null,
+		Value: null as TextValue | null,
 	};
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -23,13 +23,13 @@ export class RecurrenceId extends Property implements PropertyImpl<DateValue | D
 			this.token.parameters.map((param) => {
 				switch (param.name) {
 					case PARAMETER.Range:
-						this.parameters.Range = new Text().setValue(param.value);
+						this.parameters.Range = new TextValue().setValue(param.value);
 						break;
 					case PARAMETER.TZID:
-						this.parameters.TZID = new Text().setValue(param.value);
+						this.parameters.TZID = new TextValue().setValue(param.value);
 						break;
 					case PARAMETER.Value:
-						this.parameters.Value = new Text().setValue(param.value);
+						this.parameters.Value = new TextValue().setValue(param.value);
 						break;
 				}
 			});
@@ -38,7 +38,7 @@ export class RecurrenceId extends Property implements PropertyImpl<DateValue | D
 		if (this.parameters.Value?.getValue() === VALUE_DATA_TYPE.Date) {
 			this.value = new DateValue().setValue(this.token.value);
 		} else {
-			this.value = new DateTime().setValue(this.token.value);
+			this.value = new DateTimeValue().setValue(this.token.value);
 		}
 		// this.value = zonedTimeToUtc(this.token.value, getTimezoneOffset(calendar, this.parameters.TZID));
 	}

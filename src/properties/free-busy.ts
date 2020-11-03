@@ -3,14 +3,14 @@ import { PARAMETER, PROPERTY } from '~/constant';
 import { foldLine, propertyParameterToString } from '~/helper';
 import { PropertyImpl } from '~/interfaces/property-impl';
 import { Property } from '~/properties/property';
-import { Period } from '~/values/period';
-import { Text } from '~/values/text';
+import { PeriodValue } from '~/values/period';
+import { TextValue } from '~/values/text';
 
-export class FreeBusy extends Property implements PropertyImpl<Period[]> {
+export class FreeBusy extends Property implements PropertyImpl<PeriodValue[]> {
 	public type = PROPERTY.FreeBusy;
-	public value!: Period[];
+	public value!: PeriodValue[];
 	public parameters = {
-		FBType: null as Text | null,
+		FBType: null as TextValue | null,
 	};
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -20,13 +20,13 @@ export class FreeBusy extends Property implements PropertyImpl<Period[]> {
 			this.token.parameters.map((param) => {
 				switch (param.name) {
 					case PARAMETER.FBType:
-						this.parameters.FBType = new Text().setValue(param.value);
+						this.parameters.FBType = new TextValue().setValue(param.value);
 						break;
 				}
 			});
 		}
 		// set value
-		this.value = this.token.value.split(',').map((v) => new Period().setValue(v));
+		this.value = this.token.value.split(',').map((v) => new PeriodValue().setValue(v));
 	}
 
 	public toString(): string {

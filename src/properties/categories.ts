@@ -3,13 +3,13 @@ import { PARAMETER, PROPERTY } from '~/constant';
 import { foldLine, propertyParameterToString } from '~/helper';
 import { PropertyImpl } from '~/interfaces/property-impl';
 import { Property } from '~/properties/property';
-import { Text } from '~/values/text';
+import { TextValue } from '~/values/text';
 
-export class Categories extends Property implements PropertyImpl<Text[]> {
+export class Categories extends Property implements PropertyImpl<TextValue[]> {
 	public type = PROPERTY.Categories;
-	public value!: Text[];
+	public value!: TextValue[];
 	public parameters = {
-		Language: null as Text | null,
+		Language: null as TextValue | null,
 	};
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -19,13 +19,13 @@ export class Categories extends Property implements PropertyImpl<Text[]> {
 			this.token.parameters.map((param) => {
 				switch (param.name) {
 					case PARAMETER.Language:
-						this.parameters.Language = new Text().setValue(param.value);
+						this.parameters.Language = new TextValue().setValue(param.value);
 						break;
 				}
 			});
 		}
 		// set value
-		this.value = this.token.value.split(',').map((v) => new Text().setValue(v));
+		this.value = this.token.value.split(',').map((v) => new TextValue().setValue(v));
 	}
 
 	public toString(): string {

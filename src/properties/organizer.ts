@@ -3,18 +3,18 @@ import { PARAMETER, PROPERTY } from '~/constant';
 import { foldLine, propertyParameterToString } from '~/helper';
 import { PropertyImpl } from '~/interfaces/property-impl';
 import { Property } from '~/properties/property';
-import { CalAddress } from '~/values/cal-address';
-import { Text } from '~/values/text';
-import { URI } from '~/values/uri';
+import { CalAddressValue } from '~/values/cal-address';
+import { TextValue } from '~/values/text';
+import { URIValue } from '~/values/uri';
 
-export class Organizer extends Property implements PropertyImpl<CalAddress> {
+export class Organizer extends Property implements PropertyImpl<CalAddressValue> {
 	public type = PROPERTY.Organizer;
-	public value!: CalAddress;
+	public value!: CalAddressValue;
 	public parameters = {
-		CN: null as Text | null,
-		Dir: null as URI | null,
-		Language: null as Text | null,
-		SentBy: null as CalAddress | null,
+		CN: null as TextValue | null,
+		Dir: null as URIValue | null,
+		Language: null as TextValue | null,
+		SentBy: null as CalAddressValue | null,
 	};
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -24,22 +24,22 @@ export class Organizer extends Property implements PropertyImpl<CalAddress> {
 			this.token.parameters.map((param) => {
 				switch (param.name) {
 					case PARAMETER.CN:
-						this.parameters.CN = new Text().setValue(param.value);
+						this.parameters.CN = new TextValue().setValue(param.value);
 						break;
 					case PARAMETER.Dir:
-						this.parameters.Dir = new URI().setValue(param.value);
+						this.parameters.Dir = new URIValue().setValue(param.value);
 						break;
 					case PARAMETER.Language:
-						this.parameters.Language = new Text().setValue(param.value);
+						this.parameters.Language = new TextValue().setValue(param.value);
 						break;
 					case PARAMETER.SentBy:
-						this.parameters.SentBy = new CalAddress().setValue(param.value);
+						this.parameters.SentBy = new CalAddressValue().setValue(param.value);
 						break;
 				}
 			});
 		}
 		// set value
-		this.value = new CalAddress().setValue(this.token.value);
+		this.value = new CalAddressValue().setValue(this.token.value);
 	}
 
 	public toString(): string {

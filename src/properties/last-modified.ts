@@ -3,16 +3,16 @@ import { PROPERTY } from '~/constant';
 import { foldLine } from '~/helper';
 import { PropertyImpl } from '~/interfaces/property-impl';
 import { Property } from '~/properties/property';
-import { DateTime } from '~/values/date-time';
+import { DateTimeValue } from '~/values/date-time';
 
-export class LastModified extends Property implements PropertyImpl<DateTime> {
+export class LastModified extends Property implements PropertyImpl<DateTimeValue> {
 	public type = PROPERTY.LastModified;
-	public value!: DateTime;
+	public value!: DateTimeValue;
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	public evaluate(calendar: VCalendar): void {
 		// set value
-		this.value = new DateTime().setValue(this.token.value);
+		this.value = new DateTimeValue().setValue(this.token.value);
 	}
 
 	public toString(): string {

@@ -1,7 +1,7 @@
 import { VALUE_DATA_TYPE } from '~/constant';
 import { Value } from '~/values/value';
 
-export class Recurrence extends Value<string> {
+export class RecurrenceValue extends Value<string> {
 	public type = VALUE_DATA_TYPE.Recur;
 	private value!: string;
 

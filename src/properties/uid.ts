@@ -3,16 +3,16 @@ import { PROPERTY } from '~/constant';
 import { foldLine } from '~/helper';
 import { PropertyImpl } from '~/interfaces/property-impl';
 import { Property } from '~/properties/property';
-import { Text } from '~/values/text';
+import { TextValue } from '~/values/text';
 
-export class UID extends Property implements PropertyImpl<Text> {
+export class UID extends Property implements PropertyImpl<TextValue> {
 	public type = PROPERTY.UID;
-	public value!: Text;
+	public value!: TextValue;
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	public evaluate(calendar: VCalendar): void {
 		// set value
-		this.value = new Text().setValue(this.token.value);
+		this.value = new TextValue().setValue(this.token.value);
 	}
 
 	public toString(): string {

@@ -4,15 +4,15 @@ import { foldLine, propertyParameterToString } from '~/helper';
 import { PropertyImpl } from '~/interfaces/property-impl';
 import { Property } from '~/properties/property';
 import { DateValue } from '~/values/date';
-import { DateTime } from '~/values/date-time';
-import { Text } from '~/values/text';
+import { DateTimeValue } from '~/values/date-time';
+import { TextValue } from '~/values/text';
 
-export class ExceptionDateTimes extends Property implements PropertyImpl<Array<DateValue | DateTime>> {
+export class ExceptionDateTimes extends Property implements PropertyImpl<Array<DateValue | DateTimeValue>> {
 	public type = PROPERTY.ExDate;
-	public value!: Array<DateValue | DateTime>;
+	public value!: Array<DateValue | DateTimeValue>;
 	public parameters = {
-		TZID: null as Text | null,
-		Value: null as Text | null,
+		TZID: null as TextValue | null,
+		Value: null as TextValue | null,
 	};
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -22,10 +22,10 @@ export class ExceptionDateTimes extends Property implements PropertyImpl<Array<D
 			this.token.parameters.map((param) => {
 				switch (param.name) {
 					case PARAMETER.TZID:
-						this.parameters.TZID = new Text().setValue(param.value);
+						this.parameters.TZID = new TextValue().setValue(param.value);
 						break;
 					case PARAMETER.Value:
-						this.parameters.Value = new Text().setValue(param.value);
+						this.parameters.Value = new TextValue().setValue(param.value);
 						break;
 				}
 			});
@@ -35,7 +35,7 @@ export class ExceptionDateTimes extends Property implements PropertyImpl<Array<D
 			if (this.parameters.Value?.getValue() === VALUE_DATA_TYPE.Date) {
 				return new DateValue().setValue(v);
 			} else {
-				return new DateTime().setValue(v);
+				return new DateTimeValue().setValue(v);
 			}
 		});
 		// this.value = this.token.value

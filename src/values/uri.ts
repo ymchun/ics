@@ -1,7 +1,7 @@
 import { VALUE_DATA_TYPE } from '~/constant';
 import { Value } from '~/values/value';
 
-export class URI extends Value<string> {
+export class URIValue extends Value<string> {
 	public type = VALUE_DATA_TYPE.URI;
 	private value!: string;
 

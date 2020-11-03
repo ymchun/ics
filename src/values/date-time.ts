@@ -3,7 +3,7 @@ import { VALUE_DATA_TYPE } from '~/constant';
 import { formatDateTime } from '~/helper';
 import { Value } from '~/values/value';
 
-export class DateTime extends Value<Date> {
+export class DateTimeValue extends Value<Date> {
 	public type = VALUE_DATA_TYPE.DateTime;
 	private value!: Date;
 

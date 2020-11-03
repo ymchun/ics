@@ -3,16 +3,16 @@ import { PROPERTY } from '~/constant';
 import { foldLine } from '~/helper';
 import { PropertyImpl } from '~/interfaces/property-impl';
 import { Property } from '~/properties/property';
-import { URI } from '~/values/uri';
+import { URIValue } from '~/values/uri';
 
-export class Url extends Property implements PropertyImpl<URI> {
+export class Url extends Property implements PropertyImpl<URIValue> {
 	public type = PROPERTY.Url;
-	public value!: URI;
+	public value!: URIValue;
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	public evaluate(calendar: VCalendar): void {
 		// set value
-		this.value = new URI().setValue(this.token.value);
+		this.value = new URIValue().setValue(this.token.value);
 	}
 
 	public toString(): string {

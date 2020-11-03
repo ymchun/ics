@@ -2,7 +2,7 @@ import { TEST_PERIOD_TYPE, VALUE_DATA_TYPE } from '~/constant';
 import { DurationTime } from '~/interfaces/duration-time';
 import { Value } from '~/values/value';
 
-export class Duration extends Value<DurationTime> {
+export class DurationValue extends Value<DurationTime> {
 	public type = VALUE_DATA_TYPE.Duration;
 	private value!: DurationTime;
 

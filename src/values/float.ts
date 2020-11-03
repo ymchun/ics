@@ -1,7 +1,7 @@
 import { VALUE_DATA_TYPE } from '~/constant';
 import { Value } from '~/values/value';
 
-export class Float extends Value<number> {
+export class FloatValue extends Value<number> {
 	public type = VALUE_DATA_TYPE.Float;
 	private value!: number;
 

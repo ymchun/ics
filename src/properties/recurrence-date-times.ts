@@ -4,16 +4,18 @@ import { foldLine, propertyParameterToString } from '~/helper';
 import { PropertyImpl } from '~/interfaces/property-impl';
 import { Property } from '~/properties/property';
 import { DateValue } from '~/values/date';
-import { DateTime } from '~/values/date-time';
-import { Period } from '~/values/period';
-import { Text } from '~/values/text';
+import { DateTimeValue } from '~/values/date-time';
+import { PeriodValue } from '~/values/period';
+import { TextValue } from '~/values/text';
 
-export class RecurrenceDateTimes extends Property implements PropertyImpl<Array<DateValue | DateTime | Period>> {
+export class RecurrenceDateTimes
+	extends Property
+	implements PropertyImpl<Array<DateValue | DateTimeValue | PeriodValue>> {
 	public type = PROPERTY.RDate;
-	public value!: Array<DateValue | DateTime | Period>;
+	public value!: Array<DateValue | DateTimeValue | PeriodValue>;
 	public parameters = {
-		TZID: null as Text | null,
-		Value: null as Text | null,
+		TZID: null as TextValue | null,
+		Value: null as TextValue | null,
 	};
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -23,10 +25,10 @@ export class RecurrenceDateTimes extends Property implements PropertyImpl<Array<
 			this.token.parameters.map((param) => {
 				switch (param.name) {
 					case PARAMETER.TZID:
-						this.parameters.TZID = new Text().setValue(param.value);
+						this.parameters.TZID = new TextValue().setValue(param.value);
 						break;
 					case PARAMETER.Value:
-						this.parameters.Value = new Text().setValue(param.value);
+						this.parameters.Value = new TextValue().setValue(param.value);
 						break;
 				}
 			});
@@ -37,12 +39,12 @@ export class RecurrenceDateTimes extends Property implements PropertyImpl<Array<
 				case VALUE_DATA_TYPE.Date:
 					return new DateValue().setValue(v);
 				case VALUE_DATA_TYPE.Period:
-					return new Period().setValue(v);
+					return new PeriodValue().setValue(v);
 				default:
-					return new DateTime().setValue(v);
+					return new DateTimeValue().setValue(v);
 			}
-			// if (this.parameters.Value === VALUE_DATA_TYPE.Period) {
-			// 	return getDateRangeFromPeriod(v);
+			// if (this.parameters.Value === VALUE_DATA_TYPE.PeriodValue) {
+			// 	return getDateRangeFromPeriodValue(v);
 			// } else {
 			// 	const date = zonedTimeToUtc(v, getTimezoneOffset(calendar, this.parameters.TZID));
 			// 	return [date, date];

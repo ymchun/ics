@@ -3,16 +3,16 @@ import { PROPERTY } from '~/constant';
 import { foldLine } from '~/helper';
 import { PropertyImpl } from '~/interfaces/property-impl';
 import { Property } from '~/properties/property';
-import { Recurrence } from '~/values/recurrence';
+import { RecurrenceValue } from '~/values/recurrence';
 
-export class RRule extends Property implements PropertyImpl<Recurrence> {
+export class RRule extends Property implements PropertyImpl<RecurrenceValue> {
 	public type = PROPERTY.RRule;
-	public value!: Recurrence;
+	public value!: RecurrenceValue;
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	public evaluate(calendar: VCalendar): void {
 		// set value
-		this.value = new Recurrence().setValue(this.token.value);
+		this.value = new RecurrenceValue().setValue(this.token.value);
 	}
 
 	public toString(): string {

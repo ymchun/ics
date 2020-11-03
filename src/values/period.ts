@@ -2,10 +2,10 @@ import { isValid, parseISO } from 'date-fns';
 import { TEST_PERIOD_TYPE, VALUE_DATA_TYPE } from '~/constant';
 import { formatDateTime } from '~/helper';
 import { PeriodTime } from '~/interfaces/period-time';
-import { Duration } from '~/values/duration';
+import { DurationValue } from '~/values/duration';
 import { Value } from '~/values/value';
 
-export class Period extends Value<PeriodTime> {
+export class PeriodValue extends Value<PeriodTime> {
 	public type = VALUE_DATA_TYPE.Period;
 	private value!: PeriodTime;
 
@@ -30,7 +30,7 @@ export class Period extends Value<PeriodTime> {
 				this.value = {
 					type: 'start',
 					start: firstDate,
-					duration: new Duration().setValue(second),
+					duration: new DurationValue().setValue(second),
 				};
 			}
 		}

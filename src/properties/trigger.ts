@@ -3,16 +3,16 @@ import { PARAMETER, PROPERTY, TEST_PERIOD_TYPE } from '~/constant';
 import { foldLine, propertyParameterToString } from '~/helper';
 import { PropertyImpl } from '~/interfaces/property-impl';
 import { Property } from '~/properties/property';
-import { DateTime } from '~/values/date-time';
-import { Duration } from '~/values/duration';
-import { Text } from '~/values/text';
+import { DateTimeValue } from '~/values/date-time';
+import { DurationValue } from '~/values/duration';
+import { TextValue } from '~/values/text';
 
-export class Trigger extends Property implements PropertyImpl<DateTime | Duration> {
+export class Trigger extends Property implements PropertyImpl<DateTimeValue | DurationValue> {
 	public type = PROPERTY.Trigger;
-	public value!: DateTime | Duration;
+	public value!: DateTimeValue | DurationValue;
 	public parameters = {
-		Related: null as Text | null,
-		Value: null as Text | null,
+		Related: null as TextValue | null,
+		Value: null as TextValue | null,
 	};
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -22,19 +22,19 @@ export class Trigger extends Property implements PropertyImpl<DateTime | Duratio
 			this.token.parameters.map((param) => {
 				switch (param.name) {
 					case PARAMETER.Related:
-						this.parameters.Related = new Text().setValue(param.value);
+						this.parameters.Related = new TextValue().setValue(param.value);
 						break;
 					case PARAMETER.Value:
-						this.parameters.Value = new Text().setValue(param.value);
+						this.parameters.Value = new TextValue().setValue(param.value);
 						break;
 				}
 			});
 		}
 		// set value
 		if (TEST_PERIOD_TYPE.test(this.token.value)) {
-			this.value = new Duration().setValue(this.token.value);
+			this.value = new DurationValue().setValue(this.token.value);
 		} else {
-			this.value = new DateTime().setValue(this.token.value);
+			this.value = new DateTimeValue().setValue(this.token.value);
 		}
 	}
 

@@ -2,7 +2,7 @@ import { VALUE_DATA_TYPE } from '~/constant';
 import { escape, unescape } from '~/helper';
 import { Value } from '~/values/value';
 
-export class Text extends Value<string> {
+export class TextValue extends Value<string> {
 	public type = VALUE_DATA_TYPE.Text;
 	private value!: string;
 

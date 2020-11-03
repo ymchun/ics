@@ -3,16 +3,16 @@ import { PROPERTY } from '~/constant';
 import { foldLine } from '~/helper';
 import { PropertyImpl } from '~/interfaces/property-impl';
 import { Property } from '~/properties/property';
-import { UTCOffset } from '~/values/utc-offset';
+import { UTCOffsetValue } from '~/values/utc-offset';
 
-export class TZOffsetFrom extends Property implements PropertyImpl<UTCOffset> {
+export class TZOffsetFrom extends Property implements PropertyImpl<UTCOffsetValue> {
 	public type = PROPERTY.TZOffsetFrom;
-	public value!: UTCOffset;
+	public value!: UTCOffsetValue;
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	public evaluate(calendar: VCalendar): void {
 		// set value
-		this.value = new UTCOffset().setValue(this.token.value);
+		this.value = new UTCOffsetValue().setValue(this.token.value);
 	}
 
 	public toString(): string {

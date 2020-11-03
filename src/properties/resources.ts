@@ -3,15 +3,15 @@ import { PARAMETER, PROPERTY } from '~/constant';
 import { foldLine, propertyParameterToString } from '~/helper';
 import { PropertyImpl } from '~/interfaces/property-impl';
 import { Property } from '~/properties/property';
-import { Text } from '~/values/text';
-import { URI } from '~/values/uri';
+import { TextValue } from '~/values/text';
+import { URIValue } from '~/values/uri';
 
-export class Resources extends Property implements PropertyImpl<Text[]> {
+export class Resources extends Property implements PropertyImpl<TextValue[]> {
 	public type = PROPERTY.Resources;
-	public value!: Text[];
+	public value!: TextValue[];
 	public parameters = {
-		AltRep: null as URI | null,
-		Language: null as Text | null,
+		AltRep: null as URIValue | null,
+		Language: null as TextValue | null,
 	};
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -21,16 +21,16 @@ export class Resources extends Property implements PropertyImpl<Text[]> {
 			this.token.parameters.map((param) => {
 				switch (param.name) {
 					case PARAMETER.AltRep:
-						this.parameters.AltRep = new URI().setValue(param.value);
+						this.parameters.AltRep = new URIValue().setValue(param.value);
 						break;
 					case PARAMETER.Language:
-						this.parameters.Language = new Text().setValue(param.value);
+						this.parameters.Language = new TextValue().setValue(param.value);
 						break;
 				}
 			});
 		}
 		// set value
-		this.value = this.token.value.split(',').map((v) => new Text().setValue(v));
+		this.value = this.token.value.split(',').map((v) => new TextValue().setValue(v));
 	}
 
 	public toString(): string {

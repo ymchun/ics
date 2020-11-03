@@ -3,17 +3,17 @@ import { PARAMETER, PROPERTY } from '~/constant';
 import { foldLine, propertyParameterToString } from '~/helper';
 import { PropertyImpl } from '~/interfaces/property-impl';
 import { Property } from '~/properties/property';
-import { Binary } from '~/values/binary';
-import { Text } from '~/values/text';
+import { BinaryValue } from '~/values/binary';
+import { TextValue } from '~/values/text';
 
-export class Attachment extends Property implements PropertyImpl<Binary> {
+export class Attachment extends Property implements PropertyImpl<BinaryValue> {
 	public type = PROPERTY.Attach;
-	public value!: Binary;
+	public value!: BinaryValue;
 	public parameters = {
-		Encoding: null as Text | null,
-		Filename: null as Text | null,
-		FmtType: null as Text | null,
-		Value: null as Text | null,
+		Encoding: null as TextValue | null,
+		Filename: null as TextValue | null,
+		FmtType: null as TextValue | null,
+		Value: null as TextValue | null,
 	};
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -23,22 +23,22 @@ export class Attachment extends Property implements PropertyImpl<Binary> {
 			this.token.parameters.map((param) => {
 				switch (param.name) {
 					case PARAMETER.Encoding:
-						this.parameters.Encoding = new Text().setValue(param.value);
+						this.parameters.Encoding = new TextValue().setValue(param.value);
 						break;
 					case PARAMETER.Filename:
-						this.parameters.Filename = new Text().setValue(param.value);
+						this.parameters.Filename = new TextValue().setValue(param.value);
 						break;
 					case PARAMETER.FmtType:
-						this.parameters.FmtType = new Text().setValue(param.value);
+						this.parameters.FmtType = new TextValue().setValue(param.value);
 						break;
 					case PARAMETER.Value:
-						this.parameters.Value = new Text().setValue(param.value);
+						this.parameters.Value = new TextValue().setValue(param.value);
 						break;
 				}
 			});
 		}
 		// set value
-		this.value = new Binary().setValue(this.token.value);
+		this.value = new BinaryValue().setValue(this.token.value);
 	}
 
 	public toString(): string {

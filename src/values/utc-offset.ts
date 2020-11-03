@@ -2,7 +2,7 @@ import { TEST_UTC_OFFSET_TYPE, VALUE_DATA_TYPE } from '~/constant';
 import { UTCOffsetTime } from '~/interfaces/utc-offset-time';
 import { Value } from '~/values/value';
 
-export class UTCOffset extends Value<UTCOffsetTime> {
+export class UTCOffsetValue extends Value<UTCOffsetTime> {
 	public type = VALUE_DATA_TYPE.UTCOffset;
 	private value!: UTCOffsetTime;
 

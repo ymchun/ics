@@ -1,7 +1,7 @@
 import { VALUE_DATA_TYPE } from '~/constant';
 import { Value } from '~/values/value';
 
-export class CalAddress extends Value<string> {
+export class CalAddressValue extends Value<string> {
 	public type = VALUE_DATA_TYPE.CalAddress;
 	private value!: string;
 

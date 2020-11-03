@@ -1,7 +1,7 @@
 import { VALUE_DATA_TYPE } from '~/constant';
 import { Value } from '~/values/value';
 
-export class Boolean extends Value<boolean> {
+export class BooleanValue extends Value<boolean> {
 	public type = VALUE_DATA_TYPE.Boolean;
 	private value!: boolean;
 

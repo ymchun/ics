@@ -3,7 +3,7 @@ import { PROPERTY } from '~/constant';
 import { foldLine } from '~/helper';
 import { PropertyImpl } from '~/interfaces/property-impl';
 import { Property } from '~/properties/property';
-import { Duration as DurationValue } from '~/values/duration';
+import { DurationValue } from '~/values/duration';
 
 export class Duration extends Property implements PropertyImpl<DurationValue> {
 	public type = PROPERTY.Duration;

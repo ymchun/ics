@@ -1,7 +1,7 @@
 import { VALUE_DATA_TYPE } from '~/constant';
 import { Value } from '~/values/value';
 
-export class Binary extends Value<string> {
+export class BinaryValue extends Value<string> {
 	public type = VALUE_DATA_TYPE.Binary;
 	private value!: string;
 
