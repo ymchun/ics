@@ -17,6 +17,7 @@ export class Attendee extends Property implements PropertyImpl<CalAddress> {
 		DelegatedFrom: null as CalAddress[] | null,
 		DelegatedTo: null as CalAddress[] | null,
 		Dir: null as URI | null,
+		Email: null as Text | null,
 		Language: null as Text | null,
 		Member: null as CalAddress | null,
 		PartStat: null as Text | null,
@@ -45,6 +46,9 @@ export class Attendee extends Property implements PropertyImpl<CalAddress> {
 						break;
 					case PARAMETER.Dir:
 						this.parameters.Dir = new URI().setValue(param.value);
+						break;
+					case PARAMETER.Email:
+						this.parameters.Email = new Text().setValue(param.value);
 						break;
 					case PARAMETER.Language:
 						this.parameters.Language = new Text().setValue(param.value);

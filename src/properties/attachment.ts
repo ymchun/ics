@@ -11,6 +11,7 @@ export class Attachment extends Property implements PropertyImpl<Binary> {
 	public value!: Binary;
 	public parameters = {
 		Encoding: null as Text | null,
+		Filename: null as Text | null,
 		FmtType: null as Text | null,
 		Value: null as Text | null,
 	};
@@ -23,6 +24,9 @@ export class Attachment extends Property implements PropertyImpl<Binary> {
 				switch (param.name) {
 					case PARAMETER.Encoding:
 						this.parameters.Encoding = new Text().setValue(param.value);
+						break;
+					case PARAMETER.Filename:
+						this.parameters.Filename = new Text().setValue(param.value);
 						break;
 					case PARAMETER.FmtType:
 						this.parameters.FmtType = new Text().setValue(param.value);
