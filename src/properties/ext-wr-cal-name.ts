@@ -6,7 +6,7 @@ import { Property } from '~/properties/property';
 import { Text } from '~/values/text';
 
 export class ExtWRCalName extends Property implements PropertyImpl<Text> {
-	public type = PROPERTY.Extended.WR.CalendarDesc;
+	public type = PROPERTY.Extended.WR.CalendarName;
 	public value!: Text;
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars

@@ -93,28 +93,17 @@ export class VCalendar extends Component implements ComponentImpl {
 		lines.push(`${KEYWORD.Begin}:${this.type}`);
 
 		// push properties
-		if (this.events) {
-			lines.push(...this.events.map((p) => p.toString()));
-		}
-		if (this.freeBusy) {
-			lines.push(...this.freeBusy.map((p) => p.toString()));
-		}
-		if (this.timezones) {
-			lines.push(...this.timezones.map((p) => p.toString()));
-		}
-
-		if (this.productId) {
-			lines.push(this.productId.toString());
+		if (this.method) {
+			lines.push(this.method.toString());
 		}
 		if (this.version) {
 			lines.push(this.version.toString());
 		}
-
+		if (this.productId) {
+			lines.push(this.productId.toString());
+		}
 		if (this.calScale) {
 			lines.push(this.calScale.toString());
-		}
-		if (this.method) {
-			lines.push(this.method.toString());
 		}
 
 		if (this.extWRCalDesc) {
@@ -125,6 +114,17 @@ export class VCalendar extends Component implements ComponentImpl {
 		}
 		if (this.extWRTimezone) {
 			lines.push(this.extWRTimezone.toString());
+		}
+
+		// push components
+		if (this.timezones) {
+			lines.push(...this.timezones.map((p) => p.toString()));
+		}
+		if (this.freeBusy) {
+			lines.push(...this.freeBusy.map((p) => p.toString()));
+		}
+		if (this.events) {
+			lines.push(...this.events.map((p) => p.toString()));
 		}
 
 		// push end tag

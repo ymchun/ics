@@ -207,36 +207,40 @@ export class VEvent extends Component implements ComponentImpl {
 		// push begin tag
 		lines.push(`${KEYWORD.Begin}:${this.type}`);
 
-		// push properties
+		// push components
 		if (this.alarms) {
 			lines.push(...this.alarms.map((p) => p.toString()));
 		}
 
-		if (this.dtStamp) {
-			lines.push(this.dtStamp.toString());
-		}
+		// push properties
 		if (this.uid) {
 			lines.push(this.uid.toString());
+		}
+		if (this.dtStamp) {
+			lines.push(this.dtStamp.toString());
 		}
 
 		if (this.dtStart) {
 			lines.push(this.dtStart.toString());
 		}
+		if (this.dtEnd) {
+			lines.push(this.dtEnd.toString());
+		}
+		if (this.duration) {
+			lines.push(this.duration.toString());
+		}
+		if (this.rrule) {
+			lines.push(this.rrule.toString());
+		}
 
 		if (this.class) {
 			lines.push(this.class.toString());
-		}
-		if (this.created) {
-			lines.push(this.created.toString());
 		}
 		if (this.description) {
 			lines.push(this.description.toString());
 		}
 		if (this.geo) {
 			lines.push(this.geo.toString());
-		}
-		if (this.lastModified) {
-			lines.push(this.lastModified.toString());
 		}
 		if (this.location) {
 			lines.push(this.location.toString());
@@ -265,16 +269,11 @@ export class VEvent extends Component implements ComponentImpl {
 		if (this.url) {
 			lines.push(this.url.toString());
 		}
-
-		if (this.rrule) {
-			lines.push(this.rrule.toString());
+		if (this.created) {
+			lines.push(this.created.toString());
 		}
-
-		if (this.dtEnd) {
-			lines.push(this.dtEnd.toString());
-		}
-		if (this.duration) {
-			lines.push(this.duration.toString());
+		if (this.lastModified) {
+			lines.push(this.lastModified.toString());
 		}
 
 		if (this.attachments) {
