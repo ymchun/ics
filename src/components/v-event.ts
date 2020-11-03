@@ -1,6 +1,6 @@
 import { Component } from '~/components/component';
 import { VAlarm } from '~/components/v-alarm';
-import { COMPONENT, KEYWORD, PROPERTY } from '~/constant';
+import { COMPONENT, ICS_LINE_BREAK, KEYWORD, PROPERTY } from '~/constant';
 import { ComponentImpl } from '~/interfaces/component-impl';
 import { Attachment } from '~/properties/attachment';
 import { Attendee } from '~/properties/attendee';
@@ -201,18 +201,18 @@ export class VEvent extends Component implements ComponentImpl {
 		}
 	}
 
-	public toString(): string {
+	public toString(excludeBeginEnd = false): string {
 		// result array
 		const lines: string[] = [];
-		// push begin tag
-		lines.push(`${KEYWORD.Begin}:${this.type}`);
 
 		// push components
+
 		if (this.alarms) {
 			lines.push(...this.alarms.map((p) => p.toString()));
 		}
 
 		// push properties
+
 		if (this.uid) {
 			lines.push(this.uid.toString());
 		}
@@ -304,9 +304,16 @@ export class VEvent extends Component implements ComponentImpl {
 			lines.push(this.resources.toString());
 		}
 
+		// do not include component begin / end tag
+		if (excludeBeginEnd) {
+			return lines.join(ICS_LINE_BREAK);
+		}
+
+		// push begin tag
+		lines.unshift(`${KEYWORD.Begin}:${this.type}`);
 		// push end tag
 		lines.push(`${KEYWORD.End}:${this.type}`);
 
-		return lines.join('\r\n');
+		return lines.join(ICS_LINE_BREAK);
 	}
 }

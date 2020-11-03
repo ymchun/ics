@@ -1,5 +1,5 @@
 import * as nearley from 'nearley';
-import { ICS_LINE_BREAK } from '~/constant';
+import { REGEX_ICS_LINE_BREAK } from '~/constant';
 import { filterEmptyLine, unfoldLine } from '~/helper';
 import { Token } from '~/interfaces/token';
 import { TokenizerOptions } from '~/interfaces/tokenizer-options';
@@ -19,7 +19,7 @@ export class Tokenizer {
 	// split ics file content into tokens
 	public tokenize(ics: string): Iterable<Token> {
 		return new Iterable(
-			filterEmptyLine(unfoldLine(ics).split(ICS_LINE_BREAK))
+			filterEmptyLine(unfoldLine(ics).split(REGEX_ICS_LINE_BREAK))
 				.map((line) => {
 					const results = new nearley.Parser(nearley.Grammar.fromCompiled(grammar)).feed(line)
 						.results as Token[];

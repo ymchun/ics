@@ -1,5 +1,5 @@
 import { Component } from '~/components/component';
-import { COMPONENT, KEYWORD, PROPERTY } from '~/constant';
+import { COMPONENT, ICS_LINE_BREAK, KEYWORD, PROPERTY } from '~/constant';
 import { ComponentImpl } from '~/interfaces/component-impl';
 import { Attendee } from '~/properties/attendee';
 import { Comment } from '~/properties/comment';
@@ -77,13 +77,12 @@ export class VFreeBusy extends Component implements ComponentImpl {
 		}
 	}
 
-	public toString(): string {
+	public toString(excludeBeginEnd = false): string {
 		// result array
 		const lines: string[] = [];
-		// push begin tag
-		lines.push(`${KEYWORD.Begin}:${this.type}`);
 
 		// push properties
+
 		if (this.dtStamp) {
 			lines.push(this.dtStamp.toString());
 		}
@@ -117,9 +116,16 @@ export class VFreeBusy extends Component implements ComponentImpl {
 			lines.push(...this.freeBusy.map((p) => p.toString()));
 		}
 
+		// do not include component begin / end tag
+		if (excludeBeginEnd) {
+			return lines.join(ICS_LINE_BREAK);
+		}
+
+		// push begin tag
+		lines.unshift(`${KEYWORD.Begin}:${this.type}`);
 		// push end tag
 		lines.push(`${KEYWORD.End}:${this.type}`);
 
-		return lines.join('\r\n');
+		return lines.join(ICS_LINE_BREAK);
 	}
 }

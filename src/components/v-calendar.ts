@@ -2,7 +2,7 @@ import { Component } from '~/components/component';
 import { VEvent } from '~/components/v-event';
 import { VFreeBusy } from '~/components/v-free-busy';
 import { VTimezone } from '~/components/v-timezone';
-import { COMPONENT, KEYWORD, PROPERTY } from '~/constant';
+import { COMPONENT, ICS_LINE_BREAK, KEYWORD, PROPERTY } from '~/constant';
 import { ComponentImpl } from '~/interfaces/component-impl';
 import { CalendarScale } from '~/properties/calendar-scale';
 import { ExtWRCalDesc } from '~/properties/ext-wr-cal-desc';
@@ -86,13 +86,12 @@ export class VCalendar extends Component implements ComponentImpl {
 		}
 	}
 
-	public toString(): string {
+	public toString(excludeBeginEnd = false): string {
 		// result array
 		const lines: string[] = [];
-		// push begin tag
-		lines.push(`${KEYWORD.Begin}:${this.type}`);
 
 		// push properties
+
 		if (this.method) {
 			lines.push(this.method.toString());
 		}
@@ -117,6 +116,7 @@ export class VCalendar extends Component implements ComponentImpl {
 		}
 
 		// push components
+
 		if (this.timezones) {
 			lines.push(...this.timezones.map((p) => p.toString()));
 		}
@@ -127,9 +127,16 @@ export class VCalendar extends Component implements ComponentImpl {
 			lines.push(...this.events.map((p) => p.toString()));
 		}
 
+		// do not include component begin / end tag
+		if (excludeBeginEnd) {
+			return lines.join(ICS_LINE_BREAK);
+		}
+
+		// push begin tag
+		lines.unshift(`${KEYWORD.Begin}:${this.type}`);
 		// push end tag
 		lines.push(`${KEYWORD.End}:${this.type}`);
 
-		return lines.join('\r\n');
+		return lines.join(ICS_LINE_BREAK);
 	}
 }

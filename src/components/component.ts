@@ -13,7 +13,8 @@ export class Component {
 		throw Error('Not implemented');
 	}
 
-	public toString(): string {
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	public toString(excludeBeginEnd = false): string {
 		throw Error('Not implemented');
 	}
 }

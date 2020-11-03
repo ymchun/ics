@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
 import { VCalendar } from '~/components/v-calendar';
-import { FOLD_LINE_BREAK, PARAMETER } from '~/constant';
+import { PARAMETER, REGEX_FOLD_LINE_BREAK } from '~/constant';
 import { Value } from '~/values/value';
 
 export function foldLine(line = ''): string {
@@ -13,7 +13,7 @@ export function foldLine(line = ''): string {
 }
 
 export function unfoldLine(line = ''): string {
-	return line.split(FOLD_LINE_BREAK).join('');
+	return line.split(REGEX_FOLD_LINE_BREAK).join('');
 }
 
 export function filterEmptyLine(lines: string[]): string[] {
