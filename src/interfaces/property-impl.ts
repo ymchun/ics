@@ -4,4 +4,5 @@ export interface PropertyImpl<T> {
 	type: string;
 	value: T;
 	evaluate(calendar: VCalendar): void;
+	toString(): string;
 }

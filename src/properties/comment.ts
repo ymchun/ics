@@ -1,15 +1,17 @@
 import { VCalendar } from '~/components/v-calendar';
 import { PARAMETER, PROPERTY } from '~/constant';
-import { escape, foldLine, propertyParameterToString, unescape } from '~/helper';
+import { foldLine, propertyParameterToString } from '~/helper';
 import { PropertyImpl } from '~/interfaces/property-impl';
 import { Property } from '~/properties/property';
+import { Text } from '~/values/text';
+import { URI } from '~/values/uri';
 
-export class Comment extends Property implements PropertyImpl<string> {
+export class Comment extends Property implements PropertyImpl<Text> {
 	public type = PROPERTY.Comment;
-	public value!: string;
+	public value!: Text;
 	public parameters = {
-		AltRep: null as string | null,
-		Language: null as string | null,
+		AltRep: null as URI | null,
+		Language: null as Text | null,
 	};
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -19,20 +21,20 @@ export class Comment extends Property implements PropertyImpl<string> {
 			this.token.parameters.map((param) => {
 				switch (param.name) {
 					case PARAMETER.AltRep:
-						this.parameters.AltRep = param.value;
+						this.parameters.AltRep = new URI().setValue(param.value);
 						break;
 					case PARAMETER.Language:
-						this.parameters.Language = param.value;
+						this.parameters.Language = new Text().setValue(param.value);
 						break;
 				}
 			});
 		}
 		// set value
-		this.value = unescape(this.token.value);
+		this.value = new Text().setValue(this.token.value);
 	}
 
 	public toString(): string {
 		const paramStr = propertyParameterToString(this.parameters);
-		return foldLine(`${this.type}${paramStr}:${escape(this.value)}`);
+		return foldLine(`${this.type}${paramStr}:${this.value.toString()}`);
 	}
 }

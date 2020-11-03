@@ -1,8 +1,8 @@
-import { DurationTime } from '~/interfaces/duration-time';
+import { Duration } from '~/values/duration';
 
 export interface PeriodTime {
 	type: 'explicit' | 'start';
-	start: string;
-	end?: string;
-	duration?: DurationTime;
+	start: Date;
+	end?: Date;
+	duration?: Duration;
 }

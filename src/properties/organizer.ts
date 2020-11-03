@@ -1,17 +1,20 @@
 import { VCalendar } from '~/components/v-calendar';
 import { PARAMETER, PROPERTY } from '~/constant';
-import { foldLine, handleCalAddress, propertyParameterToString } from '~/helper';
+import { foldLine, propertyParameterToString } from '~/helper';
 import { PropertyImpl } from '~/interfaces/property-impl';
 import { Property } from '~/properties/property';
+import { CalAddress } from '~/values/cal-address';
+import { Text } from '~/values/text';
+import { URI } from '~/values/uri';
 
-export class Organizer extends Property implements PropertyImpl<string> {
+export class Organizer extends Property implements PropertyImpl<CalAddress> {
 	public type = PROPERTY.Organizer;
-	public value!: string;
+	public value!: CalAddress;
 	public parameters = {
-		CN: null as string | null,
-		Dir: null as string | null,
-		Language: null as string | null,
-		SentBy: null as string | null,
+		CN: null as Text | null,
+		Dir: null as URI | null,
+		Language: null as Text | null,
+		SentBy: null as CalAddress | null,
 	};
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -21,26 +24,26 @@ export class Organizer extends Property implements PropertyImpl<string> {
 			this.token.parameters.map((param) => {
 				switch (param.name) {
 					case PARAMETER.CN:
-						this.parameters.CN = param.value;
+						this.parameters.CN = new Text().setValue(param.value);
 						break;
 					case PARAMETER.Dir:
-						this.parameters.Dir = param.value;
+						this.parameters.Dir = new URI().setValue(param.value);
 						break;
 					case PARAMETER.Language:
-						this.parameters.Language = param.value;
+						this.parameters.Language = new Text().setValue(param.value);
 						break;
 					case PARAMETER.SentBy:
-						this.parameters.SentBy = handleCalAddress(param.value);
+						this.parameters.SentBy = new CalAddress().setValue(param.value);
 						break;
 				}
 			});
 		}
 		// set value
-		this.value = handleCalAddress(this.token.value);
+		this.value = new CalAddress().setValue(this.token.value);
 	}
 
 	public toString(): string {
 		const paramStr = propertyParameterToString(this.parameters);
-		return foldLine(`${this.type}${paramStr}:${this.value}`);
+		return foldLine(`${this.type}${paramStr}:${this.value.toString()}`);
 	}
 }

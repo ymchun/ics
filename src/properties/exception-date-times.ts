@@ -1,16 +1,18 @@
-import { zonedTimeToUtc } from 'date-fns-tz';
 import { VCalendar } from '~/components/v-calendar';
-import { PARAMETER, PROPERTY } from '~/constant';
-import { foldLine, getDateTimeStr, getTimezoneOffset, propertyParameterToString } from '~/helper';
+import { PARAMETER, PROPERTY, VALUE_DATA_TYPE } from '~/constant';
+import { foldLine, propertyParameterToString } from '~/helper';
 import { PropertyImpl } from '~/interfaces/property-impl';
 import { Property } from '~/properties/property';
+import { DateValue } from '~/values/date';
+import { DateTime } from '~/values/date-time';
+import { Text } from '~/values/text';
 
-export class ExceptionDateTimes extends Property implements PropertyImpl<Date[]> {
+export class ExceptionDateTimes extends Property implements PropertyImpl<Array<DateValue | DateTime>> {
 	public type = PROPERTY.ExDate;
-	public value!: Date[];
+	public value!: Array<DateValue | DateTime>;
 	public parameters = {
-		TZID: null as string | null,
-		Value: null as string | null,
+		TZID: null as Text | null,
+		Value: null as Text | null,
 	};
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -20,22 +22,29 @@ export class ExceptionDateTimes extends Property implements PropertyImpl<Date[]>
 			this.token.parameters.map((param) => {
 				switch (param.name) {
 					case PARAMETER.TZID:
-						this.parameters.TZID = param.value;
+						this.parameters.TZID = new Text().setValue(param.value);
 						break;
 					case PARAMETER.Value:
-						this.parameters.Value = param.value;
+						this.parameters.Value = new Text().setValue(param.value);
 						break;
 				}
 			});
 		}
 		// set value
-		this.value = this.token.value
-			.split(',')
-			.map((v) => zonedTimeToUtc(v, getTimezoneOffset(calendar, this.parameters.TZID)));
+		this.value = this.token.value.split(',').map((v) => {
+			if (this.parameters.Value?.getValue() === VALUE_DATA_TYPE.Date) {
+				return new DateValue().setValue(v);
+			} else {
+				return new DateTime().setValue(v);
+			}
+		});
+		// this.value = this.token.value
+		// 	.split(',')
+		// 	.map((v) => zonedTimeToUtc(v, getTimezoneOffset(calendar, this.parameters.TZID)));
 	}
 
 	public toString(): string {
 		const paramStr = propertyParameterToString(this.parameters);
-		return foldLine(`${this.type}${paramStr}:${this.value.map((v) => getDateTimeStr(v)).join(',')}`);
+		return foldLine(`${this.type}${paramStr}:${this.value.map((v) => v.toString()).join(',')}`);
 	}
 }

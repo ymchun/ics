@@ -1,10 +1,12 @@
-import { VCalendar } from '~/components/v-calendar';
-
-export class Value {
+export class Value<T> {
 	public type!: string;
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public evaluate(calendar: VCalendar): void {
+	public setValue(value: string): this {
+		throw Error('Not implemented');
+	}
+
+	public getValue(): T {
 		throw Error('Not implemented');
 	}
 

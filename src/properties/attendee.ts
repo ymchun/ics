@@ -1,24 +1,28 @@
 import { VCalendar } from '~/components/v-calendar';
 import { PARAMETER, PROPERTY } from '~/constant';
-import { foldLine, handleCalAddress, propertyParameterToString } from '~/helper';
+import { foldLine, propertyParameterToString } from '~/helper';
 import { PropertyImpl } from '~/interfaces/property-impl';
 import { Property } from '~/properties/property';
+import { Boolean as BooleanValue } from '~/values/boolean';
+import { CalAddress } from '~/values/cal-address';
+import { Text } from '~/values/text';
+import { URI } from '~/values/uri';
 
-export class Attendee extends Property implements PropertyImpl<string> {
+export class Attendee extends Property implements PropertyImpl<CalAddress> {
 	public type = PROPERTY.Attendee;
-	public value!: string;
+	public value!: CalAddress;
 	public parameters = {
-		CN: null as string | null,
-		CUType: null as string | null,
-		DelegatedFrom: null as string[] | null,
-		DelegatedTo: null as string[] | null,
-		Dir: null as string | null,
-		Language: null as string | null,
-		Member: null as string | null,
-		PartStat: null as string | null,
-		Role: null as string | null,
-		Rsvp: null as string | null,
-		SentBy: null as string | null,
+		CN: null as Text | null,
+		CUType: null as Text | null,
+		DelegatedFrom: null as CalAddress[] | null,
+		DelegatedTo: null as CalAddress[] | null,
+		Dir: null as URI | null,
+		Language: null as Text | null,
+		Member: null as CalAddress | null,
+		PartStat: null as Text | null,
+		Role: null as Text | null,
+		Rsvp: null as BooleanValue | null,
+		SentBy: null as CalAddress | null,
 	};
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -28,47 +32,47 @@ export class Attendee extends Property implements PropertyImpl<string> {
 			this.token.parameters.map((param) => {
 				switch (param.name) {
 					case PARAMETER.CN:
-						this.parameters.CN = param.value;
+						this.parameters.CN = new Text().setValue(param.value);
 						break;
 					case PARAMETER.CUType:
-						this.parameters.CUType = param.value;
+						this.parameters.CUType = new Text().setValue(param.value);
 						break;
 					case PARAMETER.DelegatedFrom:
-						this.parameters.DelegatedFrom = param.value.split(',').map((v) => handleCalAddress(v));
+						this.parameters.DelegatedFrom = param.value.split(',').map((v) => new CalAddress().setValue(v));
 						break;
 					case PARAMETER.DelegatedTo:
-						this.parameters.DelegatedTo = param.value.split(',').map((v) => handleCalAddress(v));
+						this.parameters.DelegatedTo = param.value.split(',').map((v) => new CalAddress().setValue(v));
 						break;
 					case PARAMETER.Dir:
-						this.parameters.Dir = param.value;
+						this.parameters.Dir = new URI().setValue(param.value);
 						break;
 					case PARAMETER.Language:
-						this.parameters.Language = param.value;
+						this.parameters.Language = new Text().setValue(param.value);
 						break;
 					case PARAMETER.Member:
-						this.parameters.Member = handleCalAddress(param.value);
+						this.parameters.Member = new CalAddress().setValue(param.value);
 						break;
 					case PARAMETER.PartStat:
-						this.parameters.PartStat = param.value;
+						this.parameters.PartStat = new Text().setValue(param.value);
 						break;
 					case PARAMETER.Role:
-						this.parameters.Role = param.value;
+						this.parameters.Role = new Text().setValue(param.value);
 						break;
 					case PARAMETER.Rsvp:
-						this.parameters.Rsvp = param.value;
+						this.parameters.Rsvp = new BooleanValue().setValue(param.value);
 						break;
 					case PARAMETER.SentBy:
-						this.parameters.SentBy = handleCalAddress(param.value);
+						this.parameters.SentBy = new CalAddress().setValue(param.value);
 						break;
 				}
 			});
 		}
 		// set value
-		this.value = handleCalAddress(this.token.value);
+		this.value = new CalAddress().setValue(this.token.value);
 	}
 
 	public toString(): string {
 		const paramStr = propertyParameterToString(this.parameters);
-		return foldLine(`${this.type}${paramStr}:${this.value}`);
+		return foldLine(`${this.type}${paramStr}:${this.value.toString()}`);
 	}
 }

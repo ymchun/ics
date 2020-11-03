@@ -32,10 +32,10 @@ describe('<parser.ts>', () => {
 		expect(calendars.length).toBe(1);
 		expect(calendars[0].type).toBe(COMPONENT.Calendar);
 		expect(calendars[0].version).toBeTruthy();
-		expect(calendars[0].version.value).toBe('2.0');
+		expect(calendars[0].version.value.getValue()).toBe('2.0');
 		expect(calendars[0].timezones).toBeTruthy();
 		expect(calendars[0].timezones[0].TZID).toBeTruthy();
-		expect(calendars[0].timezones[0].TZID.value).toBe('Asia/Hong_Kong');
+		expect(calendars[0].timezones[0].TZID.value.getValue()).toBe('Asia/Hong_Kong');
 	});
 
 	test('parseTokens', () => {
@@ -53,9 +53,9 @@ describe('<parser.ts>', () => {
 		expect(calendars.length).toBe(1);
 		expect(calendars[0].type).toBe(COMPONENT.Calendar);
 		expect(calendars[0].version).toBeTruthy();
-		expect(calendars[0].version.value).toBe('2.0');
+		expect(calendars[0].version.value.getValue()).toBe('2.0');
 		expect(calendars[0].timezones).toBeTruthy();
 		expect(calendars[0].timezones[0].TZID).toBeTruthy();
-		expect(calendars[0].timezones[0].TZID.value).toBe('Asia/Hong_Kong');
+		expect(calendars[0].timezones[0].TZID.value.getValue()).toBe('Asia/Hong_Kong');
 	});
 });

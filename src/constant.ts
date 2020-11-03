@@ -1,6 +1,7 @@
 export const FOLD_LINE_BREAK = new RegExp(/\r?\n\s/, 'g');
 export const ICS_LINE_BREAK = new RegExp(/\r?\n/, 'g');
 export const TEST_PERIOD_TYPE = new RegExp(/^(\+|-)?P(\d+W)?(\d+D)?(T(\d+H)?(\d+M)?(\d+S)?)?/);
+export const TEST_UTC_OFFSET_TYPE = new RegExp(/^(\+|-)(\d\d)(\d\d)(\d\d)?/);
 
 export const KEYWORD = {
 	Begin: 'BEGIN',

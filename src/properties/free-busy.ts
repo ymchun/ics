@@ -3,12 +3,14 @@ import { PARAMETER, PROPERTY } from '~/constant';
 import { foldLine, propertyParameterToString } from '~/helper';
 import { PropertyImpl } from '~/interfaces/property-impl';
 import { Property } from '~/properties/property';
+import { Period } from '~/values/period';
+import { Text } from '~/values/text';
 
-export class FreeBusy extends Property implements PropertyImpl<string[]> {
+export class FreeBusy extends Property implements PropertyImpl<Period[]> {
 	public type = PROPERTY.FreeBusy;
-	public value!: string[];
+	public value!: Period[];
 	public parameters = {
-		FBType: null as string | null,
+		FBType: null as Text | null,
 	};
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -18,17 +20,17 @@ export class FreeBusy extends Property implements PropertyImpl<string[]> {
 			this.token.parameters.map((param) => {
 				switch (param.name) {
 					case PARAMETER.FBType:
-						this.parameters.FBType = param.value;
+						this.parameters.FBType = new Text().setValue(param.value);
 						break;
 				}
 			});
 		}
 		// set value
-		this.value = this.token.value.split(',');
+		this.value = this.token.value.split(',').map((v) => new Period().setValue(v));
 	}
 
 	public toString(): string {
 		const paramStr = propertyParameterToString(this.parameters);
-		return foldLine(`${this.type}${paramStr}:${this.value.join(',')}`);
+		return foldLine(`${this.type}${paramStr}:${this.value.map((v) => v.toString()).join(',')}`);
 	}
 }

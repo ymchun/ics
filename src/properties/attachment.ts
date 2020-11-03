@@ -3,14 +3,16 @@ import { PARAMETER, PROPERTY } from '~/constant';
 import { foldLine, propertyParameterToString } from '~/helper';
 import { PropertyImpl } from '~/interfaces/property-impl';
 import { Property } from '~/properties/property';
+import { Binary } from '~/values/binary';
+import { Text } from '~/values/text';
 
-export class Attachment extends Property implements PropertyImpl<string> {
+export class Attachment extends Property implements PropertyImpl<Binary> {
 	public type = PROPERTY.Attach;
-	public value!: string;
+	public value!: Binary;
 	public parameters = {
-		Encoding: null as string | null,
-		FmtType: null as string | null,
-		Value: null as string | null,
+		Encoding: null as Text | null,
+		FmtType: null as Text | null,
+		Value: null as Text | null,
 	};
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -20,23 +22,23 @@ export class Attachment extends Property implements PropertyImpl<string> {
 			this.token.parameters.map((param) => {
 				switch (param.name) {
 					case PARAMETER.Encoding:
-						this.parameters.Encoding = param.value;
+						this.parameters.Encoding = new Text().setValue(param.value);
 						break;
 					case PARAMETER.FmtType:
-						this.parameters.FmtType = param.value;
+						this.parameters.FmtType = new Text().setValue(param.value);
 						break;
 					case PARAMETER.Value:
-						this.parameters.Value = param.value;
+						this.parameters.Value = new Text().setValue(param.value);
 						break;
 				}
 			});
 		}
 		// set value
-		this.value = this.token.value;
+		this.value = new Binary().setValue(this.token.value);
 	}
 
 	public toString(): string {
 		const paramStr = propertyParameterToString(this.parameters);
-		return foldLine(`${this.type}${paramStr}:${this.value}`);
+		return foldLine(`${this.type}${paramStr}:${this.value.toString()}`);
 	}
 }

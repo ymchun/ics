@@ -3,18 +3,19 @@ import { PROPERTY } from '~/constant';
 import { foldLine } from '~/helper';
 import { PropertyImpl } from '~/interfaces/property-impl';
 import { Property } from '~/properties/property';
+import { Text } from '~/values/text';
 
-export class ExtWRCalDesc extends Property implements PropertyImpl<string> {
+export class ExtWRCalDesc extends Property implements PropertyImpl<Text> {
 	public type = PROPERTY.Extended.WR.CalendarDesc;
-	public value!: string;
+	public value!: Text;
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	public evaluate(calendar: VCalendar): void {
 		// set value
-		this.value = this.token.value;
+		this.value = new Text().setValue(this.token.value);
 	}
 
 	public toString(): string {
-		return foldLine(`${this.type}:${this.value}`);
+		return foldLine(`${this.type}:${this.value.toString()}`);
 	}
 }
