@@ -1,6 +1,7 @@
 import { Component } from '~/components/component';
-import { COMPONENT, ICS_LINE_BREAK, KEYWORD, PROPERTY } from '~/constant';
+import { COMPONENT, PROPERTY } from '~/constant';
 import { ComponentImpl } from '~/interfaces/component-impl';
+import { ConvertToICS } from '~/interfaces/convert-to-ics';
 import { Attendee } from '~/properties/attendee';
 import { Comment } from '~/properties/comment';
 import { Contact } from '~/properties/contact';
@@ -77,55 +78,48 @@ export class VFreeBusy extends Component implements ComponentImpl {
 		}
 	}
 
-	public toString(excludeBeginEnd = false): string {
-		// result array
-		const lines: string[] = [];
+	public getICSTokens(): ConvertToICS {
+		// result
+		const payload: ConvertToICS = {
+			children: [],
+			type: this.type,
+		};
 
 		// push properties
 
 		if (this.dtStamp) {
-			lines.push(this.dtStamp.toString());
+			payload.children.push(this.dtStamp.toString());
 		}
 		if (this.uid) {
-			lines.push(this.uid.toString());
+			payload.children.push(this.uid.toString());
 		}
 
 		if (this.contact) {
-			lines.push(this.contact.toString());
+			payload.children.push(this.contact.toString());
 		}
 		if (this.dtEnd) {
-			lines.push(this.dtEnd.toString());
+			payload.children.push(this.dtEnd.toString());
 		}
 		if (this.dtStart) {
-			lines.push(this.dtStart.toString());
+			payload.children.push(this.dtStart.toString());
 		}
 		if (this.organizer) {
-			lines.push(this.organizer.toString());
+			payload.children.push(this.organizer.toString());
 		}
 		if (this.url) {
-			lines.push(this.url.toString());
+			payload.children.push(this.url.toString());
 		}
 
 		if (this.attendees) {
-			lines.push(...this.attendees.map((p) => p.toString()));
+			payload.children.push(...this.attendees.map((p) => p.toString()));
 		}
 		if (this.comments) {
-			lines.push(...this.comments.map((p) => p.toString()));
+			payload.children.push(...this.comments.map((p) => p.toString()));
 		}
 		if (this.freeBusy) {
-			lines.push(...this.freeBusy.map((p) => p.toString()));
+			payload.children.push(...this.freeBusy.map((p) => p.toString()));
 		}
 
-		// do not include component begin / end tag
-		if (excludeBeginEnd) {
-			return lines.join(ICS_LINE_BREAK);
-		}
-
-		// push begin tag
-		lines.unshift(`${KEYWORD.Begin}:${this.type}`);
-		// push end tag
-		lines.push(`${KEYWORD.End}:${this.type}`);
-
-		return lines.join(ICS_LINE_BREAK);
+		return payload;
 	}
 }

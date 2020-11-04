@@ -1,6 +1,7 @@
 import { format } from 'date-fns';
 import { VCalendar } from '~/components/v-calendar';
-import { PARAMETER, REGEX_FOLD_LINE_BREAK } from '~/constant';
+import { ICS_LINE_BREAK, KEYWORD, PARAMETER, REGEX_FOLD_LINE_BREAK } from '~/constant';
+import { ConvertToICS } from '~/interfaces/convert-to-ics';
 import { Value } from '~/values/value';
 
 export function foldLine(line = ''): string {
@@ -16,16 +17,8 @@ export function unfoldLine(line = ''): string {
 	return line.split(REGEX_FOLD_LINE_BREAK).join('');
 }
 
-export function filterEmptyLine(lines: string[]): string[] {
-	return lines.filter((line) => `${line}`.trim() !== '');
-}
-
 export function escape(str: string): string {
 	return str.split('\\').join('\\\\').split(';').join('\\;').split(',').join('\\,').split('\n').join('\\n');
-}
-
-export function quotedStr(str: string): string {
-	return [';', ':', ','].some((char) => str.includes(char)) ? `"${str}"` : str;
 }
 
 export function unescape(str: string): string {
@@ -42,6 +35,14 @@ export function unescape(str: string): string {
 		.join('\n');
 }
 
+export function filterEmptyLine(lines: string[]): string[] {
+	return lines.filter((line) => `${line}`.trim() !== '');
+}
+
+export function quotedStr(str: string): string {
+	return [';', ':', ','].some((char) => str.includes(char)) ? `"${str}"` : str;
+}
+
 export function formatDate(date: Date): string {
 	return format(date, 'yyyyMMdd');
 }
@@ -52,6 +53,25 @@ export function formatTime(date: Date): string {
 
 export function formatDateTime(date: Date): string {
 	return `${formatDate(date)}T${formatTime(date)}Z`;
+}
+
+export function convertToIcs(payload: ConvertToICS): string {
+	// result array
+	const lines: string[] = [];
+	// push begin tag
+	lines.push(`${KEYWORD.Begin}:${payload.type}`);
+	// push children
+	payload.children.map((children) => {
+		if (typeof children === 'string') {
+			lines.push(children);
+		} else {
+			lines.push(convertToIcs(children));
+		}
+	});
+	// push end tag
+	lines.push(`${KEYWORD.End}:${payload.type}`);
+	// concat string
+	return lines.join(ICS_LINE_BREAK);
 }
 
 export function getTimezoneOffset(calendar: VCalendar, TZID: string | null): string {

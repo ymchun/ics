@@ -1,3 +1,4 @@
+import { ConvertToICS } from '~/interfaces/convert-to-ics';
 import { Property } from '~/properties/property';
 
 export class Component {
@@ -14,7 +15,7 @@ export class Component {
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public toString(excludeBeginEnd = false): string {
+	public getICSTokens(): ConvertToICS {
 		throw Error('Not implemented');
 	}
 }

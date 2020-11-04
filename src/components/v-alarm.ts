@@ -1,6 +1,7 @@
 import { Component } from '~/components/component';
-import { COMPONENT, ICS_LINE_BREAK, KEYWORD, PROPERTY } from '~/constant';
+import { COMPONENT, PROPERTY } from '~/constant';
 import { ComponentImpl } from '~/interfaces/component-impl';
+import { ConvertToICS } from '~/interfaces/convert-to-ics';
 import { Action } from '~/properties/action';
 import { Attachment } from '~/properties/attachment';
 import { Attendee } from '~/properties/attendee';
@@ -84,55 +85,48 @@ export class VAlarm extends Component implements ComponentImpl {
 		}
 	}
 
-	public toString(excludeBeginEnd = false): string {
-		// result array
-		const lines: string[] = [];
+	public getICSTokens(): ConvertToICS {
+		// result
+		const payload: ConvertToICS = {
+			children: [],
+			type: this.type,
+		};
 
 		// push properties
 
+		if (this.uid) {
+			payload.children.push(this.uid.toString());
+		}
 		if (this.action) {
-			lines.push(this.action.toString());
+			payload.children.push(this.action.toString());
 		}
 		if (this.trigger) {
-			lines.push(this.trigger.toString());
-		}
-		if (this.uid) {
-			lines.push(this.uid.toString());
+			payload.children.push(this.trigger.toString());
 		}
 
 		if (this.description) {
-			lines.push(this.description.toString());
+			payload.children.push(this.description.toString());
 		}
 
 		if (this.summary) {
-			lines.push(this.summary.toString());
+			payload.children.push(this.summary.toString());
 		}
 
 		if (this.duration) {
-			lines.push(this.duration.toString());
+			payload.children.push(this.duration.toString());
 		}
 		if (this.repeat) {
-			lines.push(this.repeat.toString());
+			payload.children.push(this.repeat.toString());
 		}
 
 		if (this.attendees) {
-			lines.push(...this.attendees.map((p) => p.toString()));
+			payload.children.push(...this.attendees.map((p) => p.toString()));
 		}
 
 		if (this.attachments) {
-			lines.push(...this.attachments.map((p) => p.toString()));
+			payload.children.push(...this.attachments.map((p) => p.toString()));
 		}
 
-		// do not include component begin / end tag
-		if (excludeBeginEnd) {
-			return lines.join(ICS_LINE_BREAK);
-		}
-
-		// push begin tag
-		lines.unshift(`${KEYWORD.Begin}:${this.type}`);
-		// push end tag
-		lines.push(`${KEYWORD.End}:${this.type}`);
-
-		return lines.join(ICS_LINE_BREAK);
+		return payload;
 	}
 }

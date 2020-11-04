@@ -1,6 +1,7 @@
 import { Component } from '~/components/component';
-import { COMPONENT, ICS_LINE_BREAK, KEYWORD, PROPERTY } from '~/constant';
+import { COMPONENT, PROPERTY } from '~/constant';
 import { ComponentImpl } from '~/interfaces/component-impl';
+import { ConvertToICS } from '~/interfaces/convert-to-ics';
 import { Comment } from '~/properties/comment';
 import { DateTimeStart } from '~/properties/date-time-start';
 import { Property } from '~/properties/property';
@@ -61,46 +62,39 @@ export class Standard extends Component implements ComponentImpl {
 		}
 	}
 
-	public toString(excludeBeginEnd = false): string {
-		// result array
-		const lines: string[] = [];
+	public getICSTokens(): ConvertToICS {
+		// result
+		const payload: ConvertToICS = {
+			children: [],
+			type: this.type,
+		};
 
 		// push properties
 
 		if (this.dtStart) {
-			lines.push(this.dtStart.toString());
+			payload.children.push(this.dtStart.toString());
 		}
 		if (this.tzOffsetFrom) {
-			lines.push(this.tzOffsetFrom.toString());
+			payload.children.push(this.tzOffsetFrom.toString());
 		}
 		if (this.tzOffsetTo) {
-			lines.push(this.tzOffsetTo.toString());
+			payload.children.push(this.tzOffsetTo.toString());
 		}
 
 		if (this.rrule) {
-			lines.push(this.rrule.toString());
+			payload.children.push(this.rrule.toString());
 		}
 
 		if (this.comments) {
-			lines.push(...this.comments.map((p) => p.toString()));
+			payload.children.push(...this.comments.map((p) => p.toString()));
 		}
 		if (this.rDates) {
-			lines.push(...this.rDates.map((p) => p.toString()));
+			payload.children.push(...this.rDates.map((p) => p.toString()));
 		}
 		if (this.tzName) {
-			lines.push(this.tzName.toString());
+			payload.children.push(this.tzName.toString());
 		}
 
-		// do not include component begin / end tag
-		if (excludeBeginEnd) {
-			return lines.join(ICS_LINE_BREAK);
-		}
-
-		// push begin tag
-		lines.unshift(`${KEYWORD.Begin}:${this.type}`);
-		// push end tag
-		lines.push(`${KEYWORD.End}:${this.type}`);
-
-		return lines.join(ICS_LINE_BREAK);
+		return payload;
 	}
 }

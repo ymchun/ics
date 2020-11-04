@@ -41,6 +41,7 @@ import {
 	Component,
 	COMPONENT,
 	ComponentImpl,
+	convertToIcs,
 	DateValue,
 	ICS_LINE_BREAK,
 	Parser,
@@ -158,44 +159,39 @@ class MyCustomComponent extends Component implements ComponentImpl {
 	}
 
 	// toString convert component into ics string
-	public toString(excludeBeginEnd = false): string {
-		// result array
-		const lines: string[] = [];
+	public getICSTokens(): ConvertToICS {
+		// result
+		const payload: ConvertToICS = {
+			children: [],
+			type: this.type,
+		};
 
 		// push properties
 		if (this.myCustomPropertyA) {
-			lines.push(this.myCustomPropertyA.toString());
+			payload.children.push(this.myCustomPropertyA.toString());
 		}
 		if (this.myCustomPropertyB) {
-			lines.push(this.myCustomPropertyB.toString());
-		}
-		if (this.childComponentTypeA) {
-			lines.push(this.childComponentTypeA.toString());
-		}
-		if (this.childComponentTypeB) {
-			lines.push(this.childComponentTypeB.toString());
+			payload.children.push(this.myCustomPropertyB.toString());
 		}
 		if (this.propertyTypeA) {
-			lines.push(this.propertyTypeA.toString());
+			payload.children.push(this.propertyTypeA.toString());
 		}
 		if (this.propertyTypeB) {
-			lines.push(this.propertyTypeB.toString());
+			payload.children.push(this.propertyTypeB.toString());
 		}
 		if (this.propertyTypeC) {
-			lines.push(this.propertyTypeC.toString());
+			payload.children.push(this.propertyTypeC.toString());
 		}
 
-		// do not include component begin / end tag
-		if (excludeBeginEnd) {
-			return lines.join(ICS_LINE_BREAK);
+		// push components
+		if (this.childComponentTypeA) {
+			payload.children.push(this.childComponentTypeA.getICSTokens());
+		}
+		if (this.childComponentTypeB) {
+			payload.children.push(this.childComponentTypeB.getICSTokens());
 		}
 
-		// push begin tag
-		lines.unshift(`${KEYWORD.Begin}:${this.type}`);
-		// push end tag
-		lines.push(`${KEYWORD.End}:${this.type}`);
-
-		return lines.join(ICS_LINE_BREAK);
+		return payload;
 	}
 }
 
@@ -216,23 +212,15 @@ class MyExtendedVCalendar extends VCalendar implements ComponentImpl {
 	}
 
 	// toString convert component into ics string
-	public toString(excludeBeginEnd = false): string {
-		// result array
-		const lines: string[] = [];
+	public getICSTokens(): ConvertToICS {
+		// result
+		const payload = super.getICSTokens();
 
-		lines.push(super.toString(true));
-
-		// do not include component begin / end tag
-		if (excludeBeginEnd) {
-			return lines.join(ICS_LINE_BREAK);
+		if (this.myCustomProperty) {
+			payload.children.push(this.myCustomProperty.toString());
 		}
 
-		// push begin tag
-		lines.unshift(`${KEYWORD.Begin}:${this.type}`);
-		// push end tag
-		lines.push(`${KEYWORD.End}:${this.type}`);
-
-		return lines.join(ICS_LINE_BREAK);
+		return payload;
 	}
 }
 
@@ -254,6 +242,8 @@ const opts: ParserOptions = {
 	},
 };
 
-// 'calendars' is array of v-calendar components
-const calendars = new Parser(opts).parse(icsStr);
+// parse icsStr into VCalendar object
+const [calendar] = new Parser(opts).parse(icsStr);
+// convert Vcalendar back to ics file
+const ics = convertToIcs(calendar.getICSTokens());
 ```

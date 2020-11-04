@@ -1,8 +1,9 @@
 import { Component } from '~/components/component';
 import { DayLight } from '~/components/day-light';
 import { Standard } from '~/components/standard';
-import { COMPONENT, ICS_LINE_BREAK, KEYWORD, PROPERTY } from '~/constant';
+import { COMPONENT, PROPERTY } from '~/constant';
 import { ComponentImpl } from '~/interfaces/component-impl';
+import { ConvertToICS } from '~/interfaces/convert-to-ics';
 import { LastModified } from '~/properties/last-modified';
 import { Property } from '~/properties/property';
 import { TZID } from '~/properties/tz-id';
@@ -55,41 +56,34 @@ export class VTimezone extends Component implements ComponentImpl {
 		}
 	}
 
-	public toString(excludeBeginEnd = false): string {
-		// result array
-		const lines: string[] = [];
+	public getICSTokens(): ConvertToICS {
+		// result
+		const payload: ConvertToICS = {
+			children: [],
+			type: this.type,
+		};
 
 		// push properties
 
 		if (this.TZID) {
-			lines.push(this.TZID.toString());
+			payload.children.push(this.TZID.toString());
 		}
 		if (this.lastModified) {
-			lines.push(this.lastModified.toString());
+			payload.children.push(this.lastModified.toString());
 		}
 		if (this.TZUrl) {
-			lines.push(this.TZUrl.toString());
+			payload.children.push(this.TZUrl.toString());
 		}
 
 		// push components
 
 		if (this.daylight) {
-			lines.push(this.daylight.toString());
+			payload.children.push(this.daylight.getICSTokens());
 		}
 		if (this.standard) {
-			lines.push(this.standard.toString());
+			payload.children.push(this.standard.getICSTokens());
 		}
 
-		// do not include component begin / end tag
-		if (excludeBeginEnd) {
-			return lines.join(ICS_LINE_BREAK);
-		}
-
-		// push begin tag
-		lines.unshift(`${KEYWORD.Begin}:${this.type}`);
-		// push end tag
-		lines.push(`${KEYWORD.End}:${this.type}`);
-
-		return lines.join(ICS_LINE_BREAK);
+		return payload;
 	}
 }

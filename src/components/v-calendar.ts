@@ -2,8 +2,9 @@ import { Component } from '~/components/component';
 import { VEvent } from '~/components/v-event';
 import { VFreeBusy } from '~/components/v-free-busy';
 import { VTimezone } from '~/components/v-timezone';
-import { COMPONENT, ICS_LINE_BREAK, KEYWORD, PROPERTY } from '~/constant';
+import { COMPONENT, PROPERTY } from '~/constant';
 import { ComponentImpl } from '~/interfaces/component-impl';
+import { ConvertToICS } from '~/interfaces/convert-to-ics';
 import { CalendarScale } from '~/properties/calendar-scale';
 import { ExtWRCalDesc } from '~/properties/ext-wr-cal-desc';
 import { ExtWRCalName } from '~/properties/ext-wr-cal-name';
@@ -86,57 +87,50 @@ export class VCalendar extends Component implements ComponentImpl {
 		}
 	}
 
-	public toString(excludeBeginEnd = false): string {
-		// result array
-		const lines: string[] = [];
+	public getICSTokens(): ConvertToICS {
+		// result
+		const payload: ConvertToICS = {
+			children: [],
+			type: this.type,
+		};
 
 		// push properties
 
 		if (this.method) {
-			lines.push(this.method.toString());
+			payload.children.push(this.method.toString());
 		}
 		if (this.version) {
-			lines.push(this.version.toString());
+			payload.children.push(this.version.toString());
 		}
 		if (this.productId) {
-			lines.push(this.productId.toString());
+			payload.children.push(this.productId.toString());
 		}
 		if (this.calScale) {
-			lines.push(this.calScale.toString());
+			payload.children.push(this.calScale.toString());
 		}
 
 		if (this.extWRCalDesc) {
-			lines.push(this.extWRCalDesc.toString());
+			payload.children.push(this.extWRCalDesc.toString());
 		}
 		if (this.extWRCalName) {
-			lines.push(this.extWRCalName.toString());
+			payload.children.push(this.extWRCalName.toString());
 		}
 		if (this.extWRTimezone) {
-			lines.push(this.extWRTimezone.toString());
+			payload.children.push(this.extWRTimezone.toString());
 		}
 
 		// push components
 
 		if (this.timezones) {
-			lines.push(...this.timezones.map((p) => p.toString()));
+			payload.children.push(...this.timezones.map((p) => p.getICSTokens()));
 		}
 		if (this.freeBusy) {
-			lines.push(...this.freeBusy.map((p) => p.toString()));
+			payload.children.push(...this.freeBusy.map((p) => p.getICSTokens()));
 		}
 		if (this.events) {
-			lines.push(...this.events.map((p) => p.toString()));
+			payload.children.push(...this.events.map((p) => p.getICSTokens()));
 		}
 
-		// do not include component begin / end tag
-		if (excludeBeginEnd) {
-			return lines.join(ICS_LINE_BREAK);
-		}
-
-		// push begin tag
-		lines.unshift(`${KEYWORD.Begin}:${this.type}`);
-		// push end tag
-		lines.push(`${KEYWORD.End}:${this.type}`);
-
-		return lines.join(ICS_LINE_BREAK);
+		return payload;
 	}
 }

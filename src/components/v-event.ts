@@ -1,7 +1,8 @@
 import { Component } from '~/components/component';
 import { VAlarm } from '~/components/v-alarm';
-import { COMPONENT, ICS_LINE_BREAK, KEYWORD, PROPERTY } from '~/constant';
+import { COMPONENT, PROPERTY } from '~/constant';
 import { ComponentImpl } from '~/interfaces/component-impl';
+import { ConvertToICS } from '~/interfaces/convert-to-ics';
 import { Attachment } from '~/properties/attachment';
 import { Attendee } from '~/properties/attendee';
 import { Categories } from '~/properties/categories';
@@ -201,119 +202,112 @@ export class VEvent extends Component implements ComponentImpl {
 		}
 	}
 
-	public toString(excludeBeginEnd = false): string {
-		// result array
-		const lines: string[] = [];
+	public getICSTokens(): ConvertToICS {
+		// result
+		const payload: ConvertToICS = {
+			children: [],
+			type: this.type,
+		};
 
 		// push components
 
 		if (this.alarms) {
-			lines.push(...this.alarms.map((p) => p.toString()));
+			payload.children.push(...this.alarms.map((p) => p.getICSTokens()));
 		}
 
 		// push properties
 
 		if (this.uid) {
-			lines.push(this.uid.toString());
+			payload.children.push(this.uid.toString());
 		}
 		if (this.dtStamp) {
-			lines.push(this.dtStamp.toString());
+			payload.children.push(this.dtStamp.toString());
 		}
 
 		if (this.dtStart) {
-			lines.push(this.dtStart.toString());
+			payload.children.push(this.dtStart.toString());
 		}
 		if (this.dtEnd) {
-			lines.push(this.dtEnd.toString());
+			payload.children.push(this.dtEnd.toString());
 		}
 		if (this.duration) {
-			lines.push(this.duration.toString());
+			payload.children.push(this.duration.toString());
 		}
 		if (this.rrule) {
-			lines.push(this.rrule.toString());
+			payload.children.push(this.rrule.toString());
 		}
 
 		if (this.class) {
-			lines.push(this.class.toString());
+			payload.children.push(this.class.toString());
 		}
 		if (this.description) {
-			lines.push(this.description.toString());
+			payload.children.push(this.description.toString());
 		}
 		if (this.geo) {
-			lines.push(this.geo.toString());
+			payload.children.push(this.geo.toString());
 		}
 		if (this.location) {
-			lines.push(this.location.toString());
+			payload.children.push(this.location.toString());
 		}
 		if (this.organizer) {
-			lines.push(this.organizer.toString());
+			payload.children.push(this.organizer.toString());
 		}
 		if (this.priority) {
-			lines.push(this.priority.toString());
+			payload.children.push(this.priority.toString());
 		}
 		if (this.recurrenceId) {
-			lines.push(this.recurrenceId.toString());
+			payload.children.push(this.recurrenceId.toString());
 		}
 		if (this.sequence) {
-			lines.push(this.sequence.toString());
+			payload.children.push(this.sequence.toString());
 		}
 		if (this.status) {
-			lines.push(this.status.toString());
+			payload.children.push(this.status.toString());
 		}
 		if (this.summary) {
-			lines.push(this.summary.toString());
+			payload.children.push(this.summary.toString());
 		}
 		if (this.transp) {
-			lines.push(this.transp.toString());
+			payload.children.push(this.transp.toString());
 		}
 		if (this.url) {
-			lines.push(this.url.toString());
+			payload.children.push(this.url.toString());
 		}
 		if (this.created) {
-			lines.push(this.created.toString());
+			payload.children.push(this.created.toString());
 		}
 		if (this.lastModified) {
-			lines.push(this.lastModified.toString());
+			payload.children.push(this.lastModified.toString());
 		}
 
 		if (this.attachments) {
-			lines.push(...this.attachments.map((p) => p.toString()));
+			payload.children.push(...this.attachments.map((p) => p.toString()));
 		}
 		if (this.attendees) {
-			lines.push(...this.attendees.map((p) => p.toString()));
+			payload.children.push(...this.attendees.map((p) => p.toString()));
 		}
 		if (this.categories) {
-			lines.push(this.categories.toString());
+			payload.children.push(this.categories.toString());
 		}
 		if (this.comments) {
-			lines.push(...this.comments.map((p) => p.toString()));
+			payload.children.push(...this.comments.map((p) => p.toString()));
 		}
 		if (this.contacts) {
-			lines.push(...this.contacts.map((p) => p.toString()));
+			payload.children.push(...this.contacts.map((p) => p.toString()));
 		}
 		if (this.exDates) {
-			lines.push(...this.exDates.map((p) => p.toString()));
+			payload.children.push(...this.exDates.map((p) => p.toString()));
 		}
 		if (this.rDates) {
-			lines.push(...this.rDates.map((p) => p.toString()));
+			payload.children.push(...this.rDates.map((p) => p.toString()));
 		}
 		if (this.relatedTo) {
-			lines.push(...this.relatedTo.map((p) => p.toString()));
+			payload.children.push(...this.relatedTo.map((p) => p.toString()));
 		}
 		if (this.resources) {
-			lines.push(this.resources.toString());
+			payload.children.push(this.resources.toString());
 		}
 
-		// do not include component begin / end tag
-		if (excludeBeginEnd) {
-			return lines.join(ICS_LINE_BREAK);
-		}
-
-		// push begin tag
-		lines.unshift(`${KEYWORD.Begin}:${this.type}`);
-		// push end tag
-		lines.push(`${KEYWORD.End}:${this.type}`);
-
-		return lines.join(ICS_LINE_BREAK);
+		return payload;
 	}
 }
