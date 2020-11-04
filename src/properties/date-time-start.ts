@@ -1,6 +1,6 @@
 import { VCalendar } from '~/components/v-calendar';
 import { PARAMETER, PROPERTY, VALUE_DATA_TYPE } from '~/constant';
-import { foldLine, propertyParameterToString } from '~/helper';
+import { foldLine, getTimezoneOffset, propertyParameterToString } from '~/helper';
 import { PropertyImpl } from '~/interfaces/property-impl';
 import { Property } from '~/properties/property';
 import { DateValue } from '~/values/date';
@@ -30,13 +30,14 @@ export class DateTimeStart extends Property implements PropertyImpl<DateValue | 
 				}
 			});
 		}
+		// get timezone
+		const tz = getTimezoneOffset(calendar, this.parameters.TZID?.getValue() || null);
 		// set value
 		if (this.parameters.Value?.getValue() === VALUE_DATA_TYPE.Date) {
-			this.value = new DateValue().setValue(this.token.value);
+			this.value = new DateValue().setValue(this.token.value).convertFromTZ(tz);
 		} else {
-			this.value = new DateTimeValue().setValue(this.token.value);
+			this.value = new DateTimeValue().setValue(this.token.value).convertFromTZ(tz);
 		}
-		// this.value = zonedTimeToUtc(this.token.value, getTimezoneOffset(calendar, this.parameters.TZID));
 	}
 
 	public toString(): string {
