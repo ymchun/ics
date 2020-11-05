@@ -20,14 +20,7 @@ export class Trigger extends Property implements PropertyImpl<DateTimeValue | Du
 		// set parameters
 		if (this.token.parameters) {
 			this.token.parameters.map((param) => {
-				switch (param.name) {
-					case PARAMETER.Related:
-						this.parameters.Related = new TextValue().setValue(param.value);
-						break;
-					case PARAMETER.Value:
-						this.parameters.Value = new TextValue().setValue(param.value);
-						break;
-				}
+				this.setParameter(param.name, param.value);
 			});
 		}
 		// set value
@@ -35,6 +28,17 @@ export class Trigger extends Property implements PropertyImpl<DateTimeValue | Du
 			this.value = new DurationValue().setValue(this.token.value);
 		} else {
 			this.value = new DateTimeValue().setValue(this.token.value);
+		}
+	}
+
+	public setParameter(type: string, value: string): void {
+		switch (type) {
+			case PARAMETER.Related:
+				this.parameters.Related = new TextValue().setValue(value);
+				break;
+			case PARAMETER.Value:
+				this.parameters.Value = new TextValue().setValue(value);
+				break;
 		}
 	}
 

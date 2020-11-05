@@ -21,17 +21,7 @@ export class RecurrenceId extends Property implements PropertyImpl<DateValue | D
 		// set parameters
 		if (this.token.parameters) {
 			this.token.parameters.map((param) => {
-				switch (param.name) {
-					case PARAMETER.Range:
-						this.parameters.Range = new TextValue().setValue(param.value);
-						break;
-					case PARAMETER.TZID:
-						this.parameters.TZID = new TextValue().setValue(param.value);
-						break;
-					case PARAMETER.Value:
-						this.parameters.Value = new TextValue().setValue(param.value);
-						break;
-				}
+				this.setParameter(param.name, param.value);
 			});
 		}
 		// get timezone
@@ -41,6 +31,20 @@ export class RecurrenceId extends Property implements PropertyImpl<DateValue | D
 			this.value = new DateValue().setValue(this.token.value).convertFromTZ(tz);
 		} else {
 			this.value = new DateTimeValue().setValue(this.token.value).convertFromTZ(tz);
+		}
+	}
+
+	public setParameter(type: string, value: string): void {
+		switch (type) {
+			case PARAMETER.Range:
+				this.parameters.Range = new TextValue().setValue(value);
+				break;
+			case PARAMETER.TZID:
+				this.parameters.TZID = new TextValue().setValue(value);
+				break;
+			case PARAMETER.Value:
+				this.parameters.Value = new TextValue().setValue(value);
+				break;
 		}
 	}
 

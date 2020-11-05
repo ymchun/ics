@@ -22,24 +22,28 @@ export class Organizer extends Property implements PropertyImpl<CalAddressValue>
 		// set parameters
 		if (this.token.parameters) {
 			this.token.parameters.map((param) => {
-				switch (param.name) {
-					case PARAMETER.CN:
-						this.parameters.CN = new TextValue().setValue(param.value);
-						break;
-					case PARAMETER.Dir:
-						this.parameters.Dir = new URIValue().setValue(param.value);
-						break;
-					case PARAMETER.Language:
-						this.parameters.Language = new TextValue().setValue(param.value);
-						break;
-					case PARAMETER.SentBy:
-						this.parameters.SentBy = new CalAddressValue().setValue(param.value);
-						break;
-				}
+				this.setParameter(param.name, param.value);
 			});
 		}
 		// set value
 		this.value = new CalAddressValue().setValue(this.token.value);
+	}
+
+	public setParameter(type: string, value: string): void {
+		switch (type) {
+			case PARAMETER.CN:
+				this.parameters.CN = new TextValue().setValue(value);
+				break;
+			case PARAMETER.Dir:
+				this.parameters.Dir = new URIValue().setValue(value);
+				break;
+			case PARAMETER.Language:
+				this.parameters.Language = new TextValue().setValue(value);
+				break;
+			case PARAMETER.SentBy:
+				this.parameters.SentBy = new CalAddressValue().setValue(value);
+				break;
+		}
 	}
 
 	public toString(): string {

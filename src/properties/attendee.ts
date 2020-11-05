@@ -31,52 +31,52 @@ export class Attendee extends Property implements PropertyImpl<CalAddressValue> 
 		// set parameters
 		if (this.token.parameters) {
 			this.token.parameters.map((param) => {
-				switch (param.name) {
-					case PARAMETER.CN:
-						this.parameters.CN = new TextValue().setValue(param.value);
-						break;
-					case PARAMETER.CUType:
-						this.parameters.CUType = new TextValue().setValue(param.value);
-						break;
-					case PARAMETER.DelegatedFrom:
-						this.parameters.DelegatedFrom = param.value
-							.split(',')
-							.map((v) => new CalAddressValue().setValue(v));
-						break;
-					case PARAMETER.DelegatedTo:
-						this.parameters.DelegatedTo = param.value
-							.split(',')
-							.map((v) => new CalAddressValue().setValue(v));
-						break;
-					case PARAMETER.Dir:
-						this.parameters.Dir = new URIValue().setValue(param.value);
-						break;
-					case PARAMETER.Email:
-						this.parameters.Email = new TextValue().setValue(param.value);
-						break;
-					case PARAMETER.Language:
-						this.parameters.Language = new TextValue().setValue(param.value);
-						break;
-					case PARAMETER.Member:
-						this.parameters.Member = new CalAddressValue().setValue(param.value);
-						break;
-					case PARAMETER.PartStat:
-						this.parameters.PartStat = new TextValue().setValue(param.value);
-						break;
-					case PARAMETER.Role:
-						this.parameters.Role = new TextValue().setValue(param.value);
-						break;
-					case PARAMETER.Rsvp:
-						this.parameters.Rsvp = new BooleanValue().setValue(param.value);
-						break;
-					case PARAMETER.SentBy:
-						this.parameters.SentBy = new CalAddressValue().setValue(param.value);
-						break;
-				}
+				this.setParameter(param.name, param.value);
 			});
 		}
 		// set value
 		this.value = new CalAddressValue().setValue(this.token.value);
+	}
+
+	public setParameter(type: string, value: string): void {
+		switch (type) {
+			case PARAMETER.CN:
+				this.parameters.CN = new TextValue().setValue(value);
+				break;
+			case PARAMETER.CUType:
+				this.parameters.CUType = new TextValue().setValue(value);
+				break;
+			case PARAMETER.DelegatedFrom:
+				this.parameters.DelegatedFrom = value.split(',').map((v) => new CalAddressValue().setValue(v));
+				break;
+			case PARAMETER.DelegatedTo:
+				this.parameters.DelegatedTo = value.split(',').map((v) => new CalAddressValue().setValue(v));
+				break;
+			case PARAMETER.Dir:
+				this.parameters.Dir = new URIValue().setValue(value);
+				break;
+			case PARAMETER.Email:
+				this.parameters.Email = new TextValue().setValue(value);
+				break;
+			case PARAMETER.Language:
+				this.parameters.Language = new TextValue().setValue(value);
+				break;
+			case PARAMETER.Member:
+				this.parameters.Member = new CalAddressValue().setValue(value);
+				break;
+			case PARAMETER.PartStat:
+				this.parameters.PartStat = new TextValue().setValue(value);
+				break;
+			case PARAMETER.Role:
+				this.parameters.Role = new TextValue().setValue(value);
+				break;
+			case PARAMETER.Rsvp:
+				this.parameters.Rsvp = new BooleanValue().setValue(value);
+				break;
+			case PARAMETER.SentBy:
+				this.parameters.SentBy = new CalAddressValue().setValue(value);
+				break;
+		}
 	}
 
 	public toString(): string {

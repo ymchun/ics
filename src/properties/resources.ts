@@ -19,18 +19,22 @@ export class Resources extends Property implements PropertyImpl<TextValue[]> {
 		// set parameters
 		if (this.token.parameters) {
 			this.token.parameters.map((param) => {
-				switch (param.name) {
-					case PARAMETER.AltRep:
-						this.parameters.AltRep = new URIValue().setValue(param.value);
-						break;
-					case PARAMETER.Language:
-						this.parameters.Language = new TextValue().setValue(param.value);
-						break;
-				}
+				this.setParameter(param.name, param.value);
 			});
 		}
 		// set value
 		this.value = this.token.value.split(',').map((v) => new TextValue().setValue(v));
+	}
+
+	public setParameter(type: string, value: string): void {
+		switch (type) {
+			case PARAMETER.AltRep:
+				this.parameters.AltRep = new URIValue().setValue(value);
+				break;
+			case PARAMETER.Language:
+				this.parameters.Language = new TextValue().setValue(value);
+				break;
+		}
 	}
 
 	public toString(): string {

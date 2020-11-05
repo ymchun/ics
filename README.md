@@ -69,20 +69,24 @@ class MyCustomPropertyA extends Property implements PropertyImpl<TextValue> {
 		// set parameters
 		if (this.token.parameters) {
 			this.token.parameters.map((param) => {
-				switch (param.name) {
-					case PARAMETER.Encoding:
-						this.parameters.Encoding = new TextValue().setValue(param.value);
-						break;
-					case PARAMETER.MyCustomParam:
-						this.parameters.MyCustomParam = new MyCustomParam().setValue(param.value);
-						break;
-				}
+				this.setParameter(param.name, param.value);
 			});
 		}
 		// your property should use the 'token' property from parent class to set the value
 		// since properties may have different value type, so this method is where you parse your own value
 		// 'token' will become null after this method is called
 		this.value = new BinaryValue().setValue(this.token.value);
+	}
+
+	public setParameter(type: string, value: string): void {
+		switch (param.name) {
+			case PARAMETER.Encoding:
+				this.parameters.Encoding = new TextValue().setValue(param.value);
+				break;
+			case PARAMETER.MyCustomParam:
+				this.parameters.MyCustomParam = new MyCustomParam().setValue(param.value);
+				break;
+		}
 	}
 
 	// toString convert property into ics string

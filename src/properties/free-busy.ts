@@ -18,15 +18,19 @@ export class FreeBusy extends Property implements PropertyImpl<PeriodValue[]> {
 		// set parameters
 		if (this.token.parameters) {
 			this.token.parameters.map((param) => {
-				switch (param.name) {
-					case PARAMETER.FBType:
-						this.parameters.FBType = new TextValue().setValue(param.value);
-						break;
-				}
+				this.setParameter(param.name, param.value);
 			});
 		}
 		// set value
 		this.value = this.token.value.split(',').map((v) => new PeriodValue().setValue(v));
+	}
+
+	public setParameter(type: string, value: string): void {
+		switch (type) {
+			case PARAMETER.FBType:
+				this.parameters.FBType = new TextValue().setValue(value);
+				break;
+		}
 	}
 
 	public toString(): string {

@@ -13,5 +13,6 @@ export interface PropertyImpl<T> {
 	type: string;
 	value: T;
 	evaluate(calendar: VCalendar): void;
+	setParameter(type: string, value: string): void;
 	toString(): string;
 }

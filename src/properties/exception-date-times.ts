@@ -20,14 +20,7 @@ export class ExceptionDateTimes extends Property implements PropertyImpl<Array<D
 		// set parameters
 		if (this.token.parameters) {
 			this.token.parameters.map((param) => {
-				switch (param.name) {
-					case PARAMETER.TZID:
-						this.parameters.TZID = new TextValue().setValue(param.value);
-						break;
-					case PARAMETER.Value:
-						this.parameters.Value = new TextValue().setValue(param.value);
-						break;
-				}
+				this.setParameter(param.name, param.value);
 			});
 		}
 		// get timezone
@@ -40,6 +33,17 @@ export class ExceptionDateTimes extends Property implements PropertyImpl<Array<D
 				return new DateTimeValue().setValue(v).convertFromTZ(tz);
 			}
 		});
+	}
+
+	public setParameter(type: string, value: string): void {
+		switch (type) {
+			case PARAMETER.TZID:
+				this.parameters.TZID = new TextValue().setValue(value);
+				break;
+			case PARAMETER.Value:
+				this.parameters.Value = new TextValue().setValue(value);
+				break;
+		}
 	}
 
 	public toString(): string {

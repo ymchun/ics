@@ -17,15 +17,19 @@ export class RelatedTo extends Property implements PropertyImpl<TextValue> {
 		// set parameters
 		if (this.token.parameters) {
 			this.token.parameters.map((param) => {
-				switch (param.name) {
-					case PARAMETER.RelType:
-						this.parameters.RelType = new TextValue().setValue(param.value);
-						break;
-				}
+				this.setParameter(param.name, param.value);
 			});
 		}
 		// set value
 		this.value = new TextValue().setValue(this.token.value);
+	}
+
+	public setParameter(type: string, value: string): void {
+		switch (type) {
+			case PARAMETER.RelType:
+				this.parameters.RelType = new TextValue().setValue(value);
+				break;
+		}
 	}
 
 	public toString(): string {
