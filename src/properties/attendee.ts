@@ -1,7 +1,7 @@
 import { VCalendar } from '~/components/v-calendar';
 import { PARAMETER, PROPERTY } from '~/constant';
 import { foldLine, propertyParameterToString } from '~/helper';
-import { PropertyImpl } from '~/interfaces/property-impl';
+import { PropertyImpl } from '~/interfaces/impl';
 import { Property } from '~/properties/property';
 import { BooleanValue } from '~/values/boolean';
 import { CalAddressValue } from '~/values/cal-address';

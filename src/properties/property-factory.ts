@@ -1,7 +1,6 @@
 import { PROPERTY } from '~/constant';
-import { Constructible } from '~/interfaces/constructible';
-import { KeyMap } from '~/interfaces/global';
-import { PropertyFactoryOptions } from '~/interfaces/property-factory-options';
+import { PropertyFactoryOptions } from '~/interfaces/factory-options';
+import { Constructible, KeyMap } from '~/interfaces/global';
 import { Action } from '~/properties/action';
 import { Attachment } from '~/properties/attachment';
 import { Attendee } from '~/properties/attendee';

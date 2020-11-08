@@ -1,7 +1,7 @@
 import { VCalendar } from '~/components/v-calendar';
 import { PARAMETER, PROPERTY, VALUE_DATA_TYPE } from '~/constant';
 import { foldLine, getTimezoneOffset, propertyParameterToString } from '~/helper';
-import { PropertyImpl } from '~/interfaces/property-impl';
+import { PropertyImpl } from '~/interfaces/impl';
 import { Property } from '~/properties/property';
 import { DateValue } from '~/values/date';
 import { DateTimeValue } from '~/values/date-time';

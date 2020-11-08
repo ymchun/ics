@@ -1,8 +1,8 @@
 import { Component } from '~/components/component';
 import { VAlarm } from '~/components/v-alarm';
 import { COMPONENT, PROPERTY } from '~/constant';
-import { ComponentImpl } from '~/interfaces/component-impl';
 import { ConvertToICS } from '~/interfaces/convert-to-ics';
+import { ComponentImpl } from '~/interfaces/impl';
 import { Attachment } from '~/properties/attachment';
 import { Attendee } from '~/properties/attendee';
 import { Categories } from '~/properties/categories';

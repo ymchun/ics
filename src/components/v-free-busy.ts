@@ -1,7 +1,7 @@
 import { Component } from '~/components/component';
 import { COMPONENT, PROPERTY } from '~/constant';
-import { ComponentImpl } from '~/interfaces/component-impl';
 import { ConvertToICS } from '~/interfaces/convert-to-ics';
+import { ComponentImpl } from '~/interfaces/impl';
 import { Attendee } from '~/properties/attendee';
 import { Comment } from '~/properties/comment';
 import { Contact } from '~/properties/contact';

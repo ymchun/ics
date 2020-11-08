@@ -1,8 +1,8 @@
 import * as nearley from 'nearley';
 import { REGEX_ICS_LINE_BREAK } from '~/constant';
 import { filterEmptyLine, unfoldLine } from '~/helper';
+import { TokenizerOptions } from '~/interfaces/options';
 import { Token } from '~/interfaces/token';
-import { TokenizerOptions } from '~/interfaces/tokenizer-options';
 import { Iterable } from '~/iterable';
 import * as grammar from '~/nearley/grammar';
 

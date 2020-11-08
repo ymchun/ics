@@ -7,20 +7,10 @@ import { VEvent } from '~/components/v-event';
 import { VFreeBusy } from '~/components/v-free-busy';
 import { VTimezone } from '~/components/v-timezone';
 import { COMPONENT } from '~/constant';
-import { ComponentFactoryOptions } from '~/interfaces/component-factory-options';
-import { Constructible } from '~/interfaces/constructible';
-import { KeyMap } from '~/interfaces/global';
+import { ComponentFactoryOptions } from '~/interfaces/factory-options';
+import { Constructible, KeyMap } from '~/interfaces/global';
 
 export class ComponentFactory {
-	// default options
-	private options: ComponentFactoryOptions = {
-		quiet: false,
-	};
-
-	public constructor(opts?: ComponentFactoryOptions) {
-		this.options.quiet = !!opts?.quiet;
-	}
-
 	// the default set of components
 	public componentMap: KeyMap<Constructible<Component>> = {
 		[COMPONENT.Alarm]: VAlarm,
@@ -31,6 +21,15 @@ export class ComponentFactory {
 		[COMPONENT.Standard]: Standard,
 		[COMPONENT.Timezone]: VTimezone,
 	};
+
+	// default options
+	private options: ComponentFactoryOptions = {
+		quiet: false,
+	};
+
+	public constructor(opts?: ComponentFactoryOptions) {
+		this.options.quiet = !!opts?.quiet;
+	}
 
 	public getComponent(type: string): Component | undefined {
 		if (this.componentMap[type]) {

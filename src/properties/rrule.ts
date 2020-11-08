@@ -1,7 +1,7 @@
 import { VCalendar } from '~/components/v-calendar';
 import { PROPERTY } from '~/constant';
 import { foldLine } from '~/helper';
-import { PropertyImpl } from '~/interfaces/property-impl';
+import { PropertyImpl } from '~/interfaces/impl';
 import { Property } from '~/properties/property';
 import { RecurrenceValue } from '~/values/recurrence';
 

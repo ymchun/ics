@@ -2,6 +2,7 @@ import { format } from 'date-fns';
 import { VCalendar } from '~/components/v-calendar';
 import { ICS_LINE_BREAK, KEYWORD, PARAMETER, REGEX_FOLD_LINE_BREAK } from '~/constant';
 import { ConvertToICS } from '~/interfaces/convert-to-ics';
+import { KeyMap } from '~/interfaces/global';
 import { Value } from '~/values/value';
 
 export function foldLine(line = ''): string {
@@ -97,11 +98,11 @@ export function getTimezoneOffset(calendar: VCalendar, TZID: string | null): str
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function propertyParameterToString(parameters: { [key: string]: Value<any>[] | Value<any> | null }): string {
+export function propertyParameterToString(parameters: KeyMap<Value<any>[] | Value<any> | null>): string {
 	return Object.keys(parameters)
 		.filter((key) => parameters[key] !== null)
 		.map((key) => {
-			const paramKey = (PARAMETER as { [key: string]: string })[key];
+			const paramKey = (PARAMETER as KeyMap<string>)[key];
 			const paramValue = (Array.isArray(parameters[key])
 				? (parameters[key] as Value<any>[]).map((v) => v.toString()).join(',') // eslint-disable-line @typescript-eslint/no-explicit-any
 				: parameters[key]?.toString()) as string;

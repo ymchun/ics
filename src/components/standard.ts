@@ -1,7 +1,7 @@
 import { Component } from '~/components/component';
 import { COMPONENT, PROPERTY } from '~/constant';
-import { ComponentImpl } from '~/interfaces/component-impl';
 import { ConvertToICS } from '~/interfaces/convert-to-ics';
+import { ComponentImpl } from '~/interfaces/impl';
 import { Comment } from '~/properties/comment';
 import { DateTimeStart } from '~/properties/date-time-start';
 import { Property } from '~/properties/property';
