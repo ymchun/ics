@@ -103,5 +103,7 @@ dist
 # TernJS port file
 .tern-port
 
-result.ics
-result.json
+parsing_result.json
+parsing_convert_result.ics
+build_result.json
+build_convert_result.ics
