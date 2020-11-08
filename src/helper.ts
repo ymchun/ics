@@ -8,6 +8,7 @@ import { Created } from '~/properties/created';
 import { DateTimeCompleted } from '~/properties/date-time-completed';
 import { DateTimeStamp } from '~/properties/date-time-stamp';
 import { LastModified } from '~/properties/last-modified';
+import { Property } from '~/properties/property';
 import { Value } from '~/values/value';
 
 export function foldLine(line = ''): string {
@@ -127,4 +128,19 @@ export function propertyParameterToString(parameters: KeyMap<Value<any>[] | Valu
 			return `;${paramKey}=${quotedStr(paramValue)}`;
 		})
 		.join('');
+}
+
+export function builderSetProperty(component: Component, property: Property, opts: string | KeyMap<string>): void {
+	if (typeof opts === 'string') {
+		property.setValue(opts);
+	} else {
+		const paramKeys = PARAMETER as KeyMap<string>;
+		Object.keys(opts).map((key) => {
+			if (paramKeys[key] && opts[key]) {
+				property.setParameter(paramKeys[key], opts[key]);
+			}
+		});
+		property.setValue(opts.propertyValue);
+	}
+	component.setProperty(property);
 }

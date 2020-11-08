@@ -1,5 +1,11 @@
 import { Component } from '~/components/component';
+import { CreateComponentOptions } from '~/interfaces/create-component-options';
 import { Property } from '~/properties/property';
+
+export interface BuilderFunctionImpl<T> {
+	type: string;
+	build(target: Component | Property, opts: CreateComponentOptions): T;
+}
 
 export interface ComponentImpl {
 	type: string;
