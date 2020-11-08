@@ -40,7 +40,6 @@ export * from './properties/comment';
 export * from './properties/contact';
 export * from './properties/created';
 export * from './properties/date-time-completed';
-export * from './properties/date-time-due';
 export * from './properties/date-time-end';
 export * from './properties/date-time-stamp';
 export * from './properties/date-time-start';

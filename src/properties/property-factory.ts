@@ -11,7 +11,6 @@ import { Comment } from '~/properties/comment';
 import { Contact } from '~/properties/contact';
 import { Created } from '~/properties/created';
 import { DateTimeCompleted } from '~/properties/date-time-completed';
-import { DateTimeDue } from '~/properties/date-time-due';
 import { DateTimeEnd } from '~/properties/date-time-end';
 import { DateTimeStamp } from '~/properties/date-time-stamp';
 import { DateTimeStart } from '~/properties/date-time-start';
@@ -68,7 +67,6 @@ export class PropertyFactory {
 		[PROPERTY.DTEnd]: DateTimeEnd,
 		[PROPERTY.DTStamp]: DateTimeStamp,
 		[PROPERTY.DTStart]: DateTimeStart,
-		[PROPERTY.Due]: DateTimeDue,
 		[PROPERTY.Duration]: Duration,
 		[PROPERTY.ExDate]: ExceptionDateTimes,
 		[PROPERTY.FreeBusy]: FreeBusy,
