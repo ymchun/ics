@@ -1,4 +1,3 @@
-import { VCalendar } from '~/components/v-calendar';
 import { PROPERTY } from '~/constant';
 import { foldLine } from '~/helper';
 import { PropertyImpl } from '~/interfaces/impl';
@@ -9,10 +8,10 @@ export class Priority extends Property implements PropertyImpl<IntegerValue> {
 	public type = PROPERTY.Priority;
 	public value!: IntegerValue;
 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public evaluate(calendar: VCalendar): void {
+	public setValue(value: string): this {
 		// set value
-		this.value = new IntegerValue().setValue(this.token.value);
+		this.value = new IntegerValue().setValue(value);
+		return this;
 	}
 
 	public toString(): string {

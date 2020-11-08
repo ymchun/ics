@@ -30,7 +30,7 @@ export class VTimezone extends Component implements ComponentImpl {
 	public lastModified!: LastModified;
 	public TZUrl!: TZUrl;
 
-	public setComponent(component: Component): void {
+	public setComponent(component: Component): this {
 		switch (component.type) {
 			case COMPONENT.DayLight:
 				this.daylight = component as DayLight;
@@ -39,9 +39,10 @@ export class VTimezone extends Component implements ComponentImpl {
 				this.standard = component as Standard;
 				break;
 		}
+		return this;
 	}
 
-	public setProperty(property: Property): void {
+	public setProperty(property: Property): this {
 		switch (property.type) {
 			case PROPERTY.TZID:
 				this.TZID = property as TZID;
@@ -54,6 +55,7 @@ export class VTimezone extends Component implements ComponentImpl {
 				this.TZUrl = property as TZUrl;
 				break;
 		}
+		return this;
 	}
 
 	public getICSTokens(): ConvertToICS {

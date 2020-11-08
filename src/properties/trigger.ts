@@ -1,4 +1,3 @@
-import { VCalendar } from '~/components/v-calendar';
 import { PARAMETER, PROPERTY, TEST_PERIOD_TYPE } from '~/constant';
 import { foldLine, propertyParameterToString } from '~/helper';
 import { PropertyImpl } from '~/interfaces/impl';
@@ -15,23 +14,17 @@ export class Trigger extends Property implements PropertyImpl<DateTimeValue | Du
 		Value: null as TextValue | null,
 	};
 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public evaluate(calendar: VCalendar): void {
-		// set parameters
-		if (this.token.parameters) {
-			this.token.parameters.map((param) => {
-				this.setParameter(param.name, param.value);
-			});
-		}
+	public setValue(value: string): this {
 		// set value
-		if (TEST_PERIOD_TYPE.test(this.token.value)) {
-			this.value = new DurationValue().setValue(this.token.value);
+		if (TEST_PERIOD_TYPE.test(value)) {
+			this.value = new DurationValue().setValue(value);
 		} else {
-			this.value = new DateTimeValue().setValue(this.token.value);
+			this.value = new DateTimeValue().setValue(value);
 		}
+		return this;
 	}
 
-	public setParameter(type: string, value: string): void {
+	public setParameter(type: string, value: string): this {
 		switch (type) {
 			case PARAMETER.Related:
 				this.parameters.Related = new TextValue().setValue(value);
@@ -40,6 +33,7 @@ export class Trigger extends Property implements PropertyImpl<DateTimeValue | Du
 				this.parameters.Value = new TextValue().setValue(value);
 				break;
 		}
+		return this;
 	}
 
 	public toString(): string {

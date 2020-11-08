@@ -93,16 +93,17 @@ export class VEvent extends Component implements ComponentImpl {
 	public relatedTo!: RelatedTo[];
 	public resources!: Resources;
 
-	public setComponent(component: Component): void {
+	public setComponent(component: Component): this {
 		switch (component.type) {
 			case COMPONENT.Alarm:
 				this.alarms = this.alarms || [];
 				this.alarms.push(component as VAlarm);
 				break;
 		}
+		return this;
 	}
 
-	public setProperty(property: Property): void {
+	public setProperty(property: Property): this {
 		switch (property.type) {
 			case PROPERTY.DTStamp:
 				this.dtStamp = property as DateTimeStamp;
@@ -200,6 +201,7 @@ export class VEvent extends Component implements ComponentImpl {
 				this.relatedTo.push(property as RelatedTo);
 				break;
 		}
+		return this;
 	}
 
 	public getICSTokens(): ConvertToICS {

@@ -1,8 +1,13 @@
 import { format } from 'date-fns';
+import { Component } from '~/components/component';
 import { VCalendar } from '~/components/v-calendar';
 import { ICS_LINE_BREAK, KEYWORD, PARAMETER, REGEX_FOLD_LINE_BREAK } from '~/constant';
 import { ConvertToICS } from '~/interfaces/convert-to-ics';
 import { KeyMap } from '~/interfaces/global';
+import { Created } from '~/properties/created';
+import { DateTimeCompleted } from '~/properties/date-time-completed';
+import { DateTimeStamp } from '~/properties/date-time-stamp';
+import { LastModified } from '~/properties/last-modified';
 import { Value } from '~/values/value';
 
 export function foldLine(line = ''): string {
@@ -75,26 +80,39 @@ export function convertToIcs(payload: ConvertToICS): string {
 	return lines.join(ICS_LINE_BREAK);
 }
 
-export function getTimezoneOffset(calendar: VCalendar, TZID: string | null): string {
+export function getCalendarTimezone(calendar: VCalendar): string {
 	if (calendar?.extWRTimezone) {
-		if (calendar?.extWRTimezone?.token?.value) {
-			return calendar.extWRTimezone.token.value;
-		}
 		if (calendar?.extWRTimezone?.value?.getValue()) {
 			return calendar.extWRTimezone.value.getValue();
 		}
 	}
 	if (calendar?.timezones?.length > 0) {
-		const timezone = calendar.timezones.find(
-			(tz) =>
-				(tz.TZID.value !== null && tz.TZID.value.getValue() === TZID) ||
-				(tz.TZID.token !== null && tz.TZID.token.value === TZID),
-		);
+		const timezone = calendar.timezones.find((tz) => tz.TZID.value !== null);
 		if (timezone?.standard?.tzOffsetTo?.value) {
 			return timezone.standard.tzOffsetTo.value.toString();
 		}
 	}
 	return 'UTC';
+}
+
+export function evaluateComponentTimezone(component: Component, tz: string): void {
+	Object.getOwnPropertyNames(component).map((key) => {
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
+		const target = (component as KeyMap<any>)[key];
+		// unify properties
+		const properties = Array.isArray(target) ? target : [target];
+
+		for (const property of properties) {
+			if (
+				property instanceof Created ||
+				property instanceof DateTimeCompleted ||
+				property instanceof DateTimeStamp ||
+				property instanceof LastModified
+			) {
+				property.value.convertFromTZ(tz);
+			}
+		}
+	});
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

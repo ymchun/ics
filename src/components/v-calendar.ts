@@ -42,7 +42,7 @@ export class VCalendar extends Component implements ComponentImpl {
 	public extWRCalName!: ExtWRCalName;
 	public extWRTimezone!: ExtWRTimezone;
 
-	public setComponent(component: Component): void {
+	public setComponent(component: Component): this {
 		switch (component.type) {
 			case COMPONENT.Event:
 				this.events = this.events || [];
@@ -57,9 +57,10 @@ export class VCalendar extends Component implements ComponentImpl {
 				this.timezones.push(component as VTimezone);
 				break;
 		}
+		return this;
 	}
 
-	public setProperty(property: Property): void {
+	public setProperty(property: Property): this {
 		switch (property.type) {
 			case PROPERTY.ProdId:
 				this.productId = property as ProductId;
@@ -85,6 +86,7 @@ export class VCalendar extends Component implements ComponentImpl {
 				this.extWRTimezone = property as ExtWRTimezone;
 				break;
 		}
+		return this;
 	}
 
 	public getICSTokens(): ConvertToICS {

@@ -32,7 +32,7 @@ export class Standard extends Component implements ComponentImpl {
 	public rDates!: RecurrenceDateTimes[];
 	public tzName!: TZName;
 
-	public setProperty(property: Property): void {
+	public setProperty(property: Property): this {
 		switch (property.type) {
 			case PROPERTY.DTStart:
 				this.dtStart = property as DateTimeStart;
@@ -60,6 +60,7 @@ export class Standard extends Component implements ComponentImpl {
 				this.tzName = property as TZName;
 				break;
 		}
+		return this;
 	}
 
 	public getICSTokens(): ConvertToICS {

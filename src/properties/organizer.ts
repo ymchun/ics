@@ -1,4 +1,3 @@
-import { VCalendar } from '~/components/v-calendar';
 import { PARAMETER, PROPERTY } from '~/constant';
 import { foldLine, propertyParameterToString } from '~/helper';
 import { PropertyImpl } from '~/interfaces/impl';
@@ -17,19 +16,13 @@ export class Organizer extends Property implements PropertyImpl<CalAddressValue>
 		SentBy: null as CalAddressValue | null,
 	};
 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public evaluate(calendar: VCalendar): void {
-		// set parameters
-		if (this.token.parameters) {
-			this.token.parameters.map((param) => {
-				this.setParameter(param.name, param.value);
-			});
-		}
+	public setValue(value: string): this {
 		// set value
-		this.value = new CalAddressValue().setValue(this.token.value);
+		this.value = new CalAddressValue().setValue(value);
+		return this;
 	}
 
-	public setParameter(type: string, value: string): void {
+	public setParameter(type: string, value: string): this {
 		switch (type) {
 			case PARAMETER.CN:
 				this.parameters.CN = new TextValue().setValue(value);
@@ -44,6 +37,7 @@ export class Organizer extends Property implements PropertyImpl<CalAddressValue>
 				this.parameters.SentBy = new CalAddressValue().setValue(value);
 				break;
 		}
+		return this;
 	}
 
 	public toString(): string {

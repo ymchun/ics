@@ -1,6 +1,5 @@
-import { VCalendar } from '~/components/v-calendar';
 import { PARAMETER, PROPERTY, VALUE_DATA_TYPE } from '~/constant';
-import { foldLine, getTimezoneOffset, propertyParameterToString } from '~/helper';
+import { foldLine, propertyParameterToString } from '~/helper';
 import { PropertyImpl } from '~/interfaces/impl';
 import { Property } from '~/properties/property';
 import { DateValue } from '~/values/date';
@@ -15,25 +14,17 @@ export class DateTimeEnd extends Property implements PropertyImpl<DateValue | Da
 		Value: null as TextValue | null,
 	};
 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public evaluate(calendar: VCalendar): void {
-		// set parameters
-		if (this.token.parameters) {
-			this.token.parameters.map((param) => {
-				this.setParameter(param.name, param.value);
-			});
-		}
-		// get timezone
-		const tz = getTimezoneOffset(calendar, this.parameters.TZID?.getValue() || null);
+	public setValue(value: string): this {
 		// set value
 		if (this.parameters.Value?.getValue() === VALUE_DATA_TYPE.Date) {
-			this.value = new DateValue().setValue(this.token.value).convertFromTZ(tz);
+			this.value = new DateValue().setValue(value);
 		} else {
-			this.value = new DateTimeValue().setValue(this.token.value).convertFromTZ(tz);
+			this.value = new DateTimeValue().setValue(value);
 		}
+		return this;
 	}
 
-	public setParameter(type: string, value: string): void {
+	public setParameter(type: string, value: string): this {
 		switch (type) {
 			case PARAMETER.TZID:
 				this.parameters.TZID = new TextValue().setValue(value);
@@ -42,6 +33,7 @@ export class DateTimeEnd extends Property implements PropertyImpl<DateValue | Da
 				this.parameters.Value = new TextValue().setValue(value);
 				break;
 		}
+		return this;
 	}
 
 	public toString(): string {

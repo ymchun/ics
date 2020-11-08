@@ -1,17 +1,13 @@
-import { VCalendar } from '~/components/v-calendar';
-import { Token } from '~/interfaces/token';
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 export class Property {
 	public type!: string;
-	public token!: Token;
 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public evaluate(calendar: VCalendar): void {
+	public setParameter(type: string, value: string): this {
 		throw Error('Not implemented');
 	}
 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public setParameter(type: string, value: string): void {
+	public setValue(value: string): this {
 		throw Error('Not implemented');
 	}
 

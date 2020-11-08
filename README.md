@@ -26,6 +26,8 @@ const opts: ParserOptions = {
 
 // 'calendars' is array of v-calendar components
 const calendars = new Parser(opts).parse(icsStr);
+// convert Vcalendar back to ics file
+const ics = convertToIcs(calendar[0].getICSTokens());
 ```
 
 ## Extending components and properties
@@ -36,24 +38,9 @@ Also, your custom components and properties should implements `ComponentImpl` an
 
 For `PropertyImpl<T>`, the generic type refer to the type of your property value.
 
-```typescript
-import {
-	Component,
-	COMPONENT,
-	ComponentImpl,
-	convertToIcs,
-	DateValue,
-	ICS_LINE_BREAK,
-	Parser,
-	ParserOptions,
-	Property,
-	PropertyImpl,
-	propertyParameterToString,
-	TextValue,
-	VCalendar,
-} from '@ymchun/ics';
+### Define your custom property with parameters
 
-// define your custom ics property
+```typescript
 class MyCustomPropertyA extends Property implements PropertyImpl<TextValue> {
 	// type should match your property key when feeding into the parser options
 	public type = 'MyCustomPropertyA'; // <-- property key, mandatory
@@ -64,21 +51,17 @@ class MyCustomPropertyA extends Property implements PropertyImpl<TextValue> {
 		MyCustomParam: null as MyCustomParam | null,
 	};
 
-	// this method should be implemented
-	public evaluate(calendar: VCalendar): void {
-		// set parameters
-		if (this.token.parameters) {
-			this.token.parameters.map((param) => {
-				this.setParameter(param.name, param.value);
-			});
-		}
+	// set property value
+	public setValue(value: string): this {
 		// your property should use the 'token' property from parent class to set the value
 		// since properties may have different value type, so this method is where you parse your own value
 		// 'token' will become null after this method is called
 		this.value = new BinaryValue().setValue(this.token.value);
+		return this;
 	}
 
-	public setParameter(type: string, value: string): void {
+	// set property parameters
+	public setParameter(type: string, value: string): this {
 		switch (param.name) {
 			case PARAMETER.Encoding:
 				this.parameters.Encoding = new TextValue().setValue(param.value);
@@ -87,6 +70,7 @@ class MyCustomPropertyA extends Property implements PropertyImpl<TextValue> {
 				this.parameters.MyCustomParam = new MyCustomParam().setValue(param.value);
 				break;
 		}
+		return this;
 	}
 
 	// toString convert property into ics string
@@ -95,16 +79,21 @@ class MyCustomPropertyA extends Property implements PropertyImpl<TextValue> {
 		return foldLine(`${this.type}${paramStr}:${this.value.toString()}`);
 	}
 }
+```
 
+### Define your custom property without parameters
+
+```typescript
 class MyCustomPropertyB extends Property implements PropertyImpl<DateValue> {
 	// type should match your property key when feeding into the parser options
 	public type = 'MyCustomPropertyB'; // <-- property key, mandatory
 	public value!: DateValue; // <-- property value, mandatory
 
 	// this method should be implemented
-	public evaluate(calendar: VCalendar): void {
+	public setValue(value: string): this {
 		// or if your property value is a Date object
 		this.value = new DateValue().setValue(this.token.value);
+		return this;
 	}
 
 	// toString convert property into ics string
@@ -112,8 +101,11 @@ class MyCustomPropertyB extends Property implements PropertyImpl<DateValue> {
 		return foldLine(`${this.type}:${this.value.toString()}`);
 	}
 }
+```
 
-// define your custom ics component
+### Define your custom component
+
+```typescript
 class MyCustomComponent extends Component implements ComponentImpl {
 	// type should match your component key when feeding into the parser options
 	public type = 'MyCustomComponent'; // <-- component key, mandatory
@@ -129,7 +121,7 @@ class MyCustomComponent extends Component implements ComponentImpl {
 	public propertyTypeC: PropertyTypeC;
 
 	// this method should be implemented when your component contains other components
-	public setComponent(component: Component): void {
+	public setComponent(component: Component): this {
 		switch (component.type) {
 			case 'TypeA':
 				this.daylight = component as ComponentTypeA;
@@ -138,10 +130,11 @@ class MyCustomComponent extends Component implements ComponentImpl {
 				this.daylight = component as ComponentTypeB;
 				break;
 		}
+		return this;
 	}
 
 	// this method should be implemented when your component has properties
-	public setProperty(property: Property): void {
+	public setProperty(property: Property): this {
 		switch (property.type) {
 			case 'TypeA':
 				this.propertyTypeA = property as PropertyTypeA;
@@ -152,7 +145,7 @@ class MyCustomComponent extends Component implements ComponentImpl {
 			case 'TypeC':
 				this.propertyTypeC = property as PropertyTypeC;
 				break;
-			//    v-- property key
+			// property key --v
 			case 'MyCustomPropertyA':
 				this.myCustomPropertyA = property as MyCustomPropertyA;
 				break;
@@ -160,6 +153,7 @@ class MyCustomComponent extends Component implements ComponentImpl {
 				this.myCustomPropertyB = property as MyCustomPropertyB;
 				break;
 		}
+		return this;
 	}
 
 	// toString convert component into ics string
@@ -198,13 +192,16 @@ class MyCustomComponent extends Component implements ComponentImpl {
 		return payload;
 	}
 }
+```
 
-// your can also extends existing component
+### Extending existing component
+
+```typescript
 class MyExtendedVCalendar extends VCalendar implements ComponentImpl {
 	public myCustomProperty: MyCustomProperty; // <-- use 'MyCustomProperty' here
 
 	// this method should be implemented when your component has properties
-	public setProperty(property: Property): void {
+	public setProperty(property: Property): this {
 		switch (property.type) {
 			case 'MyCustomProperty':
 				this.myCustomProperty = property as MyCustomProperty;
@@ -213,13 +210,15 @@ class MyExtendedVCalendar extends VCalendar implements ComponentImpl {
 				// you should call parent class 'setProperty' method to avoid missing parent properties
 				super.setProperty(property);
 		}
+		return this;
 	}
 
 	// toString convert component into ics string
 	public getICSTokens(): ConvertToICS {
-		// result
+		// you should call the parent get tokens first
 		const payload = super.getICSTokens();
 
+		// then append your custom properties
 		if (this.myCustomProperty) {
 			payload.children.push(this.myCustomProperty.toString());
 		}
@@ -227,7 +226,11 @@ class MyExtendedVCalendar extends VCalendar implements ComponentImpl {
 		return payload;
 	}
 }
+```
 
+### Register your custom components and properties via options
+
+```typescript
 const icsStr = '......'; // your ics file content
 const opts: ParserOptions = {
 	components: {
@@ -247,7 +250,5 @@ const opts: ParserOptions = {
 };
 
 // parse icsStr into VCalendar object
-const [calendar] = new Parser(opts).parse(icsStr);
-// convert Vcalendar back to ics file
-const ics = convertToIcs(calendar.getICSTokens());
+const calendars = new Parser(opts).parse(icsStr);
 ```

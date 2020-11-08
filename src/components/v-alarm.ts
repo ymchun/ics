@@ -47,7 +47,7 @@ export class VAlarm extends Component implements ComponentImpl {
 	// and MAY occur more than once in email mode
 	public attachments!: Attachment[];
 
-	public setProperty(property: Property): void {
+	public setProperty(property: Property): this {
 		switch (property.type) {
 			case PROPERTY.Action:
 				this.action = property as Action;
@@ -83,6 +83,7 @@ export class VAlarm extends Component implements ComponentImpl {
 				this.attendees.push(property as Attendee);
 				break;
 		}
+		return this;
 	}
 
 	public getICSTokens(): ConvertToICS {

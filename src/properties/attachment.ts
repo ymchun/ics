@@ -1,4 +1,3 @@
-import { VCalendar } from '~/components/v-calendar';
 import { PARAMETER, PROPERTY } from '~/constant';
 import { foldLine, propertyParameterToString } from '~/helper';
 import { PropertyImpl } from '~/interfaces/impl';
@@ -16,19 +15,13 @@ export class Attachment extends Property implements PropertyImpl<BinaryValue> {
 		Value: null as TextValue | null,
 	};
 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public evaluate(calendar: VCalendar): void {
-		// set parameters
-		if (this.token.parameters) {
-			this.token.parameters.map((param) => {
-				this.setParameter(param.name, param.value);
-			});
-		}
+	public setValue(value: string): this {
 		// set value
-		this.value = new BinaryValue().setValue(this.token.value);
+		this.value = new BinaryValue().setValue(value);
+		return this;
 	}
 
-	public setParameter(type: string, value: string): void {
+	public setParameter(type: string, value: string): this {
 		switch (type) {
 			case PARAMETER.Encoding:
 				this.parameters.Encoding = new TextValue().setValue(value);
@@ -43,6 +36,7 @@ export class Attachment extends Property implements PropertyImpl<BinaryValue> {
 				this.parameters.Value = new TextValue().setValue(value);
 				break;
 		}
+		return this;
 	}
 
 	public toString(): string {

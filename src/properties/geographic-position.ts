@@ -1,4 +1,3 @@
-import { VCalendar } from '~/components/v-calendar';
 import { PROPERTY } from '~/constant';
 import { foldLine } from '~/helper';
 import { PropertyImpl } from '~/interfaces/impl';
@@ -9,11 +8,11 @@ export class GeographicPosition extends Property implements PropertyImpl<[FloatV
 	public type = PROPERTY.Geo;
 	public value!: [FloatValue, FloatValue]; // [ lat, long ]
 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public evaluate(calendar: VCalendar): void {
+	public setValue(value: string): this {
 		// set value
-		const [latitude, longitude] = this.token.value.split(';');
+		const [latitude, longitude] = value.split(';');
 		this.value = [new FloatValue().setValue(latitude), new FloatValue().setValue(longitude)];
+		return this;
 	}
 
 	public toString(): string {

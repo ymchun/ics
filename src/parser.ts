@@ -2,7 +2,8 @@ import { Component } from '~/components/component';
 import { ComponentFactory } from '~/components/component-factory';
 import { VCalendar } from '~/components/v-calendar';
 import { COMPONENT, KEYWORD } from '~/constant';
-import { Constructible, KeyMap } from '~/interfaces/global';
+import { evaluateComponentTimezone, getCalendarTimezone } from '~/helper';
+import { Constructible } from '~/interfaces/global';
 import { ParserOptions } from '~/interfaces/options';
 import { Token } from '~/interfaces/token';
 import { Iterable } from '~/iterable';
@@ -106,7 +107,7 @@ export class Parser {
 					throw Error(`Expecting '${token.name}:${current.type}' but got: '${token.name}:${token.value}'`);
 				}
 				// populate component property value
-				this.evaluateProperty(current, calendar);
+				evaluateComponentTimezone(current, getCalendarTimezone(calendar));
 				break;
 			}
 			// process component properties
@@ -115,31 +116,18 @@ export class Parser {
 				const property = this.propertyFactory.getProperty(token.name);
 
 				if (property) {
-					// feed tokens into property
-					property.token = token;
+					// set property parameters
+					if (token.parameters) {
+						token.parameters.map((param) => {
+							property.setParameter(param.name, param.value);
+						});
+					}
+					// set property value
+					property.setValue(token.value);
 					// put property into component
 					current.setProperty(property);
 				}
 			}
 		}
-	}
-
-	private evaluateProperty(component: Component, calendar: VCalendar): void {
-		Object.getOwnPropertyNames(component).map((key) => {
-			// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
-			const target = (component as KeyMap<any>)[key];
-			// unify properties
-			const properties = Array.isArray(target) ? target : [target];
-
-			for (const property of properties) {
-				if (property instanceof Property) {
-					// evaluate property value
-					property.evaluate(calendar);
-					// delete tmp token
-					// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
-					delete (property as any).token;
-				}
-			}
-		});
 	}
 }

@@ -38,7 +38,7 @@ export class VFreeBusy extends Component implements ComponentImpl {
 	public comments!: Comment[];
 	public freeBusy!: FreeBusy[];
 
-	public setProperty(property: Property): void {
+	public setProperty(property: Property): this {
 		switch (property.type) {
 			case PROPERTY.DTStamp:
 				this.dtStamp = property as DateTimeStamp;
@@ -76,6 +76,7 @@ export class VFreeBusy extends Component implements ComponentImpl {
 				this.freeBusy.push(property as FreeBusy);
 				break;
 		}
+		return this;
 	}
 
 	public getICSTokens(): ConvertToICS {
