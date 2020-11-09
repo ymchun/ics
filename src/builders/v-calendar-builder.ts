@@ -1,9 +1,9 @@
 import { BuilderFunction } from '~/builders/builder-function';
 import { VCalendar } from '~/components/v-calendar';
 import { COMPONENT, PROPERTY } from '~/constant';
-import { builderSetProperty } from '~/helper';
 import { CreateVCalendarOptions } from '~/interfaces/create-component-options';
 import { BuilderFunctionImpl } from '~/interfaces/impl';
+import { builderSetProperty } from '~/internal-helper';
 
 export class VCalendarBuilder extends BuilderFunction implements BuilderFunctionImpl<VCalendar> {
 	public type = COMPONENT.Calendar;

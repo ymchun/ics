@@ -4,3 +4,4 @@
 *.spec.ts
 dev.d.ts
 dev.js
+internal-helper.d.ts

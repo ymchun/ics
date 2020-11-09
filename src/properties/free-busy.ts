@@ -1,6 +1,7 @@
 import { PARAMETER, PROPERTY } from '~/constant';
-import { foldLine, propertyParameterToString } from '~/helper';
+import { foldLine } from '~/helper';
 import { PropertyImpl } from '~/interfaces/impl';
+import { propertyParameterToString } from '~/internal-helper';
 import { Property } from '~/properties/property';
 import { PeriodValue } from '~/values/period';
 import { TextValue } from '~/values/text';

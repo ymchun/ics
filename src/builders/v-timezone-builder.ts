@@ -1,9 +1,9 @@
 import { BuilderFunction } from '~/builders/builder-function';
 import { VTimezone } from '~/components/v-timezone';
 import { COMPONENT, PROPERTY } from '~/constant';
-import { builderSetProperty } from '~/helper';
 import { CreateVTimezoneOptions } from '~/interfaces/create-component-options';
 import { BuilderFunctionImpl } from '~/interfaces/impl';
+import { builderSetProperty } from '~/internal-helper';
 
 export class VTimezoneBuilder extends BuilderFunction implements BuilderFunctionImpl<VTimezone> {
 	public type = COMPONENT.Timezone;

@@ -1,9 +1,9 @@
 import { BuilderFunction } from '~/builders/builder-function';
 import { VAlarm } from '~/components/v-alarm';
 import { COMPONENT, PROPERTY } from '~/constant';
-import { builderSetProperty } from '~/helper';
 import { CreateVAlarmOptions } from '~/interfaces/create-component-options';
 import { BuilderFunctionImpl } from '~/interfaces/impl';
+import { builderSetProperty } from '~/internal-helper';
 
 export class VAlarmBuilder extends BuilderFunction implements BuilderFunctionImpl<VAlarm> {
 	public type = COMPONENT.Alarm;

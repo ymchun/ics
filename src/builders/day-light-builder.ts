@@ -1,9 +1,9 @@
 import { BuilderFunction } from '~/builders/builder-function';
 import { DayLight } from '~/components/day-light';
 import { COMPONENT, PROPERTY } from '~/constant';
-import { builderSetProperty } from '~/helper';
 import { CreateDayLightOptions } from '~/interfaces/create-component-options';
 import { BuilderFunctionImpl } from '~/interfaces/impl';
+import { builderSetProperty } from '~/internal-helper';
 
 export class DayLightBuilder extends BuilderFunction implements BuilderFunctionImpl<DayLight> {
 	public type = COMPONENT.DayLight;

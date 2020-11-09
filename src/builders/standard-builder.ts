@@ -1,9 +1,9 @@
 import { BuilderFunction } from '~/builders/builder-function';
 import { Standard } from '~/components/standard';
 import { COMPONENT, PROPERTY } from '~/constant';
-import { builderSetProperty } from '~/helper';
 import { CreateStandardOptions } from '~/interfaces/create-component-options';
 import { BuilderFunctionImpl } from '~/interfaces/impl';
+import { builderSetProperty } from '~/internal-helper';
 
 export class StandardBuilder extends BuilderFunction implements BuilderFunctionImpl<Standard> {
 	public type = COMPONENT.Standard;

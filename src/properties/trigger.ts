@@ -1,6 +1,7 @@
 import { PARAMETER, PROPERTY, TEST_PERIOD_TYPE } from '~/constant';
-import { foldLine, propertyParameterToString } from '~/helper';
+import { foldLine } from '~/helper';
 import { PropertyImpl } from '~/interfaces/impl';
+import { propertyParameterToString } from '~/internal-helper';
 import { Property } from '~/properties/property';
 import { DateTimeValue } from '~/values/date-time';
 import { DurationValue } from '~/values/duration';

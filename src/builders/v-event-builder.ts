@@ -1,9 +1,9 @@
 import { BuilderFunction } from '~/builders/builder-function';
 import { VEvent } from '~/components/v-event';
 import { COMPONENT, PROPERTY } from '~/constant';
-import { builderSetProperty } from '~/helper';
 import { CreateVEventOptions } from '~/interfaces/create-component-options';
 import { BuilderFunctionImpl } from '~/interfaces/impl';
+import { builderSetProperty } from '~/internal-helper';
 
 export class VEventBuilder extends BuilderFunction implements BuilderFunctionImpl<VEvent> {
 	public type = COMPONENT.Event;

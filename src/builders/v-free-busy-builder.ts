@@ -1,9 +1,9 @@
 import { BuilderFunction } from '~/builders/builder-function';
 import { VFreeBusy } from '~/components/v-free-busy';
 import { COMPONENT, PROPERTY } from '~/constant';
-import { builderSetProperty } from '~/helper';
 import { CreateVFreeBusyOptions } from '~/interfaces/create-component-options';
 import { BuilderFunctionImpl } from '~/interfaces/impl';
+import { builderSetProperty } from '~/internal-helper';
 
 export class VFreeBusyBuilder extends BuilderFunction implements BuilderFunctionImpl<VFreeBusy> {
 	public type = COMPONENT.FreeBusy;

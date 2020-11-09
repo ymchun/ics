@@ -1,15 +1,13 @@
 import { format } from 'date-fns';
 import { Component } from '~/components/component';
 import { VCalendar } from '~/components/v-calendar';
-import { ICS_LINE_BREAK, KEYWORD, PARAMETER, REGEX_FOLD_LINE_BREAK } from '~/constant';
+import { ICS_LINE_BREAK, KEYWORD, REGEX_FOLD_LINE_BREAK } from '~/constant';
 import { ConvertToICS } from '~/interfaces/convert-to-ics';
 import { KeyMap } from '~/interfaces/global';
 import { Created } from '~/properties/created';
 import { DateTimeCompleted } from '~/properties/date-time-completed';
 import { DateTimeStamp } from '~/properties/date-time-stamp';
 import { LastModified } from '~/properties/last-modified';
-import { Property } from '~/properties/property';
-import { Value } from '~/values/value';
 
 export function foldLine(line = ''): string {
 	const length = 72;
@@ -114,33 +112,4 @@ export function evaluateComponentTimezone(component: Component, tz: string): voi
 			}
 		}
 	});
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function propertyParameterToString(parameters: KeyMap<Value<any>[] | Value<any> | null>): string {
-	return Object.keys(parameters)
-		.filter((key) => parameters[key] !== null)
-		.map((key) => {
-			const paramKey = (PARAMETER as KeyMap<string>)[key];
-			const paramValue = (Array.isArray(parameters[key])
-				? (parameters[key] as Value<any>[]).map((v) => v.toString()).join(',') // eslint-disable-line @typescript-eslint/no-explicit-any
-				: parameters[key]?.toString()) as string;
-			return `;${paramKey}=${quotedStr(paramValue)}`;
-		})
-		.join('');
-}
-
-export function builderSetProperty(component: Component, property: Property, opts: string | KeyMap<string>): void {
-	if (typeof opts === 'string') {
-		property.setValue(opts);
-	} else {
-		const paramKeys = PARAMETER as KeyMap<string>;
-		Object.keys(opts).map((key) => {
-			if (paramKeys[key] && opts[key]) {
-				property.setParameter(paramKeys[key], opts[key]);
-			}
-		});
-		property.setValue(opts.propertyValue);
-	}
-	component.setProperty(property);
 }
