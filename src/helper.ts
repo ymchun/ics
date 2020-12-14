@@ -57,7 +57,7 @@ export function formatTime(date: Date): string {
 }
 
 export function formatDateTime(date: Date): string {
-	return `${formatDate(date)}T${formatTime(date)}Z`;
+	return format(date, "yyyyMMdd'T'HHmmss'Z'");
 }
 
 export function convertToIcs(payload: ConvertToICS): string {
