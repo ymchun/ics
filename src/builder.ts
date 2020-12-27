@@ -22,13 +22,14 @@ export class Builder {
 		// set quiet option
 		this.options.quiet = !!opts?.quiet;
 
-		this.builderFactory = new BuilderFactory({
-			quiet: this.options.quiet,
-		});
 		this.componentFactory = new ComponentFactory({
 			quiet: this.options.quiet,
 		});
 		this.propertyFactory = new PropertyFactory({
+			quiet: this.options.quiet,
+		});
+		this.builderFactory = new BuilderFactory({
+			propertyFactory: this.propertyFactory,
 			quiet: this.options.quiet,
 		});
 
