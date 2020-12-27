@@ -4,10 +4,14 @@ import { VCalendar } from '~/components/v-calendar';
 import { ICS_LINE_BREAK, KEYWORD, REGEX_FOLD_LINE_BREAK } from '~/constant';
 import { ConvertToICS } from '~/interfaces/convert-to-ics';
 import { KeyMap } from '~/interfaces/global';
-import { Created } from '~/properties/created';
-import { DateTimeCompleted } from '~/properties/date-time-completed';
-import { DateTimeStamp } from '~/properties/date-time-stamp';
-import { LastModified } from '~/properties/last-modified';
+import { DateTimeEnd } from '~/properties/date-time-end';
+import { DateTimeStart } from '~/properties/date-time-start';
+import { ExceptionDateTimes } from '~/properties/exception-date-times';
+import { RecurrenceDateTimes } from '~/properties/recurrence-date-times';
+import { RecurrenceId } from '~/properties/recurrence-id';
+import { DateTimeValue } from '~/values/date-time';
+import { PeriodValue } from '~/values/period';
+import { TimeValue } from '~/values/time';
 
 export function foldLine(line = ''): string {
 	const length = 72;
@@ -52,11 +56,17 @@ export function formatDate(date: Date): string {
 	return format(date, 'yyyyMMdd');
 }
 
-export function formatTime(date: Date): string {
+export function formatTime(date: Date, zoned = false): string {
+	if (zoned) {
+		return format(date, "HHmmss'Z'");
+	}
 	return format(date, 'HHmmss');
 }
 
-export function formatDateTime(date: Date): string {
+export function formatDateTime(date: Date, zoned = false): string {
+	if (zoned) {
+		return format(date, "yyyyMMdd'T'HHmmss");
+	}
 	return format(date, "yyyyMMdd'T'HHmmss'Z'");
 }
 
@@ -103,12 +113,41 @@ export function evaluateComponentTimezone(component: Component, tz: string): voi
 
 		for (const property of properties) {
 			if (
-				property instanceof Created ||
-				property instanceof DateTimeCompleted ||
-				property instanceof DateTimeStamp ||
-				property instanceof LastModified
+				property instanceof DateTimeEnd ||
+				property instanceof DateTimeStart ||
+				property instanceof RecurrenceId
 			) {
-				property.value.convertFromTZ(tz);
+				if (
+					property.value &&
+					(
+						property.value instanceof DateTimeValue ||
+						property.value instanceof TimeValue
+					)
+				) {
+					property.value.convertFromTZ(tz);
+				}
+			}
+			else if (property instanceof ExceptionDateTimes) {
+				if (property.value) {
+					property.value.map((v) => {
+						if (v instanceof DateTimeValue || v instanceof TimeValue) {
+							v.convertFromTZ(tz);
+						}
+					});
+				}
+			}
+			else if (property instanceof RecurrenceDateTimes) {
+				if (property.value) {
+					property.value.map((v) => {
+						if (
+							v instanceof DateTimeValue ||
+							v instanceof PeriodValue ||
+							v instanceof TimeValue
+						) {
+							v.convertFromTZ(tz);
+						}
+					});
+				}
 			}
 		}
 	});

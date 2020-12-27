@@ -2,7 +2,6 @@ import { Component } from '~/components/component';
 import { ComponentFactory } from '~/components/component-factory';
 import { VCalendar } from '~/components/v-calendar';
 import { COMPONENT, KEYWORD } from '~/constant';
-import { evaluateComponentTimezone, getCalendarTimezone } from '~/helper';
 import { Constructible } from '~/interfaces/global';
 import { ParserOptions } from '~/interfaces/options';
 import { Token } from '~/interfaces/token';
@@ -73,7 +72,9 @@ export class Parser {
 				// create the root calendar component
 				const calendar = this.componentFactory.getComponent(token.value) as VCalendar;
 				// feed tokens into component
-				this.consumeTokens(tokens, calendar, calendar);
+				this.consumeTokens(tokens, calendar);
+				// adjust date time value to tz
+				calendar.evaluateTimezone();
 				// push it to result
 				results.push(calendar);
 			} else {
@@ -86,7 +87,7 @@ export class Parser {
 		return results;
 	}
 
-	private consumeTokens(tokens: Iterable<Token>, current: Component, calendar: VCalendar): void {
+	private consumeTokens(tokens: Iterable<Token>, current: Component): void {
 		for (const token of tokens) {
 			// start new component
 			if (token.name === KEYWORD.Begin) {
@@ -95,7 +96,7 @@ export class Parser {
 
 				if (component) {
 					// feed tokens into component
-					this.consumeTokens(tokens, component, calendar);
+					this.consumeTokens(tokens, component);
 					// put component into parent component
 					current.setComponent(component);
 				}
@@ -106,8 +107,6 @@ export class Parser {
 				if (current.type !== token.value) {
 					throw Error(`Expecting '${token.name}:${current.type}' but got: '${token.name}:${token.value}'`);
 				}
-				// populate component property value
-				evaluateComponentTimezone(current, getCalendarTimezone(calendar));
 				break;
 			}
 			// process component properties

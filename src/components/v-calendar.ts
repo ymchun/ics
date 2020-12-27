@@ -3,6 +3,7 @@ import { VEvent } from '~/components/v-event';
 import { VFreeBusy } from '~/components/v-free-busy';
 import { VTimezone } from '~/components/v-timezone';
 import { COMPONENT, PROPERTY } from '~/constant';
+import { evaluateComponentTimezone, getCalendarTimezone } from '~/helper';
 import { ConvertToICS } from '~/interfaces/convert-to-ics';
 import { ComponentImpl } from '~/interfaces/impl';
 import { CalendarScale } from '~/properties/calendar-scale';
@@ -41,6 +42,15 @@ export class VCalendar extends Component implements ComponentImpl {
 	public extWRCalDesc!: ExtWRCalDesc;
 	public extWRCalName!: ExtWRCalName;
 	public extWRTimezone!: ExtWRTimezone;
+
+	public evaluateTimezone(): this {
+		if (this.events) {
+			this.events.map((event) => {
+				evaluateComponentTimezone(event, getCalendarTimezone(this));
+			});
+		}
+		return this;
+	}
 
 	public setComponent(component: Component): this {
 		switch (component.type) {
