@@ -13,56 +13,49 @@ export class VCalendarBuilder extends BuilderFunction implements BuilderFunction
 			const property = this.propertyFactory.getProperty(PROPERTY.CalScale);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.calScale as any);
+				builderSetProperty(target, property, opts.calScale);
 			}
 		}
 		if (opts.extWRCalDesc) {
 			const property = this.propertyFactory.getProperty(PROPERTY.Extended.WR.CalendarDesc);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.extWRCalDesc as any);
+				builderSetProperty(target, property, opts.extWRCalDesc);
 			}
 		}
 		if (opts.extWRCalName) {
 			const property = this.propertyFactory.getProperty(PROPERTY.Extended.WR.CalendarName);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.extWRCalName as any);
+				builderSetProperty(target, property, opts.extWRCalName);
 			}
 		}
 		if (opts.extWRTimezone) {
 			const property = this.propertyFactory.getProperty(PROPERTY.Extended.WR.Timezone);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.extWRTimezone as any);
+				builderSetProperty(target, property, opts.extWRTimezone);
 			}
 		}
 		if (opts.method) {
 			const property = this.propertyFactory.getProperty(PROPERTY.Method);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.method as any);
+				builderSetProperty(target, property, opts.method);
 			}
 		}
 		if (opts.productId) {
 			const property = this.propertyFactory.getProperty(PROPERTY.ProdId);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.productId as any);
+				builderSetProperty(target, property, opts.productId);
 			}
 		}
 		if (opts.version) {
 			const property = this.propertyFactory.getProperty(PROPERTY.Version);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.version as any);
+				builderSetProperty(target, property, opts.version);
 			}
 		}
 		return target;

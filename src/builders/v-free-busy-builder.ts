@@ -13,56 +13,49 @@ export class VFreeBusyBuilder extends BuilderFunction implements BuilderFunction
 			const property = this.propertyFactory.getProperty(PROPERTY.Contact);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.contact as any);
+				builderSetProperty(target, property, opts.contact);
 			}
 		}
 		if (opts.dtEnd) {
 			const property = this.propertyFactory.getProperty(PROPERTY.DTEnd);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.dtEnd as any);
+				builderSetProperty(target, property, opts.dtEnd);
 			}
 		}
 		if (opts.dtStamp) {
 			const property = this.propertyFactory.getProperty(PROPERTY.DTStamp);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.dtStamp as any);
+				builderSetProperty(target, property, opts.dtStamp);
 			}
 		}
 		if (opts.dtStart) {
 			const property = this.propertyFactory.getProperty(PROPERTY.DTStart);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.dtStart as any);
+				builderSetProperty(target, property, opts.dtStart);
 			}
 		}
 		if (opts.organizer) {
 			const property = this.propertyFactory.getProperty(PROPERTY.Organizer);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.organizer as any);
+				builderSetProperty(target, property, opts.organizer);
 			}
 		}
 		if (opts.uid) {
 			const property = this.propertyFactory.getProperty(PROPERTY.UID);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.uid as any);
+				builderSetProperty(target, property, opts.uid);
 			}
 		}
 		if (opts.url) {
 			const property = this.propertyFactory.getProperty(PROPERTY.Url);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.url as any);
+				builderSetProperty(target, property, opts.url);
 			}
 		}
 		if (opts.attendees && opts.attendees.length > 0) {
@@ -70,8 +63,7 @@ export class VFreeBusyBuilder extends BuilderFunction implements BuilderFunction
 				const property = this.propertyFactory.getProperty(PROPERTY.Attendee);
 
 				if (property) {
-					// eslint-disable-next-line @typescript-eslint/no-explicit-any
-					builderSetProperty(target, property, attendee as any);
+					builderSetProperty(target, property, attendee);
 				}
 			});
 		}
@@ -80,8 +72,7 @@ export class VFreeBusyBuilder extends BuilderFunction implements BuilderFunction
 				const property = this.propertyFactory.getProperty(PROPERTY.Comment);
 
 				if (property) {
-					// eslint-disable-next-line @typescript-eslint/no-explicit-any
-					builderSetProperty(target, property, comment as any);
+					builderSetProperty(target, property, comment);
 				}
 			});
 		}
@@ -90,8 +81,7 @@ export class VFreeBusyBuilder extends BuilderFunction implements BuilderFunction
 				const property = this.propertyFactory.getProperty(PROPERTY.FreeBusy);
 
 				if (property) {
-					// eslint-disable-next-line @typescript-eslint/no-explicit-any
-					builderSetProperty(target, property, fb as any);
+					builderSetProperty(target, property, fb);
 				}
 			});
 		}

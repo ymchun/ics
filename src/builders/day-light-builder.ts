@@ -13,40 +13,35 @@ export class DayLightBuilder extends BuilderFunction implements BuilderFunctionI
 			const property = this.propertyFactory.getProperty(PROPERTY.DTStart);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.dtStart as any);
+				builderSetProperty(target, property, opts.dtStart);
 			}
 		}
 		if (opts.rrule) {
 			const property = this.propertyFactory.getProperty(PROPERTY.RRule);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.rrule as any);
+				builderSetProperty(target, property, opts.rrule);
 			}
 		}
 		if (opts.tzName) {
 			const property = this.propertyFactory.getProperty(PROPERTY.TZName);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.tzName as any);
+				builderSetProperty(target, property, opts.tzName);
 			}
 		}
 		if (opts.tzOffsetFrom) {
 			const property = this.propertyFactory.getProperty(PROPERTY.TZOffsetFrom);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.tzOffsetFrom as any);
+				builderSetProperty(target, property, opts.tzOffsetFrom);
 			}
 		}
 		if (opts.tzOffsetTo) {
 			const property = this.propertyFactory.getProperty(PROPERTY.TZOffsetTo);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.tzOffsetTo as any);
+				builderSetProperty(target, property, opts.tzOffsetTo);
 			}
 		}
 		if (opts.comments && opts.comments.length > 0) {
@@ -54,8 +49,7 @@ export class DayLightBuilder extends BuilderFunction implements BuilderFunctionI
 				const property = this.propertyFactory.getProperty(PROPERTY.Comment);
 
 				if (property) {
-					// eslint-disable-next-line @typescript-eslint/no-explicit-any
-					builderSetProperty(target, property, comment as any);
+					builderSetProperty(target, property, comment);
 				}
 			});
 		}
@@ -64,8 +58,7 @@ export class DayLightBuilder extends BuilderFunction implements BuilderFunctionI
 				const property = this.propertyFactory.getProperty(PROPERTY.RDate);
 
 				if (property) {
-					// eslint-disable-next-line @typescript-eslint/no-explicit-any
-					builderSetProperty(target, property, rDate as any);
+					builderSetProperty(target, property, rDate);
 				}
 			});
 		}

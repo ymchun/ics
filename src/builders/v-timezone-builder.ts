@@ -13,24 +13,21 @@ export class VTimezoneBuilder extends BuilderFunction implements BuilderFunction
 			const property = this.propertyFactory.getProperty(PROPERTY.LastModified);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.lastModified as any);
+				builderSetProperty(target, property, opts.lastModified);
 			}
 		}
 		if (opts.TZID) {
 			const property = this.propertyFactory.getProperty(PROPERTY.TZID);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.TZID as any);
+				builderSetProperty(target, property, opts.TZID);
 			}
 		}
 		if (opts.TZUrl) {
 			const property = this.propertyFactory.getProperty(PROPERTY.TZUrl);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.TZUrl as any);
+				builderSetProperty(target, property, opts.TZUrl);
 			}
 		}
 		return target;

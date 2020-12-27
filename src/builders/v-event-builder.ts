@@ -13,176 +13,154 @@ export class VEventBuilder extends BuilderFunction implements BuilderFunctionImp
 			const property = this.propertyFactory.getProperty(PROPERTY.Categories);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.categories as any);
+				builderSetProperty(target, property, opts.categories);
 			}
 		}
 		if (opts.class) {
 			const property = this.propertyFactory.getProperty(PROPERTY.Class);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.class as any);
+				builderSetProperty(target, property, opts.class);
 			}
 		}
 		if (opts.created) {
 			const property = this.propertyFactory.getProperty(PROPERTY.Created);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.created as any);
+				builderSetProperty(target, property, opts.created);
 			}
 		}
 		if (opts.description) {
 			const property = this.propertyFactory.getProperty(PROPERTY.Description);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.description as any);
+				builderSetProperty(target, property, opts.description);
 			}
 		}
 		if (opts.dtEnd) {
 			const property = this.propertyFactory.getProperty(PROPERTY.DTEnd);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.dtEnd as any);
+				builderSetProperty(target, property, opts.dtEnd);
 			}
 		}
 		if (opts.dtStamp) {
 			const property = this.propertyFactory.getProperty(PROPERTY.DTStamp);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.dtStamp as any);
+				builderSetProperty(target, property, opts.dtStamp);
 			}
 		}
 		if (opts.dtStart) {
 			const property = this.propertyFactory.getProperty(PROPERTY.DTStart);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.dtStart as any);
+				builderSetProperty(target, property, opts.dtStart);
 			}
 		}
 		if (opts.duration) {
 			const property = this.propertyFactory.getProperty(PROPERTY.Duration);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.duration as any);
+				builderSetProperty(target, property, opts.duration);
 			}
 		}
 		if (opts.geo) {
 			const property = this.propertyFactory.getProperty(PROPERTY.Geo);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.geo as any);
+				builderSetProperty(target, property, opts.geo);
 			}
 		}
 		if (opts.lastModified) {
 			const property = this.propertyFactory.getProperty(PROPERTY.LastModified);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.lastModified as any);
+				builderSetProperty(target, property, opts.lastModified);
 			}
 		}
 		if (opts.location) {
 			const property = this.propertyFactory.getProperty(PROPERTY.Location);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.location as any);
+				builderSetProperty(target, property, opts.location);
 			}
 		}
 		if (opts.organizer) {
 			const property = this.propertyFactory.getProperty(PROPERTY.Organizer);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.organizer as any);
+				builderSetProperty(target, property, opts.organizer);
 			}
 		}
 		if (opts.priority) {
 			const property = this.propertyFactory.getProperty(PROPERTY.Priority);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.priority as any);
+				builderSetProperty(target, property, opts.priority);
 			}
 		}
 		if (opts.recurrenceId) {
 			const property = this.propertyFactory.getProperty(PROPERTY.RecurrenceId);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.recurrenceId as any);
+				builderSetProperty(target, property, opts.recurrenceId);
 			}
 		}
 		if (opts.resources) {
 			const property = this.propertyFactory.getProperty(PROPERTY.Resources);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.resources as any);
+				builderSetProperty(target, property, opts.resources);
 			}
 		}
 		if (opts.rrule) {
 			const property = this.propertyFactory.getProperty(PROPERTY.RRule);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.rrule as any);
+				builderSetProperty(target, property, opts.rrule);
 			}
 		}
 		if (opts.sequence) {
 			const property = this.propertyFactory.getProperty(PROPERTY.Sequence);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.sequence as any);
+				builderSetProperty(target, property, opts.sequence);
 			}
 		}
 		if (opts.status) {
 			const property = this.propertyFactory.getProperty(PROPERTY.Status);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.status as any);
+				builderSetProperty(target, property, opts.status);
 			}
 		}
 		if (opts.summary) {
 			const property = this.propertyFactory.getProperty(PROPERTY.Summary);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.summary as any);
+				builderSetProperty(target, property, opts.summary);
 			}
 		}
 		if (opts.transp) {
 			const property = this.propertyFactory.getProperty(PROPERTY.Transp);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.transp as any);
+				builderSetProperty(target, property, opts.transp);
 			}
 		}
 		if (opts.uid) {
 			const property = this.propertyFactory.getProperty(PROPERTY.UID);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.uid as any);
+				builderSetProperty(target, property, opts.uid);
 			}
 		}
 		if (opts.url) {
 			const property = this.propertyFactory.getProperty(PROPERTY.Url);
 
 			if (property) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				builderSetProperty(target, property, opts.url as any);
+				builderSetProperty(target, property, opts.url);
 			}
 		}
 		if (opts.attachments && opts.attachments.length > 0) {
@@ -190,8 +168,7 @@ export class VEventBuilder extends BuilderFunction implements BuilderFunctionImp
 				const property = this.propertyFactory.getProperty(PROPERTY.Attach);
 
 				if (property) {
-					// eslint-disable-next-line @typescript-eslint/no-explicit-any
-					builderSetProperty(target, property, attachment as any);
+					builderSetProperty(target, property, attachment);
 				}
 			});
 		}
@@ -200,8 +177,7 @@ export class VEventBuilder extends BuilderFunction implements BuilderFunctionImp
 				const property = this.propertyFactory.getProperty(PROPERTY.Attendee);
 
 				if (property) {
-					// eslint-disable-next-line @typescript-eslint/no-explicit-any
-					builderSetProperty(target, property, attendee as any);
+					builderSetProperty(target, property, attendee);
 				}
 			});
 		}
@@ -210,8 +186,7 @@ export class VEventBuilder extends BuilderFunction implements BuilderFunctionImp
 				const property = this.propertyFactory.getProperty(PROPERTY.Comment);
 
 				if (property) {
-					// eslint-disable-next-line @typescript-eslint/no-explicit-any
-					builderSetProperty(target, property, comment as any);
+					builderSetProperty(target, property, comment);
 				}
 			});
 		}
@@ -220,8 +195,7 @@ export class VEventBuilder extends BuilderFunction implements BuilderFunctionImp
 				const property = this.propertyFactory.getProperty(PROPERTY.Contact);
 
 				if (property) {
-					// eslint-disable-next-line @typescript-eslint/no-explicit-any
-					builderSetProperty(target, property, contact as any);
+					builderSetProperty(target, property, contact);
 				}
 			});
 		}
@@ -230,8 +204,7 @@ export class VEventBuilder extends BuilderFunction implements BuilderFunctionImp
 				const property = this.propertyFactory.getProperty(PROPERTY.ExDate);
 
 				if (property) {
-					// eslint-disable-next-line @typescript-eslint/no-explicit-any
-					builderSetProperty(target, property, exDate as any);
+					builderSetProperty(target, property, exDate);
 				}
 			});
 		}
@@ -240,8 +213,7 @@ export class VEventBuilder extends BuilderFunction implements BuilderFunctionImp
 				const property = this.propertyFactory.getProperty(PROPERTY.RDate);
 
 				if (property) {
-					// eslint-disable-next-line @typescript-eslint/no-explicit-any
-					builderSetProperty(target, property, rDate as any);
+					builderSetProperty(target, property, rDate);
 				}
 			});
 		}
@@ -250,8 +222,7 @@ export class VEventBuilder extends BuilderFunction implements BuilderFunctionImp
 				const property = this.propertyFactory.getProperty(PROPERTY.RelatedTo);
 
 				if (property) {
-					// eslint-disable-next-line @typescript-eslint/no-explicit-any
-					builderSetProperty(target, property, rt as any);
+					builderSetProperty(target, property, rt);
 				}
 			});
 		}

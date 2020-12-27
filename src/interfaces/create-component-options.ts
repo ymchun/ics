@@ -7,19 +7,40 @@ export type CreateComponentOptions =
 	| CreateVFreeBusyOptions
 	| CreateVTimezoneOptions;
 
+export type CreateParamOptions =
+	| CreateAttachmentParamOptions
+	| CreateAttendeeParamOptions
+	| CreateCategoryParamOptions
+	| CreateCommentParamOptions
+	| CreateContactParamOptions
+	| CreateDateTimeEndParamOptions
+	| CreateDateTimeStartParamOptions
+	| CreateDescriptionParamOptions
+	| CreateExceptionDateTimesParamOptions
+	| CreateFreeBusyParamOptions
+	| CreateLocationParamOptions
+	| CreateOrganizerParamOptions
+	| CreateRecurrenceDateTimesParamOptions
+	| CreateRecurrenceIdParamOptions
+	| CreateRelatedToParamOptions
+	| CreateResourcesParamOptions
+	| CreateSummaryParamOptions
+	| CreateTriggerParamOptions
+	| CreateTZNameParamOptions;
+
 // component option types
 
 export interface CreateVAlarmOptions {
 	type: 'VALARM';
 	action: string;
-	description: string | CreateDescriptionParameterOptions;
+	attachments: Array<string | CreateAttachmentParamOptions>;
+	attendees: Array<string | CreateAttendeeParamOptions>;
+	description: string | CreateDescriptionParamOptions;
 	duration: string;
 	repeat: string;
-	summary: string | CreateSummaryParameterOptions;
-	trigger: string | CreateTriggerParameterOptions;
+	summary: string | CreateSummaryParamOptions;
+	trigger: string | CreateTriggerParamOptions;
 	uid: string;
-	attachments: Array<string | CreateAttachmentParameterOptions>;
-	attendees: Array<string | CreateAttendeeParameterOptions>;
 }
 
 export interface CreateVCalendarOptions {
@@ -35,71 +56,71 @@ export interface CreateVCalendarOptions {
 
 export interface CreateDayLightOptions {
 	type: 'DAYLIGHT';
-	dtStart?: string | CreateDateTimeStartParameterOptions;
+	comments?: Array<string | CreateCommentParamOptions>;
+	dtStart?: string | CreateDateTimeStartParamOptions;
+	rDates?: Array<string | CreateRecurrenceDateTimesParamOptions>;
 	rrule?: string;
-	tzName?: string | CreateTZNameParameterOptions;
+	tzName?: string | CreateTZNameParamOptions;
 	tzOffsetFrom?: string;
 	tzOffsetTo?: string;
-	comments?: Array<string | CreateCommentParameterOptions>;
-	rDates?: Array<string | CreateRecurrenceDateTimesParameterOptions>;
 }
 
 export interface CreateStandardOptions {
 	type: 'STANDARD';
-	dtStart?: string | CreateDateTimeStartParameterOptions;
+	comments?: Array<string | CreateCommentParamOptions>;
+	dtStart?: string | CreateDateTimeStartParamOptions;
+	rDates?: Array<string | CreateRecurrenceDateTimesParamOptions>;
 	rrule?: string;
-	tzName?: string | CreateTZNameParameterOptions;
+	tzName?: string | CreateTZNameParamOptions;
 	tzOffsetFrom?: string;
 	tzOffsetTo?: string;
-	comments?: Array<string | CreateCommentParameterOptions>;
-	rDates?: Array<string | CreateRecurrenceDateTimesParameterOptions>;
 }
 
 export interface CreateVEventOptions {
 	type: 'VEVENT';
-	categories?: string | CreateCategoryParameterOptions;
+	attachments?: Array<string | CreateAttachmentParamOptions>;
+	attendees?: Array<string | CreateAttendeeParamOptions>;
+	categories?: string | CreateCategoryParamOptions;
 	class?: string;
+	comments?: Array<string | CreateCommentParamOptions>;
+	contacts?: Array<string | CreateContactParamOptions>;
 	created?: string;
-	description?: string | CreateDescriptionParameterOptions;
-	dtEnd?: string | CreateDateTimeEndParameterOptions;
+	description?: string | CreateDescriptionParamOptions;
+	dtEnd?: string | CreateDateTimeEndParamOptions;
 	dtStamp?: string;
-	dtStart?: string | CreateDateTimeStartParameterOptions;
+	dtStart?: string | CreateDateTimeStartParamOptions;
 	duration?: string;
+	exDates?: Array<string | CreateExceptionDateTimesParamOptions>;
 	geo?: string;
 	lastModified?: string;
-	location?: string | CreateLocationParameterOptions;
-	organizer?: string | CreateOrganizerParameterOptions;
+	location?: string | CreateLocationParamOptions;
+	organizer?: string | CreateOrganizerParamOptions;
 	priority?: string;
-	recurrenceId?: string | CreateRecurrenceIdParameterOptions;
-	resources?: string | CreateResourcesParameterOptions;
+	rDates?: Array<string | CreateRecurrenceDateTimesParamOptions>;
+	recurrenceId?: string | CreateRecurrenceIdParamOptions;
+	relatedTo?: Array<string | CreateRelatedToParamOptions>;
+	resources?: string | CreateResourcesParamOptions;
 	rrule?: string;
 	sequence?: string;
 	status?: string;
-	summary?: string | CreateSummaryParameterOptions;
+	summary?: string | CreateSummaryParamOptions;
 	transp?: string;
 	uid?: string;
 	url?: string;
-	attachments?: Array<string | CreateAttachmentParameterOptions>;
-	attendees?: Array<string | CreateAttendeeParameterOptions>;
-	comments?: Array<string | CreateCommentParameterOptions>;
-	contacts?: Array<string | CreateContactParameterOptions>;
-	exDates?: Array<string | CreateExceptionDateTimesParameterOptions>;
-	rDates?: Array<string | CreateRecurrenceDateTimesParameterOptions>;
-	relatedTo?: Array<string | CreateRelatedToParameterOptions>;
 }
 
 export interface CreateVFreeBusyOptions {
 	type: 'VFREEBUSY';
-	contact?: string | CreateContactParameterOptions;
-	dtEnd?: string | CreateDateTimeEndParameterOptions;
+	attendees?: Array<string | CreateAttendeeParamOptions>;
+	comments?: Array<string | CreateCommentParamOptions>;
+	contact?: string | CreateContactParamOptions;
+	dtEnd?: string | CreateDateTimeEndParamOptions;
 	dtStamp?: string;
-	dtStart?: string | CreateDateTimeStartParameterOptions;
-	organizer?: string | CreateOrganizerParameterOptions;
+	dtStart?: string | CreateDateTimeStartParamOptions;
+	freeBusy?: Array<string | CreateFreeBusyParamOptions>;
+	organizer?: string | CreateOrganizerParamOptions;
 	uid?: string;
 	url?: string;
-	attendees?: Array<string | CreateAttendeeParameterOptions>;
-	comments?: Array<string | CreateCommentParameterOptions>;
-	freeBusy?: Array<string | CreateFreeBusyParameterOptions>;
 }
 
 export interface CreateVTimezoneOptions {
@@ -115,14 +136,14 @@ export interface PropertyValue {
 	propertyValue: string;
 }
 
-export interface CreateAttachmentParameterOptions extends PropertyValue {
+export interface CreateAttachmentParamOptions extends PropertyValue {
 	Encoding?: string;
 	Filename?: string;
 	FmtType?: string;
 	Value?: string;
 }
 
-export interface CreateAttendeeParameterOptions extends PropertyValue {
+export interface CreateAttendeeParamOptions extends PropertyValue {
 	CN?: string;
 	CUType?: string;
 	DelegatedFrom?: string;
@@ -137,86 +158,86 @@ export interface CreateAttendeeParameterOptions extends PropertyValue {
 	SentBy?: string;
 }
 
-export interface CreateCategoryParameterOptions extends PropertyValue {
+export interface CreateCategoryParamOptions extends PropertyValue {
 	Language?: string;
 }
 
-export interface CreateCommentParameterOptions extends PropertyValue {
+export interface CreateCommentParamOptions extends PropertyValue {
 	AltRep?: string;
 	Language?: string;
 }
 
-export interface CreateContactParameterOptions extends PropertyValue {
+export interface CreateContactParamOptions extends PropertyValue {
 	AltRep?: string;
 	Language?: string;
 }
 
-export interface CreateDateTimeEndParameterOptions extends PropertyValue {
+export interface CreateDateTimeEndParamOptions extends PropertyValue {
 	TZID?: string;
 	Value?: string;
 }
 
-export interface CreateDateTimeStartParameterOptions extends PropertyValue {
+export interface CreateDateTimeStartParamOptions extends PropertyValue {
 	TZID?: string;
 	Value?: string;
 }
 
-export interface CreateDescriptionParameterOptions extends PropertyValue {
+export interface CreateDescriptionParamOptions extends PropertyValue {
 	AltRep?: string;
 	Language?: string;
 }
 
-export interface CreateExceptionDateTimesParameterOptions extends PropertyValue {
+export interface CreateExceptionDateTimesParamOptions extends PropertyValue {
 	TZID?: string;
 	Value?: string;
 }
 
-export interface CreateFreeBusyParameterOptions extends PropertyValue {
+export interface CreateFreeBusyParamOptions extends PropertyValue {
 	FBType?: string;
 }
 
-export interface CreateLocationParameterOptions extends PropertyValue {
+export interface CreateLocationParamOptions extends PropertyValue {
 	AltRep?: string;
 	Language?: string;
 }
 
-export interface CreateOrganizerParameterOptions extends PropertyValue {
+export interface CreateOrganizerParamOptions extends PropertyValue {
 	CN?: string;
 	Dir?: string;
 	Language?: string;
 	SentBy?: string;
 }
 
-export interface CreateRecurrenceDateTimesParameterOptions extends PropertyValue {
+export interface CreateRecurrenceDateTimesParamOptions extends PropertyValue {
 	TZID?: string;
 	Value?: string;
 }
 
-export interface CreateRecurrenceIdParameterOptions extends PropertyValue {
+export interface CreateRecurrenceIdParamOptions extends PropertyValue {
 	Range?: string;
 	TZID?: string;
 	Value?: string;
 }
 
-export interface CreateRelatedToParameterOptions extends PropertyValue {
+export interface CreateRelatedToParamOptions extends PropertyValue {
 	RelType?: string;
 }
 
-export interface CreateResourcesParameterOptions extends PropertyValue {
+export interface CreateResourcesParamOptions extends PropertyValue {
 	AltRep?: string;
 	Language?: string;
 }
 
-export interface CreateSummaryParameterOptions extends PropertyValue {
+export interface CreateSummaryParamOptions extends PropertyValue {
 	AltRep?: string;
 	Language?: string;
 }
 
-export interface CreateTriggerParameterOptions extends PropertyValue {
+export interface CreateTriggerParamOptions extends PropertyValue {
 	Related?: string;
 	Value?: string;
 }
 
-export interface CreateTZNameParameterOptions extends PropertyValue {
+export interface CreateTZNameParamOptions extends PropertyValue {
 	Language?: string;
 }
