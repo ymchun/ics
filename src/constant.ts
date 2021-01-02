@@ -144,6 +144,12 @@ export const PARTICIPANT_STATUS_TYPE = {
 	Tentative: 'TENTATIVE',
 };
 
+export const EVENT_STATUS_TYPE = {
+	Cancelled: 'CANCELLED',
+	Confirmed: 'CONFIRMED',
+	Tentative: 'TENTATIVE',
+};
+
 export const RELATIONSHIP_TYPE = {
 	Child: 'CHILD',
 	Parent: 'PARENT',
