@@ -3,12 +3,11 @@ import { foldLine } from '~/helper';
 import { PropertyImpl } from '~/interfaces/impl';
 import { propertyParameterToString } from '~/internal-helper';
 import { Property } from '~/properties/property';
-import { BinaryValue } from '~/values/binary';
 import { TextValue } from '~/values/text';
 
-export class Attachment extends Property implements PropertyImpl<BinaryValue> {
+export class Attachment extends Property implements PropertyImpl<TextValue> {
 	public type = PROPERTY.Attach;
-	public value!: BinaryValue;
+	public value!: TextValue;
 	public parameters = {
 		Encoding: null as TextValue | null,
 		Filename: null as TextValue | null,
@@ -18,7 +17,7 @@ export class Attachment extends Property implements PropertyImpl<BinaryValue> {
 
 	public setValue(value: string): this {
 		// set value
-		this.value = new BinaryValue().setValue(value);
+		this.value = new TextValue().setValue(value);
 		return this;
 	}
 
