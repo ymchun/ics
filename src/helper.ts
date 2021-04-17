@@ -58,15 +58,19 @@ export function formatDate(date: Date): string {
 
 export function formatTime(date: Date, zoned = false): string {
 	if (zoned) {
+		// cspell:disable-next-line
 		return format(date, "HHmmss'Z'");
 	}
+	// cspell:disable-next-line
 	return format(date, 'HHmmss');
 }
 
 export function formatDateTime(date: Date, zoned = false): string {
 	if (zoned) {
+		// cspell:disable-next-line
 		return format(date, "yyyyMMdd'T'HHmmss");
 	}
+	// cspell:disable-next-line
 	return format(date, "yyyyMMdd'T'HHmmss'Z'");
 }
 
