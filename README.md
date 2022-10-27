@@ -5,8 +5,6 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/ymchun/ics/badge.svg?targetFile=package.json)](https://snyk.io/test/github/ymchun/ics?targetFile=package.json)
 [![npm version](https://badge.fury.io/js/%40ymchun%2Fics.svg)](https://badge.fury.io/js/%40ymchun%2Fics)
 
-# UNDER ACTIVE DEVELOPMENT, MAY HAVE BREAKING CHANGES
-
 ## Install
 
 ```
